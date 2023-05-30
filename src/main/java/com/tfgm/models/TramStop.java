@@ -74,7 +74,7 @@ public class TramStop {
 
     @Override
     public String toString() {
-        return "On the line " + line + ",stop " + stopName + " in the direction " + direction + " has trams: " + tramTrips + "\n\n";
+        return "\nOn the line " + line + ",stop " + stopName + " in the direction " + direction + " has trams: " + tramTrips + "";
     }
 
     
