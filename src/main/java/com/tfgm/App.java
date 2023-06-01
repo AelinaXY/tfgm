@@ -23,8 +23,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.tfgm.models.*;
 
@@ -41,7 +39,7 @@ public final class App {
      * @throws URISyntaxException
      * @throws ParseException
      */
-    public static void main(String[] args) throws URISyntaxException, IOException, ParseException {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         // HttpClient httpclient = HttpClients.createDefault();
 
         // ArrayList<TramStop> tramStops = new ArrayList<>();
@@ -111,8 +109,6 @@ public final class App {
         // }
 
 
-
-        JSONParser parser = new JSONParser();
 
         JSONArray allTramStopData = new JSONArray(
             Files.readAllLines(Paths.get("src/main/resources/com/tfgm/TramStopData.json"))
