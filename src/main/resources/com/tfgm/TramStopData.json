@@ -345,15 +345,253 @@
         "direction":"Incoming",
         "line":"Airport",
         "nextStop":["StWerburghsRoadIncoming"],
-        "prevStop":[]
+        "prevStop":["SaleWaterParkIncoming"]
     },
     {
         "tramStopName":"BarlowMoorRoadOutgoing",
         "location": "Barlow Moor Road",
         "direction":"Outgoing",
         "line":"Airport",
-        "nextStop":[],
+        "nextStop":["SaleWaterParkOutgoing"],
         "prevStop":["StWerburghsRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"SaleWaterParkIncoming",
+        "location": "Sale Water Park",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["BarlowMoorRoadIncoming"],
+        "prevStop":["NorthernMoorIncoming"]
+    },
+    {
+        "tramStopName":"SaleWaterParkOutgoing",
+        "location": "Sale Water Park",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["NorthernMoorOutgoing"],
+        "prevStop":["BarlowMoorRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"NorthernMoorIncoming",
+        "location": "Northern Moor",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["SaleWaterParkIncoming"],
+        "prevStop":["WythenshaweParkIncoming"]
+    },
+    {
+        "tramStopName":"NorthernMoorOutgoing",
+        "location": "Northern Moor",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["WythenshaweParkOutgoing"],
+        "prevStop":["SaleWaterParkOutgoing"]
+    },
+
+    {
+        "tramStopName":"WythenshaweParkIncoming",
+        "location": "Wythenshawe Park",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["NorthernMoorIncoming"],
+        "prevStop":["MoorRoadIncoming"]
+    },
+    {
+        "tramStopName":"WythenshaweParkOutgoing",
+        "location": "Wythenshawe Park",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["MoorRoadOutgoing"],
+        "prevStop":["NorthernMoorOutgoing"]
+    },
+
+    {
+        "tramStopName":"MoorRoadIncoming",
+        "location": "Moor Road",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["WythenshaweParkIncoming"],
+        "prevStop":["BaguleyIncoming"]
+    },
+    {
+        "tramStopName":"MoorRoadOutgoing",
+        "location": "Moor Road",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["BaguelyOutgoing"],
+        "prevStop":["WythenshaweParkOutgoing"]
+    },
+
+    {
+        "tramStopName":"BaguleyIncoming",
+        "location": "Baguely",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["MoorRoadIncoming"],
+        "prevStop":["RoundthornIncoming"]
+    },
+    {
+        "tramStopName":"BaguelyOutgoing",
+        "location": "Baguely",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["RoundthornOutgoing"],
+        "prevStop":["MoorRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"RoundthornIncoming",
+        "location": "Roundthorn",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["BaguleyIncoming"],
+        "prevStop":["MartinscroftIncoming"]
+    },
+    {
+        "tramStopName":"RoundthornOutgoing",
+        "location": "Roundthorn",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["MartinscroftOutgoing"],
+        "prevStop":["BaguelyOutgoing"]
+    },
+    
+    {
+        "tramStopName":"MartinscroftIncoming",
+        "location": "Martinscroft",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["RoundthornIncoming"],
+        "prevStop":["BenchillIncoming"]
+    },
+    {
+        "tramStopName":"MartinscroftOutgoing",
+        "location": "Martinscroft",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["BenchillOutgoing"],
+        "prevStop":["RoundthornOutgoing"]
+    },
+
+    {
+        "tramStopName":"BenchillIncoming",
+        "location": "Benchill",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["MartinscroftIncoming"],
+        "prevStop":["CrossacresIncoming"]
+    },
+    {
+        "tramStopName":"BenchillOutgoing",
+        "location": "Benchill",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["CrossacresOutgoing"],
+        "prevStop":["MartinscroftOutgoing"]
+    },
+
+    {
+        "tramStopName":"CrossacresIncoming",
+        "location": "Crossacres",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["BenchillIncoming"],
+        "prevStop":["WythenshaweTownCentreIncoming"]
+    },
+    {
+        "tramStopName":"CrossacresOutgoing",
+        "location": "Crossacres",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["WythenshaweTownCentreOutgoing"],
+        "prevStop":["BenchillOutgoing"]
+    },
+
+    {
+        "tramStopName":"WythenshaweTownCentreIncoming",
+        "location": "Wythenshawe Town Centre",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["CrossacresIncoming"],
+        "prevStop":["RobinswoodRoadIncoming"]
+    },
+    {
+        "tramStopName":"WythenshaweTownCentreOutgoing",
+        "location": "Wythenshawe Town Centre",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["RobinswoodRoadOutgoing"],
+        "prevStop":["CrossacresOutgoing"]
+    },
+
+    {
+        "tramStopName":"RobinswoodRoadIncoming",
+        "location": "Robinswood Road",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["WythenshaweTownCentreIncoming"],
+        "prevStop":["PeelHallIncoming"]
+    },
+    {
+        "tramStopName":"RobinswoodRoadOutgoing",
+        "location": "Robinswood Road",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["PeelHallOutgoing"],
+        "prevStop":["WythenshaweTownCentreOutgoing"]
+    },
+
+    {
+        "tramStopName":"PeelHallIncoming",
+        "location": "Peel Hall",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["RobinswoodRoadIncoming"],
+        "prevStop":["ShadowmossIncoming"]
+    },
+    {
+        "tramStopName":"PeelHallOutgoing",
+        "location": "Peel Hall",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["ShadowmossOutgoing"],
+        "prevStop":["RobinswoodRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"ShadowmossIncoming",
+        "location": "Shadowmoss",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["PeelHallIncoming"],
+        "prevStop":["ManchesterAirportIncoming"]
+    },
+    {
+        "tramStopName":"ShadowmossOutgoing",
+        "location": "Shadowmoss",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["ManchesterAirportOutgoing"],
+        "prevStop":["PeelHallOutgoing"]
+    },
+
+    {
+        "tramStopName":"ManchesterAirportIncoming",
+        "location": "Manchester Airport",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":[],
+        "prevStop":["ManchesterAirportIncoming"]
+    },
+    {
+        "tramStopName":"ManchesterAirportOutgoing",
+        "location": "Manchester Airport",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":["ManchesterAirportOutgoing"],
+        "prevStop":[]
     },
 
     {
