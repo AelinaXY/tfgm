@@ -41,6 +41,14 @@ public class NewTramStop {
         return stopName;
     }
 
+    public String getDirection() {
+        return direction;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
     
 
     

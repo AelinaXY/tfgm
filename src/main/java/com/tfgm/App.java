@@ -149,9 +149,10 @@ public final class App {
 
         }
 
+        //MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
         for(NewTramStop i : tramStopHashMap.values())
         {
-            System.out.println(i.getStopName());
+            System.out.println(i.getStopName() + i.getDirection());
             System.out.println(i);
         }
     }

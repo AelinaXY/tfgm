@@ -140,7 +140,7 @@
         "location": "Trafford Bar",
         "direction":"Incoming",
         "line":"Altrincham",
-        "nextStop":[],
+        "nextStop":["CornbrookIncoming"],
         "prevStop":["OldTraffordIncoming","FirswoodIncoming"]
     },
     {
@@ -149,6 +149,57 @@
         "direction":"Outgoing",
         "line":"Altrincham",
         "nextStop":["OldTraffordOutgoing", "FirswoodOutgoing"],
+        "prevStop":["CornbrookOutgoing"]
+    },
+
+    {
+        "tramStopName":"CornbrookIncoming",
+        "location": "Cornbrook",
+        "direction":"Incoming",
+        "line":"Eccles",
+        "nextStop":["DeansgateCastlefieldIncoming"],
+        "prevStop":["TraffordBarIncoming","PomonaIncoming"]
+    },
+    {
+        "tramStopName":"CornbrookOutgoing",
+        "location": "Cornbrook",
+        "direction":"Outgoing",
+        "line":"Eccles",
+        "nextStop":["PomonaOutgoing", "TraffordBarOutgoing"],
+        "prevStop":["DeansgateCastlefieldOutgoing"]
+    },
+
+    {
+        "tramStopName":"DeansgateCastlefieldIncoming",
+        "location": "Deansgate - Castlefield",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["StPetersSquareIncoming"],
+        "prevStop":["CornbrookIncoming"]
+    },
+    {
+        "tramStopName":"DeansgateCastlefieldOutgoing",
+        "location": "Cornbrook",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["CornbrookOutgoing"],
+        "prevStop":["StPetersSquareOutgoing"]
+    },
+
+    {
+        "tramStopName":"StPetersSquareIncoming",
+        "location": "St Peter's Square",
+        "direction":"Incoming",
+        "line":"Eccles",
+        "nextStop":[],
+        "prevStop":["CornbrookIncoming"]
+    },
+    {
+        "tramStopName":"StPetersSquareOutgoing",
+        "location": "St Peter's Square",
+        "direction":"Outgoing",
+        "line":"Eccles",
+        "nextStop":["CornbrookOutgoing"],
         "prevStop":[]
     },
 
@@ -158,14 +209,167 @@
         "direction":"Incoming",
         "line":"South Manchester",
         "nextStop":["TraffordBarIncoming"],
-        "prevStop":[]
+        "prevStop":["ChorltonIncoming"]
     },
     {
         "tramStopName":"FirswoodOutgoing",
         "location": "Firswood",
         "direction":"Outgoing",
         "line":"South Manchester",
-        "nextStop":[],
+        "nextStop":["ChorltonOutgoing"],
         "prevStop":["TraffordBarOutgoing"]
+    },
+
+    {
+        "tramStopName":"ChorltonIncoming",
+        "location": "Chorlton",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["FirswoodIncoming"],
+        "prevStop":["StWerburghsRoadIncoming"]
+    },
+    {
+        "tramStopName":"ChorltonOutgoing",
+        "location": "Chorlton",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["StWerburghsRoadOutgoing"],
+        "prevStop":["FirswoodOutgoing"]
+    },
+
+    {
+        "tramStopName":"StWerburghsRoadIncoming",
+        "location": "St Werberburgh's Road",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["ChorltonIncoming"],
+        "prevStop":["WithingtonIncoming","BarlowMoorRoadIncoming"]
+    },
+    {
+        "tramStopName":"StWerburghsRoadOutgoing",
+        "location": "St Werberburgh's Road",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["WithingtonOutgoing","BarlowMoorRoadOutgoing"],
+        "prevStop":["ChorltonOutgoing"]
+    },
+
+    {
+        "tramStopName":"WithingtonIncoming",
+        "location": "Withington",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["StWerburghsRoadIncoming"],
+        "prevStop":["BurtonRoadIncoming"]
+    },
+    {
+        "tramStopName":"WithingtonOutgoing",
+        "location": "Withington",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["BurtonRoadOutgoing"],
+        "prevStop":["StWerburghsRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"BurtonRoadIncoming",
+        "location": "Burton Road",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["WithingtonIncoming"],
+        "prevStop":["WestDidsburyIncoming"]
+    },
+    {
+        "tramStopName":"BurtonRoadOutgoing",
+        "location": "Burton Road",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["WestDidsburyOutgoing"],
+        "prevStop":["WithingtonOutgoing"]
+    },
+
+    {
+        "tramStopName":"WestDidsburyIncoming",
+        "location": "West Didsbury",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["BurtonRoadIncoming"],
+        "prevStop":["DidsburyVillageIncoming"]
+    },
+    {
+        "tramStopName":"WestDidsburyOutgoing",
+        "location": "West Didsbury",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["DidsburyVillageOutgoing"],
+        "prevStop":["BurtonRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"DidsburyVillageIncoming",
+        "location": "Didsbury Village",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["WestDidsburyIncoming"],
+        "prevStop":["EastDidsburyIncoming"]
+    },
+    {
+        "tramStopName":"DidsburyVillageOutgoing",
+        "location": "Didsbury Village",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":["EastDidsburyOutgoing"],
+        "prevStop":["WestDidsburyOutgoing"]
+    },
+
+    {
+        "tramStopName":"EastDidsburyIncoming",
+        "location": "East Didsbury",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["DidsburyVillageIncoming"],
+        "prevStop":[]
+    },
+    {
+        "tramStopName":"EastDidsburyOutgoing",
+        "location": "East Didsbury",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":[],
+        "prevStop":["DidsburyVillageOutgoing"]
+    },
+
+    {
+        "tramStopName":"BarlowMoorRoadIncoming",
+        "location": "Barlow Moor Road",
+        "direction":"Incoming",
+        "line":"Airport",
+        "nextStop":["StWerburghsRoadIncoming"],
+        "prevStop":[]
+    },
+    {
+        "tramStopName":"BarlowMoorRoadOutgoing",
+        "location": "Barlow Moor Road",
+        "direction":"Outgoing",
+        "line":"Airport",
+        "nextStop":[],
+        "prevStop":["StWerburghsRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"PomonaIncoming",
+        "location": "Pomona",
+        "direction":"Incoming",
+        "line":"Eccles",
+        "nextStop":["CornbrookIncoming"],
+        "prevStop":[]
+    },
+    {
+        "tramStopName":"PomonaOutgoing",
+        "location": "Pomona",
+        "direction":"Outgoing",
+        "line":"Eccles",
+        "nextStop":[],
+        "prevStop":["CornbrookOutgoing"]
     }
 ]
