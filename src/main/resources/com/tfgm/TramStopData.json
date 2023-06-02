@@ -3,42 +3,48 @@
         "tramStopName":"AltrinchamIncoming",
         "location": "Altrincham",
         "direction":"Incoming",
-        "nextStop":["Navigation Road"],
+        "line":"Altrincham",
+        "nextStop":["NavigationRoadIncoming"],
         "prevStop":[]
     },
     {
         "tramStopName":"AltrinchamOutgoing",
         "location": "Altrincham",
         "direction":"Outgoing",
+        "line":"Altrincham",
         "nextStop":[],
-        "prevStop":["Navigation Road"]
+        "prevStop":["NavigationRoadOutgoing"]
     },
     {
         "tramStopName":"NavigationRoadIncoming",
         "location": "Navigation Road",
-        "direction":"Incoming",
-        "nextStop":["Timperly"],
-        "prevStop":["Altrincham"]
+        "direction":"Incoming",       
+        "line":"Altrincham",
+        "nextStop":["TimperlyIncoming"],
+        "prevStop":["AltrinchamIncoming"]
     },
     {
         "tramStopName":"NavigationRoadOutgoing",
         "location": "Navigation Road",
         "direction":"Outgoing",
-        "nextStop":["Altrincham"],
-        "prevStop":["Timperly"]
+        "line":"Altrincham",
+        "nextStop":["AltrinchamOutgoing"],
+        "prevStop":["TimperlyOutgoing"]
     },
     {
         "tramStopName":"TimperlyIncoming",
         "location": "Timperly",
         "direction":"Incoming",
+        "line":"Altrincham",
         "nextStop":[],
-        "prevStop":["Navigation Road"]
+        "prevStop":["NavigationRoadIncoming"]
     },
     {
         "tramStopName":"TimperlyOutgoing",
         "location": "Timperly",
         "direction":"Outgoing",
-        "nextStop":["Navigation Road"],
-        "prevStop":[""]
+        "line":"Altrincham",
+        "nextStop":["NavigationRoadOutgoing"],
+        "prevStop":[]
     }
 ]

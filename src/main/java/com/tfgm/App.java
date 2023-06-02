@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import org.apache.http.HttpEntity;
@@ -21,6 +22,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.velocity.runtime.directive.Stop;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -116,7 +118,42 @@ public final class App {
             .map(n -> String.valueOf(n))
             .collect(Collectors.joining()));
 
-        System.out.println(allTramStopData);
+        HashMap<String,NewTramStop> tramStopHashMap = new HashMap<>();
+
+        // System.out.println(allTramStopData);
+        
+
+        for (int i = 0; i< allTramStopData.length(); i++)
+        {
+            JSONObject tempStop = allTramStopData.getJSONObject(i);
+            tramStopHashMap.put(
+                tempStop.getString("tramStopName"), 
+                new NewTramStop(tempStop.getString("location"), tempStop.getString("direction"), tempStop.getString("line"))
+                );
+
+        }
+        for (int i = 0; i< allTramStopData.length(); i++)
+        {
+            JSONObject tempStop = allTramStopData.getJSONObject(i);
+
+            NewTramStop currentTramStop = tramStopHashMap.get(tempStop.getString("tramStopName"));
+
+            currentTramStop.setPrevAndNextStops(
+                tempStop.getJSONArray("prevStop").toList().stream()
+                    .map(n -> tramStopHashMap.get(n))
+                    .toArray(NewTramStop[]::new)
+            , tempStop.getJSONArray("nextStop").toList().stream()
+                .map(n -> tramStopHashMap.get(n))
+                .toArray(NewTramStop[]::new)
+            );
+
+
+        }
+
+        for(NewTramStop i : tramStopHashMap.values())
+        {
+            System.out.println(i);
+        }
     }
 
     // // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
