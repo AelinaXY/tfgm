@@ -104,7 +104,7 @@ public final class App {
 
 
         //     }
-        // }
+        
         // catch (Exception e)
         // {
         //     System.out.println(e);
@@ -147,11 +147,11 @@ public final class App {
                 .toArray(NewTramStop[]::new)
             );
 
-
         }
 
         for(NewTramStop i : tramStopHashMap.values())
         {
+            System.out.println(i.getStopName());
             System.out.println(i);
         }
     }

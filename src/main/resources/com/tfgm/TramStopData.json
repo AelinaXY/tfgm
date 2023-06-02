@@ -15,6 +15,7 @@
         "nextStop":[],
         "prevStop":["NavigationRoadOutgoing"]
     },
+
     {
         "tramStopName":"NavigationRoadIncoming",
         "location": "Navigation Road",
@@ -31,12 +32,13 @@
         "nextStop":["AltrinchamOutgoing"],
         "prevStop":["TimperlyOutgoing"]
     },
+
     {
         "tramStopName":"TimperlyIncoming",
         "location": "Timperly",
         "direction":"Incoming",
         "line":"Altrincham",
-        "nextStop":[],
+        "nextStop":["BrooklandsIncoming"],
         "prevStop":["NavigationRoadIncoming"]
     },
     {
@@ -45,6 +47,125 @@
         "direction":"Outgoing",
         "line":"Altrincham",
         "nextStop":["NavigationRoadOutgoing"],
+        "prevStop":["BrooklandsOutgoing"]
+    },
+
+    {
+        "tramStopName":"BrooklandsIncoming",
+        "location": "Brooklands",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["SaleIncoming"],
+        "prevStop":["TimperlyIncoming"]
+    },
+    {
+        "tramStopName":"BrooklandsOutgoing",
+        "location": "Brooklands",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["TimperlyOutgoing"],
+        "prevStop":["SaleOutgoing"]
+    },
+
+    {
+        "tramStopName":"SaleIncoming",
+        "location": "Sale",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["DaneRoadIncoming"],
+        "prevStop":["BrooklandsIncoming"]
+    },
+    {
+        "tramStopName":"SaleOutgoing",
+        "location": "Sale",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["BrooklandsOutgoing"],
+        "prevStop":["DaneRoadOutgoing"]
+    },
+
+    {
+        "tramStopName":"DaneRoadIncoming",
+        "location": "Dane Road",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["StretfordIncoming"],
+        "prevStop":["SaleIncoming"]
+    },
+    {
+        "tramStopName":"DaneRoadOutgoing",
+        "location": "Dane Road",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["SaleOutgoing"],
+        "prevStop":["StretfordOutgoing"]
+    },
+
+    {
+        "tramStopName":"StretfordIncoming",
+        "location": "Stretford",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["OldTraffordIncoming"],
+        "prevStop":["DaneRoadIncoming"]
+    },
+    {
+        "tramStopName":"StretfordOutgoing",
+        "location": "Stretford",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["DaneRoadOutgoing"],
+        "prevStop":["OldTraffordOutgoing"]
+    },
+    
+    {
+        "tramStopName":"OldTraffordIncoming",
+        "location": "Old Trafford",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":["TraffordBarIncoming"],
+        "prevStop":["StretfordIncoming"]
+    },
+    {
+        "tramStopName":"OldTraffordOutgoing",
+        "location": "Old Trafford",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["StretfordOutgoing"],
+        "prevStop":["TraffordBarOutgoing"]
+    },
+
+    {
+        "tramStopName":"TraffordBarIncoming",
+        "location": "Trafford Bar",
+        "direction":"Incoming",
+        "line":"Altrincham",
+        "nextStop":[],
+        "prevStop":["OldTraffordIncoming","FirswoodIncoming"]
+    },
+    {
+        "tramStopName":"TraffordBarOutgoing",
+        "location": "Trafford Bar",
+        "direction":"Outgoing",
+        "line":"Altrincham",
+        "nextStop":["OldTraffordOutgoing", "FirswoodOutgoing"],
         "prevStop":[]
+    },
+
+    {
+        "tramStopName":"FirswoodIncoming",
+        "location": "Firswood",
+        "direction":"Incoming",
+        "line":"South Manchester",
+        "nextStop":["TraffordBarIncoming"],
+        "prevStop":[]
+    },
+    {
+        "tramStopName":"FirswoodOutgoing",
+        "location": "Firswood",
+        "direction":"Outgoing",
+        "line":"South Manchester",
+        "nextStop":[],
+        "prevStop":["TraffordBarOutgoing"]
     }
 ]

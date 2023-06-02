@@ -1,5 +1,6 @@
 package com.tfgm.models;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class NewTramStop {
@@ -23,8 +24,8 @@ public class NewTramStop {
     @Override
     public String toString() {
         return "NewTramStop [stopName=" + stopName + ", direction=" + direction + ", line=" + line +
-        ", nextStops: " + (nextStops.length > 0 ? nextStops[0].getStopName() : "none") +
-        ", prevStops: " + (prevStops.length > 0 ? prevStops[0].getStopName() : "none") +
+        ", nextStops: " + (nextStops.length > 0 ? Arrays.stream(nextStops).map(n -> n.getStopName()).toList(): "none") +
+        ", prevStops: " + (prevStops.length > 0 ? Arrays.stream(prevStops).map(n -> n.getStopName()).toList() : "none") +
         "]";
     }
 
