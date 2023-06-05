@@ -26,6 +26,7 @@ import org.apache.velocity.runtime.directive.Stop;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.tfgm.controllers.TramController;
 import com.tfgm.models.*;
 
 /**
@@ -112,49 +113,51 @@ public final class App {
 
 
 
-        JSONArray allTramStopData = new JSONArray(
-            Files.readAllLines(Paths.get("src/main/resources/com/tfgm/TramStopData.json"))
-            .stream()
-            .map(n -> String.valueOf(n))
-            .collect(Collectors.joining()));
+        // JSONArray allTramStopData = new JSONArray(
+        //     Files.readAllLines(Paths.get("src/main/resources/com/tfgm/TramStopData.json"))
+        //     .stream()
+        //     .map(n -> String.valueOf(n))
+        //     .collect(Collectors.joining()));
 
-        HashMap<String,NewTramStop> tramStopHashMap = new HashMap<>();
+        // HashMap<String,NewTramStop> tramStopHashMap = new HashMap<>();
 
-        // System.out.println(allTramStopData);
+        // // System.out.println(allTramStopData);
         
 
-        for (int i = 0; i< allTramStopData.length(); i++)
-        {
-            JSONObject tempStop = allTramStopData.getJSONObject(i);
-            tramStopHashMap.put(
-                tempStop.getString("tramStopName"), 
-                new NewTramStop(tempStop.getString("location"), tempStop.getString("direction"), tempStop.getString("line"))
-                );
+        // for (int i = 0; i< allTramStopData.length(); i++)
+        // {
+        //     JSONObject tempStop = allTramStopData.getJSONObject(i);
+        //     tramStopHashMap.put(
+        //         tempStop.getString("tramStopName"), 
+        //         new NewTramStop(tempStop.getString("location"), tempStop.getString("direction"), tempStop.getString("line"))
+        //         );
 
-        }
-        for (int i = 0; i< allTramStopData.length(); i++)
-        {
-            JSONObject tempStop = allTramStopData.getJSONObject(i);
+        // }
+        // for (int i = 0; i< allTramStopData.length(); i++)
+        // {
+        //     JSONObject tempStop = allTramStopData.getJSONObject(i);
 
-            NewTramStop currentTramStop = tramStopHashMap.get(tempStop.getString("tramStopName"));
+        //     NewTramStop currentTramStop = tramStopHashMap.get(tempStop.getString("tramStopName"));
 
-            currentTramStop.setPrevAndNextStops(
-                tempStop.getJSONArray("prevStop").toList().stream()
-                    .map(n -> tramStopHashMap.get(n))
-                    .toArray(NewTramStop[]::new)
-            , tempStop.getJSONArray("nextStop").toList().stream()
-                .map(n -> tramStopHashMap.get(n))
-                .toArray(NewTramStop[]::new)
-            );
+        //     currentTramStop.setPrevAndNextStops(
+        //         tempStop.getJSONArray("prevStop").toList().stream()
+        //             .map(n -> tramStopHashMap.get(n))
+        //             .toArray(NewTramStop[]::new)
+        //     , tempStop.getJSONArray("nextStop").toList().stream()
+        //         .map(n -> tramStopHashMap.get(n))
+        //         .toArray(NewTramStop[]::new)
+        //     );
 
-        }
+        // }
 
-        //MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
-        for(NewTramStop i : tramStopHashMap.values())
-        {
-            System.out.println(i.getStopName() + i.getDirection());
-            System.out.println(i);
-        }
+        // //MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
+        // for(NewTramStop i : tramStopHashMap.values())
+        // {
+        //     System.out.println(i.getStopName() + i.getDirection());
+        //     System.out.println(i);
+        // }
+
+        TramController tramController = new TramController("src/main/resources/com/tfgm/TramStopData.json");
     }
 
     // // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)

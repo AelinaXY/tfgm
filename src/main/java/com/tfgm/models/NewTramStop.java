@@ -1,13 +1,12 @@
 package com.tfgm.models;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class NewTramStop {
 
     private String stopName, direction, line;
 
-    private NewTramStop[] nextStops,prevStops;
+    private TramStopContainer[] nextStops,prevStops;
 
     public NewTramStop(String stopName, String direction, String line) {
         this.stopName = stopName;
@@ -15,7 +14,7 @@ public class NewTramStop {
         this.line = line;
     }
 
-    public void setPrevAndNextStops(NewTramStop[] prevStops, NewTramStop[] nextStops)
+    public void setPrevAndNextStops(TramStopContainer[] prevStops, TramStopContainer[] nextStops)
     {
         this.prevStops = prevStops;
         this.nextStops = nextStops;
@@ -24,16 +23,16 @@ public class NewTramStop {
     @Override
     public String toString() {
         return "NewTramStop [stopName=" + stopName + ", direction=" + direction + ", line=" + line +
-        ", nextStops: " + (nextStops.length > 0 ? Arrays.stream(nextStops).map(n -> n.getStopName()).toList(): "none") +
-        ", prevStops: " + (prevStops.length > 0 ? Arrays.stream(prevStops).map(n -> n.getStopName()).toList() : "none") +
+        ", nextStops: " + (nextStops.length > 0 ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList(): "none") +
+        ", prevStops: " + (prevStops.length > 0 ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList() : "none") +
         "]";
     }
 
-    public NewTramStop[] getNextStops() {
+    public TramStopContainer[] getNextStops() {
         return nextStops;
     }
 
-    public NewTramStop[] getPrevStops() {
+    public TramStopContainer[] getPrevStops() {
         return prevStops;
     }
 

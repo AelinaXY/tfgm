@@ -1,18 +1,29 @@
 package com.tfgm.models;
 
 public class TramStopContainer {
-    TramStop tramStop;
+    NewTramStop tramStop;
+    TramLinkStop tramLinkStop;
 
-    public TramStopContainer(TramStop tramStop) {
+    public TramStopContainer(NewTramStop tramStop) {
         this.tramStop = tramStop;
+        tramLinkStop = new TramLinkStop();
     }
 
-    public TramStop getTramStop() {
+    public NewTramStop getTramStop() {
         return tramStop;
     }
 
-    public void setTramStop(TramStop tramStop) {
+    public void setTramStop(NewTramStop tramStop) {
         this.tramStop = tramStop;
     }
+
+    public TramLinkStop getTramLinkStop() {
+        return tramLinkStop;
+    }
+
+    public void setTramLinkStop(TramLinkStop tramLinkStop) {
+        this.tramLinkStop = tramLinkStop;
+    }
+    
     
 }
