@@ -3,6 +3,7 @@ package com.tfgm.controllers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,19 @@ public class TramController {
                 .map(n -> new TramStopContainer(n))
                 .toArray(TramStopContainer[]::new)
             );
+        }
 
+        for (NewTramStop newTramStop : tramStopHashMap.values()) {
+            
+            System.out.println(newTramStop.toString());
+            for (TramStopContainer n : newTramStop.getNextStops()) {
+                TramStopContainer nextStopPrevReference = Arrays.stream(n.getTramStop().getPrevStops())
+                    .filter(s -> s.getTramStop().equals(newTramStop))
+                    .collect(Collectors.toList()).get(0);
+                
+                nextStopPrevReference.setTramLinkStop(n.getTramLinkStop());
+                
+            }
         }
 
         //MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
@@ -61,6 +74,15 @@ public class TramController {
         {
             System.out.println(i.getStopName() + i.getDirection());
             System.out.println(i);
+
+            System.out.println("\nNextStop:");
+            for (TramStopContainer n : i.getNextStops()) {
+                System.out.println(n.getTramLinkStop());
+            }
+            System.out.println("\nPrevStop:");
+            for (TramStopContainer n : i.getPrevStops()) {
+                System.out.println(n.getTramLinkStop());
+            }
         }
     }
 }

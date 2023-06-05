@@ -48,6 +48,49 @@ public class NewTramStop {
         return line;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((stopName == null) ? 0 : stopName.hashCode());
+        result = prime * result + ((direction == null) ? 0 : direction.hashCode());
+        result = prime * result + ((line == null) ? 0 : line.hashCode());
+        result = prime * result + Arrays.hashCode(nextStops);
+        result = prime * result + Arrays.hashCode(prevStops);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        NewTramStop other = (NewTramStop) obj;
+        if (stopName == null) {
+            if (other.stopName != null)
+                return false;
+        } else if (!stopName.equals(other.stopName))
+            return false;
+        if (direction == null) {
+            if (other.direction != null)
+                return false;
+        } else if (!direction.equals(other.direction))
+            return false;
+        if (line == null) {
+            if (other.line != null)
+                return false;
+        } else if (!line.equals(other.line))
+            return false;
+        if (!Arrays.equals(nextStops, other.nextStops))
+            return false;
+        if (!Arrays.equals(prevStops, other.prevStops))
+            return false;
+        return true;
+    }
+
     
 
     

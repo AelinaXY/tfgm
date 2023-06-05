@@ -192,14 +192,14 @@
         "direction":"Incoming",
         "line":"Eccles",
         "nextStop":[],
-        "prevStop":["CornbrookIncoming"]
+        "prevStop":["DeansgateCastlefieldIncoming"]
     },
     {
         "tramStopName":"StPetersSquareOutgoing",
         "location": "St Peter's Square",
         "direction":"Outgoing",
         "line":"Eccles",
-        "nextStop":["CornbrookOutgoing"],
+        "nextStop":["DeansgateCastlefieldOutgoing"],
         "prevStop":[]
     },
 
@@ -582,16 +582,16 @@
         "location": "Manchester Airport",
         "direction":"Incoming",
         "line":"Airport",
-        "nextStop":[],
-        "prevStop":["ManchesterAirportIncoming"]
+        "nextStop":["ShadowmossIncoming"],
+        "prevStop":[]
     },
     {
         "tramStopName":"ManchesterAirportOutgoing",
         "location": "Manchester Airport",
         "direction":"Outgoing",
         "line":"Airport",
-        "nextStop":["ManchesterAirportOutgoing"],
-        "prevStop":[]
+        "nextStop":[],
+        "prevStop":["ShadowmossOutgoing"]
     },
 
     {
