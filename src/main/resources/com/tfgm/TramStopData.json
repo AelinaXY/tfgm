@@ -19,7 +19,7 @@
     {
         "tramStopName":"NavigationRoadIncoming",
         "location": "Navigation Road",
-        "direction":"Incoming",       
+        "direction":"Incoming",
         "line":"Altrincham",
         "nextStop":["TimperlyIncoming"],
         "prevStop":["AltrinchamIncoming"]
@@ -117,7 +117,7 @@
         "nextStop":["DaneRoadOutgoing"],
         "prevStop":["OldTraffordOutgoing"]
     },
-    
+
     {
         "tramStopName":"OldTraffordIncoming",
         "location": "Old Trafford",
@@ -179,7 +179,7 @@
     },
     {
         "tramStopName":"DeansgateCastlefieldOutgoing",
-        "location": "Cornbrook",
+        "location": "Deansgate - Castlefield",
         "direction":"Outgoing",
         "line":"Altrincham",
         "nextStop":["CornbrookOutgoing"],
@@ -239,7 +239,7 @@
 
     {
         "tramStopName":"StWerburghsRoadIncoming",
-        "location": "St Werberburgh's Road",
+        "location": "St Werburgh's Road",
         "direction":"Incoming",
         "line":"South Manchester",
         "nextStop":["ChorltonIncoming"],
@@ -247,7 +247,7 @@
     },
     {
         "tramStopName":"StWerburghsRoadOutgoing",
-        "location": "St Werberburgh's Road",
+        "location": "St Werburgh's Road",
         "direction":"Outgoing",
         "line":"South Manchester",
         "nextStop":["WithingtonOutgoing","BarlowMoorRoadOutgoing"],
@@ -457,7 +457,7 @@
         "nextStop":["MartinscroftOutgoing"],
         "prevStop":["BaguelyOutgoing"]
     },
-    
+
     {
         "tramStopName":"MartinscroftIncoming",
         "location": "Martinscroft",

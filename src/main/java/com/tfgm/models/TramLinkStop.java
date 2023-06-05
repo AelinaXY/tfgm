@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class TramLinkStop {
-    
-    Queue<Tram> tramQueue = new LinkedList<>();
+
+    private Queue<Tram> tramQueue = new LinkedList<>();
 
     public void addTram(Tram tram)
     {
@@ -17,5 +17,6 @@ public class TramLinkStop {
         return tramQueue.remove();
     }
 
+    public int queueLength() {return tramQueue.size();}
 
 }

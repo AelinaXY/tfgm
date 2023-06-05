@@ -1,10 +1,17 @@
 package com.tfgm.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class NewTramStop {
 
     private String stopName, direction, line;
+//    private String lastUpdated = "Never";
+    private ArrayList<String> lastUpdated = new ArrayList<>();
+
+    private Queue<Tram> tramQueue = new LinkedList<>();
 
     private TramStopContainer[] nextStops,prevStops;
 
@@ -47,6 +54,67 @@ public class NewTramStop {
     public String getLine() {
         return line;
     }
+
+    public ArrayList<String> getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void addToLastUpdated(String lastUpdated) {
+        this.lastUpdated.add(lastUpdated);
+    }
+
+    public void tramDeparture(String endOfLine)
+    {
+        Tram departingTram;
+        if(tramQueue.size() > 0)
+        {
+            departingTram = tramQueue.remove();
+        }
+        else {
+            departingTram = new Tram(endOfLine.length()*stopName.length(),endOfLine);
+        }
+
+        for (TramStopContainer tramStopContainer: nextStops) {
+            if (findEndOfLine(departingTram.getDestination(), tramStopContainer.getTramStop()))
+            {
+                tramStopContainer.getTramLinkStop().addTram(departingTram);
+                System.out.println("Tram left from " + stopName + " to " +tramStopContainer.getTramStop().getStopName() +". Final Destination: " + departingTram.getDestination());
+            }
+        }
+    }
+
+    public void tramArrival()
+    {
+        for (TramStopContainer tramStopContainer:prevStops) {
+            if(tramStopContainer.getTramLinkStop().queueLength() > 0)
+            {
+                tramQueue.add(tramStopContainer.getTramLinkStop().popTram());
+                assert tramQueue.peek() != null;
+                System.out.println("Tram arrived at " + stopName + " from " + tramStopContainer.getTramStop().getStopName()
+                    +". Final Destination: " + tramQueue.peek().getDestination());
+                return;
+            }
+        }
+    }
+
+
+    private boolean findEndOfLine(String endOfLine, NewTramStop tramStop)
+    {
+        if (tramStop == null) return false;
+        if (tramStop.getStopName().equals(endOfLine)) return true;
+
+        for (TramStopContainer tramStopContainer: tramStop.nextStops) {
+            return findEndOfLine(endOfLine, tramStopContainer.getTramStop());
+        }
+        return false;
+    }
+
+
+
+
+
+
+
 
     @Override
     public int hashCode() {
@@ -91,9 +159,9 @@ public class NewTramStop {
         return true;
     }
 
-    
 
-    
 
-    
+
+
+
 }
