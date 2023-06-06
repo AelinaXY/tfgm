@@ -836,17 +836,337 @@
     "nextStop": [
       "CornbrookIncoming"
     ],
-    "prevStop": [],
+    "prevStop": ["WharfsideIncoming","ExchangeQuayIncoming"],
     "tramStopName": "PomonaIncoming"
   },
   {
     "direction": "Outgoing",
     "line": "Eccles",
     "location": "Pomona",
-    "nextStop": [],
+    "nextStop": ["WharfsideOutgoing","ExchangeQuayOutgoing"],
     "prevStop": [
       "CornbrookOutgoing"
     ],
     "tramStopName": "PomonaOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Wharfside",
+    "nextStop": [
+      "PomonaIncoming"
+    ],
+    "prevStop": ["ImperialWarMuseumIncoming"],
+    "tramStopName": "WharfsideIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Wharfside",
+    "nextStop": ["ImperialWarMuseumOutgoing"],
+    "prevStop": [
+      "PomonaOutgoing"
+    ],
+    "tramStopName": "WharfsideOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Imperial War Museum",
+    "nextStop": [
+      "WharfsideIncoming"
+    ],
+    "prevStop": ["VillageIncoming"],
+    "tramStopName": "ImperialWarMuseumIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Imperial War Museum",
+    "nextStop": ["VillageOutgoing"],
+    "prevStop": [
+      "WharfsideOutgoing"
+    ],
+    "tramStopName": "ImperialWarMuseumOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Village",
+    "nextStop": [
+      "ImperialWarMuseumIncoming"
+    ],
+    "prevStop": ["ParkwayIncoming"],
+    "tramStopName": "VillageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Village",
+    "nextStop": ["ParkwayOutgoing"],
+    "prevStop": [
+      "ImperialWarMuseumOutgoing"
+    ],
+    "tramStopName": "VillageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Parkway",
+    "nextStop": [
+      "VillageIncoming"
+    ],
+    "prevStop": ["BartonDockRoadIncoming"],
+    "tramStopName": "ParkwayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Parkway",
+    "nextStop": ["BartonDockRoadOutgoing"],
+    "prevStop": [
+      "VillageOutgoing"
+    ],
+    "tramStopName": "ParkwayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Barton Dock Road",
+    "nextStop": [
+      "ParkwayIncoming"
+    ],
+    "prevStop": ["TheTraffordCentreIncoming"],
+    "tramStopName": "BartonDockRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Barton Dock Road",
+    "nextStop": ["TheTraffordCentreOutgoing"],
+    "prevStop": [
+      "ParkwayOutgoing"
+    ],
+    "tramStopName": "BartonDockRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "The Trafford Centre",
+    "nextStop": [
+      "BartonDockRoadIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "TheTraffordCentreIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "The Trafford Centre",
+    "nextStop": [],
+    "prevStop": [
+      "BartonDockRoadOutgoing"
+    ],
+    "tramStopName": "TheTraffordCentreOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Exchange Quay",
+    "nextStop": [
+      "PomonaIncoming"
+    ],
+    "prevStop": ["SalfordQuaysIncoming"],
+    "tramStopName": "ExchangeQuayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Exchange Quay",
+    "nextStop": ["SalfordQuaysOutgoing"],
+    "prevStop": [
+      "PomonaOutgoing"
+    ],
+    "tramStopName": "ExchangeQuayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": [
+      "ExchangeQuayIncoming"
+    ],
+    "prevStop": ["AnchorageIncoming"],
+    "tramStopName": "SalfordQuaysIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": ["AnchorageOutgoing"],
+    "prevStop": [
+      "ExchangeQuayOutgoing"
+    ],
+    "tramStopName": "SalfordQuaysOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": [
+      "SalfordQuaysIncoming"
+    ],
+    "prevStop": ["HarbourCityIncoming"],
+    "tramStopName": "AnchorageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": ["HarbourCityOutgoing"],
+    "prevStop": [
+      "SalfordQuaysOutgoing"
+    ],
+    "tramStopName": "AnchorageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": [
+      "SalfordQuaysIncoming"
+    ],
+    "prevStop": ["HarbourCityIncoming"],
+    "tramStopName": "AnchorageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": ["HarbourCityOutgoing"],
+    "prevStop": [
+      "SalfordQuaysOutgoing"
+    ],
+    "tramStopName": "AnchorageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Harbour City",
+    "nextStop": [
+      "AnchorageIncoming"
+    ],
+    "prevStop": ["BroadwayIncoming"],
+    "tramStopName": "HarbourCityIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Harbour City",
+    "nextStop": ["BroadwayOutgoing"],
+    "prevStop": [
+      "AnchorageOutgoing"
+    ],
+    "tramStopName": "HarbourCityOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Broadway",
+    "nextStop": [
+      "HarbourCityIncoming"
+    ],
+    "prevStop": ["LangworthyIncoming"],
+    "tramStopName": "BroadwayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Broadway",
+    "nextStop": ["LangworthyOutgoing"],
+    "prevStop": [
+      "HarbourCityOutgoing"
+    ],
+    "tramStopName": "BroadwayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Langworthy",
+    "nextStop": [
+      "BroadwayIncoming"
+    ],
+    "prevStop": ["WeasteIncoming"],
+    "tramStopName": "LangworthyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Langworthy",
+    "nextStop": ["WeasteOutgoing"],
+    "prevStop": [
+      "BroadwayOutgoing"
+    ],
+    "tramStopName": "LangworthyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Weaste",
+    "nextStop": [
+      "LangworthyIncoming"
+    ],
+    "prevStop": ["LadywellIncoming"],
+    "tramStopName": "WeasteIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Weaste",
+    "nextStop": ["LadywellOutgoing"],
+    "prevStop": [
+      "LangworthyOutgoing"
+    ],
+    "tramStopName": "WeasteOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Ladywell",
+    "nextStop": [
+      "WeasteIncoming"
+    ],
+    "prevStop": ["EcclesIncoming"],
+    "tramStopName": "LadywellIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Ladywell",
+    "nextStop": ["EcclesOutgoing"],
+    "prevStop": [
+      "WeasteOutgoing"
+    ],
+    "tramStopName": "LadywellOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Eccles",
+    "nextStop": [
+      "LadywellIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "EcclesIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Eccles",
+    "nextStop": [],
+    "prevStop": [
+      "LadywellOutgoing"
+    ],
+    "tramStopName": "EcclesOutgoing"
   }
 ]

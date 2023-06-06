@@ -84,7 +84,9 @@ public class NewTramStop {
     }
 
     for (TramStopContainer tramStopContainer : nextStops) {
-      if (findEndOfLine(departingTram.getDestination(), tramStopContainer.getTramStop())) {
+        //NB: Due to the nature of the recursive algorithim the final destination of Eccles via MediaCityUK needs to be changed to Eccles so the tramstop can be found.
+      if (findEndOfLine(departingTram.getDestination().equals("Eccles via MediaCityUK") ? "Eccles" : departingTram.getDestination(),
+          tramStopContainer.getTramStop())) {
         tramStopContainer.getTramLinkStop().addTram(departingTram);
         System.out.println(
             "Tram left from "
