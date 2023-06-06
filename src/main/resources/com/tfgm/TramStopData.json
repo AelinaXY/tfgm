@@ -1056,14 +1056,14 @@
     "nextStop": [
       "AnchorageIncoming"
     ],
-    "prevStop": ["BroadwayIncoming"],
+    "prevStop": ["BroadwayIncoming","MediaCityUKIncoming"],
     "tramStopName": "HarbourCityIncoming"
   },
   {
     "direction": "Outgoing",
     "line": "Eccles",
     "location": "Harbour City",
-    "nextStop": ["BroadwayOutgoing"],
+    "nextStop": ["BroadwayOutgoing","MediaCityUKOutgoing"],
     "prevStop": [
       "AnchorageOutgoing"
     ],
@@ -1072,9 +1072,29 @@
   {
     "direction": "Incoming",
     "line": "Eccles",
+    "location": "MediaCityUK",
+    "nextStop": [
+      "BroadwayOutgoing","HarbourCityIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "MediaCityUKIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "MediaCityUK",
+    "nextStop": [],
+    "prevStop": [
+      "BroadwayIncoming","HarbourCityOutgoing"
+    ],
+    "tramStopName": "MediaCityUKOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
     "location": "Broadway",
     "nextStop": [
-      "HarbourCityIncoming"
+      "MediaCityUKOutgoing","HarbourCityIncoming"
     ],
     "prevStop": ["LangworthyIncoming"],
     "tramStopName": "BroadwayIncoming"
@@ -1085,7 +1105,7 @@
     "location": "Broadway",
     "nextStop": ["LangworthyOutgoing"],
     "prevStop": [
-      "HarbourCityOutgoing"
+      "MediaCityUKIncoming","HarbourCityOutgoing"
     ],
     "tramStopName": "BroadwayOutgoing"
   },
