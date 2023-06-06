@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tfgm</groupId>
   <artifactId>tfgm</artifactId>
@@ -15,10 +17,14 @@
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
     <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
-    <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
-    <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
-    <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
-    <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
+    <jacoco.unit-tests.limit.instruction-ratio>0%
+    </jacoco.unit-tests.limit.instruction-ratio>
+    <jacoco.unit-tests.limit.branch-ratio>0%
+    </jacoco.unit-tests.limit.branch-ratio>
+    <jacoco.unit-tests.limit.class-complexity>20
+    </jacoco.unit-tests.limit.class-complexity>
+    <jacoco.unit-tests.limit.method-complexity>5
+    </jacoco.unit-tests.limit.method-complexity>
   </properties>
   <dependencies>
     <dependency>
@@ -33,18 +39,29 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-dependency-plugin</artifactId>
       <version>3.6.0</version>
       <type>maven-plugin</type>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.json/json -->
-<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20230227</version>
-</dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20230227</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>3.5.0</version>
+      <type>maven-plugin</type>
+    </dependency>
 
   </dependencies>
   <build>
@@ -88,7 +105,6 @@
         <configuration>
           <configLocation>com/github/ngeor/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
-          <skip>${skipTests}</skip>
         </configuration>
         <executions>
           <execution>
@@ -138,7 +154,8 @@
                     <limit>
                       <counter>INSTRUCTION</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>${jacoco.unit-tests.limit.instruction-ratio}</minimum>
+                      <minimum>${jacoco.unit-tests.limit.instruction-ratio}
+                      </minimum>
                     </limit>
                     <limit>
                       <counter>BRANCH</counter>
@@ -153,7 +170,8 @@
                     <limit>
                       <counter>COMPLEXITY</counter>
                       <value>TOTALCOUNT</value>
-                      <maximum>${jacoco.unit-tests.limit.class-complexity}</maximum>
+                      <maximum>${jacoco.unit-tests.limit.class-complexity}
+                      </maximum>
                     </limit>
                   </limits>
                 </rule>
@@ -163,7 +181,8 @@
                     <limit>
                       <counter>COMPLEXITY</counter>
                       <value>TOTALCOUNT</value>
-                      <maximum>${jacoco.unit-tests.limit.method-complexity}</maximum>
+                      <maximum>${jacoco.unit-tests.limit.method-complexity}
+                      </maximum>
                     </limit>
                   </limits>
                 </rule>
@@ -174,13 +193,4 @@
       </plugin>
     </plugins>
   </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${maven-javadoc-plugin.version}</version>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>

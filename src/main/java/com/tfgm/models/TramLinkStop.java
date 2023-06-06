@@ -5,18 +5,17 @@ import java.util.Queue;
 
 public class TramLinkStop {
 
-    private Queue<Tram> tramQueue = new LinkedList<>();
+  private final Queue<Tram> tramQueue = new LinkedList<>();
 
-    public void addTram(Tram tram)
-    {
-        tramQueue.add(tram);
-    }
+  public void addTram(Tram tram) {
+    tramQueue.add(tram);
+  }
 
-    public Tram popTram()
-    {
-        return tramQueue.remove();
-    }
+  public Tram popTram() {
+    return tramQueue.remove();
+  }
 
-    public int queueLength() {return tramQueue.size();}
-
+  public int queueLength() {
+    return tramQueue.size();
+  }
 }
