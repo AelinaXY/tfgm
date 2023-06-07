@@ -267,7 +267,7 @@
     "direction": "Incoming",
     "line": "Eccles",
     "location": "St Peter's Square",
-    "nextStop": [],
+    "nextStop": ["ExchangeSquareOutgoing","MarketStreetOutgoing","PiccadillyGardensOutgoing"],
     "prevStop": [
       "DeansgateCastlefieldIncoming"
     ],
@@ -280,7 +280,7 @@
     "nextStop": [
       "DeansgateCastlefieldOutgoing"
     ],
-    "prevStop": [],
+    "prevStop": ["ExchangeSquareIncoming","MarketStreetIncoming","PiccadillyGardensIncoming"],
     "tramStopName": "StPetersSquareOutgoing"
   },
   {
@@ -1188,5 +1188,146 @@
       "LadywellOutgoing"
     ],
     "tramStopName": "EcclesOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Exchange Square",
+    "nextStop": [
+      "StPetersSquareOutgoing"
+    ],
+    "prevStop": ["VictoriaIncoming"],
+    "tramStopName": "ExchangeSquareIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Exchange Square",
+    "nextStop": ["VictoriaOutgoing"],
+    "prevStop": [
+      "StPetersSquareIncoming"
+    ],
+    "tramStopName": "ExchangeSquareOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Market Street",
+    "nextStop": [
+      "StPetersSquareOutgoing" ,"PiccadillyGardensOutgoing"
+    ],
+    "prevStop": ["ShudehillIncoming"],
+    "tramStopName": "MarketStreetIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Market Street",
+    "nextStop": ["ShudehillOutgoing"],
+    "prevStop": [
+      "StPetersSquareIncoming","PiccadillyGardensIncoming"
+    ],
+    "tramStopName": "MarketStreetOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Shudehill",
+    "nextStop": [
+      "MarketStreetIncoming"
+    ],
+    "prevStop": ["VictoriaIncoming"],
+    "tramStopName": "ShudehillIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Shudehill",
+    "nextStop": ["VictoriaOutgoing"],
+    "prevStop": [
+      "MarketStreetOutgoing"
+    ],
+    "tramStopName": "ShudehillOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [
+      "ShudehillIncoming","ExchangeSquareIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "VictoriaIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [],
+    "prevStop": [
+      "ShudehillOutgoing","ExchangeSquareOutgoing"
+    ],
+    "tramStopName": "VictoriaOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [
+      "ShudehillIncoming","ExchangeSquareIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "VictoriaIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [],
+    "prevStop": [
+      "ShudehillOutgoing","ExchangeSquareOutgoing"
+    ],
+    "tramStopName": "VictoriaOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Piccadilly Gardens",
+    "nextStop": [
+      "MarketStreetOutgoing","StPetersSquareOutgoing"
+    ],
+    "prevStop": ["PiccadllyIncoming"],
+    "tramStopName": "PiccadillyGardensIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Piccadilly Gardens",
+    "nextStop": ["PiccadillyOutgoing"],
+    "prevStop": [
+      "MarketStreetIncoming","StPetersSquareIncoming"
+    ],
+    "tramStopName": "PiccadillyGardensOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Piccadilly",
+    "nextStop": [
+      "PiccadillyGardensIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "PiccadllyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Piccadilly",
+    "nextStop": [],
+    "prevStop": [
+      "PiccadillyGardensOutgoing"
+    ],
+    "tramStopName": "PiccadillyOutgoing"
   }
+
 ]
