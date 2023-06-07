@@ -124,6 +124,11 @@ public class TramController {
                 if (!newTramStop.getLastUpdated().contains((getUpdateString(currentStation, j)))) {
                   newTramStop.addToLastUpdated(getUpdateString(currentStation, j));
 
+                  /*if (currentStation.getString("StationLocation").equals("Exchange Square")
+                      && currentStation.getString("Dest" + j).equals("East Didsbury")) {
+                    System.out.println(currentStation);
+                  }*/
+
                   newTramStop.tramDeparture(currentStation.getString("Dest" + j));
                 }
               }

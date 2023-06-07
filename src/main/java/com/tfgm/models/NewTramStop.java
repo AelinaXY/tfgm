@@ -84,15 +84,31 @@ public class NewTramStop {
     }
 
     for (TramStopContainer tramStopContainer : nextStops) {
-      if (findEndOfLine(departingTram.getDestination(), tramStopContainer.getTramStop())) {
-        tramStopContainer.getTramLinkStop().addTram(departingTram);
-        System.out.println(
-            "Tram left from "
-                + stopName
-                + " to "
-                + tramStopContainer.getTramStop().getStopName()
-                + ". Final Destination: "
-                + departingTram.getDestination());
+
+      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square"))
+          || endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
+
+        // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
+        // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
+        // found.
+        if (findEndOfLine(
+            Arrays.stream(departingTram.getDestination().split(" "))
+                    .reduce((first, second) -> second)
+                    .get()
+                    .matches("MCUK|MediaCityUK")
+                ? "MediaCityUK"
+                : departingTram.getDestination(),
+            tramStopContainer.getTramStop())) {
+          tramStopContainer.getTramLinkStop().addTram(departingTram);
+          System.out.println(
+              "Tram left from "
+                  + stopName
+                  + " to "
+                  + tramStopContainer.getTramStop().getStopName()
+                  + ". Final Destination: "
+                  + departingTram.getDestination());
+          return;
+        }
       }
     }
   }
@@ -115,11 +131,16 @@ public class NewTramStop {
   }
 
   private boolean findEndOfLine(String endOfLine, NewTramStop tramStop) {
-    if (tramStop == null) return false;
-    if (tramStop.getStopName().equals(endOfLine)) return true;
+    //    if (tramStop == null) return false;
+    if (tramStop.getStopName().equals(endOfLine)) {
+      return true;
+    }
 
     for (TramStopContainer tramStopContainer : tramStop.nextStops) {
-      return findEndOfLine(endOfLine, tramStopContainer.getTramStop());
+      boolean res = findEndOfLine(endOfLine, tramStopContainer.getTramStop());
+      if (res) {
+        return true;
+      }
     }
     return false;
   }
