@@ -107,6 +107,7 @@ public class NewTramStop {
                   + tramStopContainer.getTramStop().getStopName()
                   + ". Final Destination: "
                   + departingTram.getDestination());
+          return;
         }
       }
     }
