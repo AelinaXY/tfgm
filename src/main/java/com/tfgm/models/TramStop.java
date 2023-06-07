@@ -77,7 +77,6 @@ public class TramStop {
         + " in the direction "
         + direction
         + " has trams: "
-        + tramTrips
-        + "";
+        + tramTrips;
   }
 }
