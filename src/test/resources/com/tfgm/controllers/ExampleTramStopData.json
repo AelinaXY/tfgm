@@ -1,0 +1,2368 @@
+[
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Altrincham",
+    "nextStop": [
+      "NavigationRoadIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "AltrinchamIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Altrincham",
+    "nextStop": [],
+    "prevStop": [
+      "NavigationRoadOutgoing"
+    ],
+    "tramStopName": "AltrinchamOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Navigation Road",
+    "nextStop": [
+      "TimperlyIncoming"
+    ],
+    "prevStop": [
+      "AltrinchamIncoming"
+    ],
+    "tramStopName": "NavigationRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Navigation Road",
+    "nextStop": [
+      "AltrinchamOutgoing"
+    ],
+    "prevStop": [
+      "TimperlyOutgoing"
+    ],
+    "tramStopName": "NavigationRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Timperly",
+    "nextStop": [
+      "BrooklandsIncoming"
+    ],
+    "prevStop": [
+      "NavigationRoadIncoming"
+    ],
+    "tramStopName": "TimperlyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Timperly",
+    "nextStop": [
+      "NavigationRoadOutgoing"
+    ],
+    "prevStop": [
+      "BrooklandsOutgoing"
+    ],
+    "tramStopName": "TimperlyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Brooklands",
+    "nextStop": [
+      "SaleIncoming"
+    ],
+    "prevStop": [
+      "TimperlyIncoming"
+    ],
+    "tramStopName": "BrooklandsIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Brooklands",
+    "nextStop": [
+      "TimperlyOutgoing"
+    ],
+    "prevStop": [
+      "SaleOutgoing"
+    ],
+    "tramStopName": "BrooklandsOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Sale",
+    "nextStop": [
+      "DaneRoadIncoming"
+    ],
+    "prevStop": [
+      "BrooklandsIncoming"
+    ],
+    "tramStopName": "SaleIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Sale",
+    "nextStop": [
+      "BrooklandsOutgoing"
+    ],
+    "prevStop": [
+      "DaneRoadOutgoing"
+    ],
+    "tramStopName": "SaleOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Dane Road",
+    "nextStop": [
+      "StretfordIncoming"
+    ],
+    "prevStop": [
+      "SaleIncoming"
+    ],
+    "tramStopName": "DaneRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Dane Road",
+    "nextStop": [
+      "SaleOutgoing"
+    ],
+    "prevStop": [
+      "StretfordOutgoing"
+    ],
+    "tramStopName": "DaneRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Stretford",
+    "nextStop": [
+      "OldTraffordIncoming"
+    ],
+    "prevStop": [
+      "DaneRoadIncoming"
+    ],
+    "tramStopName": "StretfordIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Stretford",
+    "nextStop": [
+      "DaneRoadOutgoing"
+    ],
+    "prevStop": [
+      "OldTraffordOutgoing"
+    ],
+    "tramStopName": "StretfordOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Old Trafford",
+    "nextStop": [
+      "TraffordBarIncoming"
+    ],
+    "prevStop": [
+      "StretfordIncoming"
+    ],
+    "tramStopName": "OldTraffordIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Old Trafford",
+    "nextStop": [
+      "StretfordOutgoing"
+    ],
+    "prevStop": [
+      "TraffordBarOutgoing"
+    ],
+    "tramStopName": "OldTraffordOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Trafford Bar",
+    "nextStop": [
+      "CornbrookIncoming"
+    ],
+    "prevStop": [
+      "OldTraffordIncoming",
+      "FirswoodIncoming"
+    ],
+    "tramStopName": "TraffordBarIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Trafford Bar",
+    "nextStop": [
+      "OldTraffordOutgoing",
+      "FirswoodOutgoing"
+    ],
+    "prevStop": [
+      "CornbrookOutgoing"
+    ],
+    "tramStopName": "TraffordBarOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Cornbrook",
+    "nextStop": [
+      "DeansgateCastlefieldIncoming"
+    ],
+    "prevStop": [
+      "TraffordBarIncoming",
+      "PomonaIncoming"
+    ],
+    "tramStopName": "CornbrookIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Cornbrook",
+    "nextStop": [
+      "PomonaOutgoing",
+      "TraffordBarOutgoing"
+    ],
+    "prevStop": [
+      "DeansgateCastlefieldOutgoing"
+    ],
+    "tramStopName": "CornbrookOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Deansgate - Castlefield",
+    "nextStop": [
+      "StPetersSquareIncoming"
+    ],
+    "prevStop": [
+      "CornbrookIncoming"
+    ],
+    "tramStopName": "DeansgateCastlefieldIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Deansgate - Castlefield",
+    "nextStop": [
+      "CornbrookOutgoing"
+    ],
+    "prevStop": [
+      "StPetersSquareOutgoing"
+    ],
+    "tramStopName": "DeansgateCastlefieldOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "St Peter's Square",
+    "nextStop": [
+      "ExchangeSquareOutgoing",
+      "MarketStreetOutgoing",
+      "PiccadillyGardensOutgoing"
+    ],
+    "prevStop": [
+      "DeansgateCastlefieldIncoming"
+    ],
+    "tramStopName": "StPetersSquareIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "St Peter's Square",
+    "nextStop": [
+      "DeansgateCastlefieldOutgoing"
+    ],
+    "prevStop": [
+      "ExchangeSquareIncoming",
+      "MarketStreetIncoming",
+      "PiccadillyGardensIncoming"
+    ],
+    "tramStopName": "StPetersSquareOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "Firswood",
+    "nextStop": [
+      "TraffordBarIncoming"
+    ],
+    "prevStop": [
+      "ChorltonIncoming"
+    ],
+    "tramStopName": "FirswoodIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "Firswood",
+    "nextStop": [
+      "ChorltonOutgoing"
+    ],
+    "prevStop": [
+      "TraffordBarOutgoing"
+    ],
+    "tramStopName": "FirswoodOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "Chorlton",
+    "nextStop": [
+      "FirswoodIncoming"
+    ],
+    "prevStop": [
+      "StWerburghsRoadIncoming"
+    ],
+    "tramStopName": "ChorltonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "Chorlton",
+    "nextStop": [
+      "StWerburghsRoadOutgoing"
+    ],
+    "prevStop": [
+      "FirswoodOutgoing"
+    ],
+    "tramStopName": "ChorltonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "St Werburgh's Road",
+    "nextStop": [
+      "ChorltonIncoming"
+    ],
+    "prevStop": [
+      "WithingtonIncoming",
+      "BarlowMoorRoadIncoming"
+    ],
+    "tramStopName": "StWerburghsRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "St Werburgh's Road",
+    "nextStop": [
+      "WithingtonOutgoing",
+      "BarlowMoorRoadOutgoing"
+    ],
+    "prevStop": [
+      "ChorltonOutgoing"
+    ],
+    "tramStopName": "StWerburghsRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "Withington",
+    "nextStop": [
+      "StWerburghsRoadIncoming"
+    ],
+    "prevStop": [
+      "BurtonRoadIncoming"
+    ],
+    "tramStopName": "WithingtonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "Withington",
+    "nextStop": [
+      "BurtonRoadOutgoing"
+    ],
+    "prevStop": [
+      "StWerburghsRoadOutgoing"
+    ],
+    "tramStopName": "WithingtonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "Burton Road",
+    "nextStop": [
+      "WithingtonIncoming"
+    ],
+    "prevStop": [
+      "WestDidsburyIncoming"
+    ],
+    "tramStopName": "BurtonRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "Burton Road",
+    "nextStop": [
+      "WestDidsburyOutgoing"
+    ],
+    "prevStop": [
+      "WithingtonOutgoing"
+    ],
+    "tramStopName": "BurtonRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "West Didsbury",
+    "nextStop": [
+      "BurtonRoadIncoming"
+    ],
+    "prevStop": [
+      "DidsburyVillageIncoming"
+    ],
+    "tramStopName": "WestDidsburyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "West Didsbury",
+    "nextStop": [
+      "DidsburyVillageOutgoing"
+    ],
+    "prevStop": [
+      "BurtonRoadOutgoing"
+    ],
+    "tramStopName": "WestDidsburyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "Didsbury Village",
+    "nextStop": [
+      "WestDidsburyIncoming"
+    ],
+    "prevStop": [
+      "EastDidsburyIncoming"
+    ],
+    "tramStopName": "DidsburyVillageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "Didsbury Village",
+    "nextStop": [
+      "EastDidsburyOutgoing"
+    ],
+    "prevStop": [
+      "WestDidsburyOutgoing"
+    ],
+    "tramStopName": "DidsburyVillageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "South Manchester",
+    "location": "East Didsbury",
+    "nextStop": [
+      "DidsburyVillageIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "EastDidsburyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "South Manchester",
+    "location": "East Didsbury",
+    "nextStop": [],
+    "prevStop": [
+      "DidsburyVillageOutgoing"
+    ],
+    "tramStopName": "EastDidsburyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Barlow Moor Road",
+    "nextStop": [
+      "StWerburghsRoadIncoming"
+    ],
+    "prevStop": [
+      "SaleWaterParkIncoming"
+    ],
+    "tramStopName": "BarlowMoorRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Barlow Moor Road",
+    "nextStop": [
+      "SaleWaterParkOutgoing"
+    ],
+    "prevStop": [
+      "StWerburghsRoadOutgoing"
+    ],
+    "tramStopName": "BarlowMoorRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Sale Water Park",
+    "nextStop": [
+      "BarlowMoorRoadIncoming"
+    ],
+    "prevStop": [
+      "NorthernMoorIncoming"
+    ],
+    "tramStopName": "SaleWaterParkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Sale Water Park",
+    "nextStop": [
+      "NorthernMoorOutgoing"
+    ],
+    "prevStop": [
+      "BarlowMoorRoadOutgoing"
+    ],
+    "tramStopName": "SaleWaterParkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Northern Moor",
+    "nextStop": [
+      "SaleWaterParkIncoming"
+    ],
+    "prevStop": [
+      "WythenshaweParkIncoming"
+    ],
+    "tramStopName": "NorthernMoorIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Northern Moor",
+    "nextStop": [
+      "WythenshaweParkOutgoing"
+    ],
+    "prevStop": [
+      "SaleWaterParkOutgoing"
+    ],
+    "tramStopName": "NorthernMoorOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Wythenshawe Park",
+    "nextStop": [
+      "NorthernMoorIncoming"
+    ],
+    "prevStop": [
+      "MoorRoadIncoming"
+    ],
+    "tramStopName": "WythenshaweParkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Wythenshawe Park",
+    "nextStop": [
+      "MoorRoadOutgoing"
+    ],
+    "prevStop": [
+      "NorthernMoorOutgoing"
+    ],
+    "tramStopName": "WythenshaweParkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Moor Road",
+    "nextStop": [
+      "WythenshaweParkIncoming"
+    ],
+    "prevStop": [
+      "BaguleyIncoming"
+    ],
+    "tramStopName": "MoorRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Moor Road",
+    "nextStop": [
+      "BaguelyOutgoing"
+    ],
+    "prevStop": [
+      "WythenshaweParkOutgoing"
+    ],
+    "tramStopName": "MoorRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Baguely",
+    "nextStop": [
+      "MoorRoadIncoming"
+    ],
+    "prevStop": [
+      "RoundthornIncoming"
+    ],
+    "tramStopName": "BaguleyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Baguely",
+    "nextStop": [
+      "RoundthornOutgoing"
+    ],
+    "prevStop": [
+      "MoorRoadOutgoing"
+    ],
+    "tramStopName": "BaguelyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Roundthorn",
+    "nextStop": [
+      "BaguleyIncoming"
+    ],
+    "prevStop": [
+      "MartinscroftIncoming"
+    ],
+    "tramStopName": "RoundthornIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Roundthorn",
+    "nextStop": [
+      "MartinscroftOutgoing"
+    ],
+    "prevStop": [
+      "BaguelyOutgoing"
+    ],
+    "tramStopName": "RoundthornOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Martinscroft",
+    "nextStop": [
+      "RoundthornIncoming"
+    ],
+    "prevStop": [
+      "BenchillIncoming"
+    ],
+    "tramStopName": "MartinscroftIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Martinscroft",
+    "nextStop": [
+      "BenchillOutgoing"
+    ],
+    "prevStop": [
+      "RoundthornOutgoing"
+    ],
+    "tramStopName": "MartinscroftOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Benchill",
+    "nextStop": [
+      "MartinscroftIncoming"
+    ],
+    "prevStop": [
+      "CrossacresIncoming"
+    ],
+    "tramStopName": "BenchillIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Benchill",
+    "nextStop": [
+      "CrossacresOutgoing"
+    ],
+    "prevStop": [
+      "MartinscroftOutgoing"
+    ],
+    "tramStopName": "BenchillOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Crossacres",
+    "nextStop": [
+      "BenchillIncoming"
+    ],
+    "prevStop": [
+      "WythenshaweTownCentreIncoming"
+    ],
+    "tramStopName": "CrossacresIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Crossacres",
+    "nextStop": [
+      "WythenshaweTownCentreOutgoing"
+    ],
+    "prevStop": [
+      "BenchillOutgoing"
+    ],
+    "tramStopName": "CrossacresOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Wythenshawe Town Centre",
+    "nextStop": [
+      "CrossacresIncoming"
+    ],
+    "prevStop": [
+      "RobinswoodRoadIncoming"
+    ],
+    "tramStopName": "WythenshaweTownCentreIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Wythenshawe Town Centre",
+    "nextStop": [
+      "RobinswoodRoadOutgoing"
+    ],
+    "prevStop": [
+      "CrossacresOutgoing"
+    ],
+    "tramStopName": "WythenshaweTownCentreOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Robinswood Road",
+    "nextStop": [
+      "WythenshaweTownCentreIncoming"
+    ],
+    "prevStop": [
+      "PeelHallIncoming"
+    ],
+    "tramStopName": "RobinswoodRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Robinswood Road",
+    "nextStop": [
+      "PeelHallOutgoing"
+    ],
+    "prevStop": [
+      "WythenshaweTownCentreOutgoing"
+    ],
+    "tramStopName": "RobinswoodRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Peel Hall",
+    "nextStop": [
+      "RobinswoodRoadIncoming"
+    ],
+    "prevStop": [
+      "ShadowmossIncoming"
+    ],
+    "tramStopName": "PeelHallIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Peel Hall",
+    "nextStop": [
+      "ShadowmossOutgoing"
+    ],
+    "prevStop": [
+      "RobinswoodRoadOutgoing"
+    ],
+    "tramStopName": "PeelHallOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Shadowmoss",
+    "nextStop": [
+      "PeelHallIncoming"
+    ],
+    "prevStop": [
+      "ManchesterAirportIncoming"
+    ],
+    "tramStopName": "ShadowmossIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Shadowmoss",
+    "nextStop": [
+      "ManchesterAirportOutgoing"
+    ],
+    "prevStop": [
+      "PeelHallOutgoing"
+    ],
+    "tramStopName": "ShadowmossOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Airport",
+    "location": "Manchester Airport",
+    "nextStop": [
+      "ShadowmossIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "ManchesterAirportIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Airport",
+    "location": "Manchester Airport",
+    "nextStop": [],
+    "prevStop": [
+      "ShadowmossOutgoing"
+    ],
+    "tramStopName": "ManchesterAirportOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Pomona",
+    "nextStop": [
+      "CornbrookIncoming"
+    ],
+    "prevStop": [
+      "WharfsideIncoming",
+      "ExchangeQuayIncoming"
+    ],
+    "tramStopName": "PomonaIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Pomona",
+    "nextStop": [
+      "WharfsideOutgoing",
+      "ExchangeQuayOutgoing"
+    ],
+    "prevStop": [
+      "CornbrookOutgoing"
+    ],
+    "tramStopName": "PomonaOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Wharfside",
+    "nextStop": [
+      "PomonaIncoming"
+    ],
+    "prevStop": [
+      "ImperialWarMuseumIncoming"
+    ],
+    "tramStopName": "WharfsideIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Wharfside",
+    "nextStop": [
+      "ImperialWarMuseumOutgoing"
+    ],
+    "prevStop": [
+      "PomonaOutgoing"
+    ],
+    "tramStopName": "WharfsideOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Imperial War Museum",
+    "nextStop": [
+      "WharfsideIncoming"
+    ],
+    "prevStop": [
+      "VillageIncoming"
+    ],
+    "tramStopName": "ImperialWarMuseumIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Imperial War Museum",
+    "nextStop": [
+      "VillageOutgoing"
+    ],
+    "prevStop": [
+      "WharfsideOutgoing"
+    ],
+    "tramStopName": "ImperialWarMuseumOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Village",
+    "nextStop": [
+      "ImperialWarMuseumIncoming"
+    ],
+    "prevStop": [
+      "ParkwayIncoming"
+    ],
+    "tramStopName": "VillageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Village",
+    "nextStop": [
+      "ParkwayOutgoing"
+    ],
+    "prevStop": [
+      "ImperialWarMuseumOutgoing"
+    ],
+    "tramStopName": "VillageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Parkway",
+    "nextStop": [
+      "VillageIncoming"
+    ],
+    "prevStop": [
+      "BartonDockRoadIncoming"
+    ],
+    "tramStopName": "ParkwayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Parkway",
+    "nextStop": [
+      "BartonDockRoadOutgoing"
+    ],
+    "prevStop": [
+      "VillageOutgoing"
+    ],
+    "tramStopName": "ParkwayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "Barton Dock Road",
+    "nextStop": [
+      "ParkwayIncoming"
+    ],
+    "prevStop": [
+      "TheTraffordCentreIncoming"
+    ],
+    "tramStopName": "BartonDockRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "Barton Dock Road",
+    "nextStop": [
+      "TheTraffordCentreOutgoing"
+    ],
+    "prevStop": [
+      "ParkwayOutgoing"
+    ],
+    "tramStopName": "BartonDockRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Trafford Park",
+    "location": "The Trafford Centre",
+    "nextStop": [
+      "BartonDockRoadIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "TheTraffordCentreIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Trafford Park",
+    "location": "The Trafford Centre",
+    "nextStop": [],
+    "prevStop": [
+      "BartonDockRoadOutgoing"
+    ],
+    "tramStopName": "TheTraffordCentreOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Exchange Quay",
+    "nextStop": [
+      "PomonaIncoming"
+    ],
+    "prevStop": [
+      "SalfordQuaysIncoming"
+    ],
+    "tramStopName": "ExchangeQuayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Exchange Quay",
+    "nextStop": [
+      "SalfordQuaysOutgoing"
+    ],
+    "prevStop": [
+      "PomonaOutgoing"
+    ],
+    "tramStopName": "ExchangeQuayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": [
+      "ExchangeQuayIncoming"
+    ],
+    "prevStop": [
+      "AnchorageIncoming"
+    ],
+    "tramStopName": "SalfordQuaysIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": [
+      "AnchorageOutgoing"
+    ],
+    "prevStop": [
+      "ExchangeQuayOutgoing"
+    ],
+    "tramStopName": "SalfordQuaysOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": [
+      "SalfordQuaysIncoming"
+    ],
+    "prevStop": [
+      "HarbourCityIncoming"
+    ],
+    "tramStopName": "AnchorageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Salford Quays",
+    "nextStop": [
+      "HarbourCityOutgoing"
+    ],
+    "prevStop": [
+      "SalfordQuaysOutgoing"
+    ],
+    "tramStopName": "AnchorageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": [
+      "SalfordQuaysIncoming"
+    ],
+    "prevStop": [
+      "HarbourCityIncoming"
+    ],
+    "tramStopName": "AnchorageIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Anchorage",
+    "nextStop": [
+      "HarbourCityOutgoing"
+    ],
+    "prevStop": [
+      "SalfordQuaysOutgoing"
+    ],
+    "tramStopName": "AnchorageOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Harbour City",
+    "nextStop": [
+      "AnchorageIncoming"
+    ],
+    "prevStop": [
+      "BroadwayIncoming",
+      "MediaCityUKIncoming"
+    ],
+    "tramStopName": "HarbourCityIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Harbour City",
+    "nextStop": [
+      "BroadwayOutgoing",
+      "MediaCityUKOutgoing"
+    ],
+    "prevStop": [
+      "AnchorageOutgoing"
+    ],
+    "tramStopName": "HarbourCityOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "MediaCityUK",
+    "nextStop": [
+      "BroadwayOutgoing",
+      "HarbourCityIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "MediaCityUKIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "MediaCityUK",
+    "nextStop": [],
+    "prevStop": [
+      "BroadwayIncoming",
+      "HarbourCityOutgoing"
+    ],
+    "tramStopName": "MediaCityUKOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Broadway",
+    "nextStop": [
+      "MediaCityUKOutgoing",
+      "HarbourCityIncoming"
+    ],
+    "prevStop": [
+      "LangworthyIncoming"
+    ],
+    "tramStopName": "BroadwayIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Broadway",
+    "nextStop": [
+      "LangworthyOutgoing"
+    ],
+    "prevStop": [
+      "MediaCityUKIncoming",
+      "HarbourCityOutgoing"
+    ],
+    "tramStopName": "BroadwayOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Langworthy",
+    "nextStop": [
+      "BroadwayIncoming"
+    ],
+    "prevStop": [
+      "WeasteIncoming"
+    ],
+    "tramStopName": "LangworthyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Langworthy",
+    "nextStop": [
+      "WeasteOutgoing"
+    ],
+    "prevStop": [
+      "BroadwayOutgoing"
+    ],
+    "tramStopName": "LangworthyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Weaste",
+    "nextStop": [
+      "LangworthyIncoming"
+    ],
+    "prevStop": [
+      "LadywellIncoming"
+    ],
+    "tramStopName": "WeasteIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Weaste",
+    "nextStop": [
+      "LadywellOutgoing"
+    ],
+    "prevStop": [
+      "LangworthyOutgoing"
+    ],
+    "tramStopName": "WeasteOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Ladywell",
+    "nextStop": [
+      "WeasteIncoming"
+    ],
+    "prevStop": [
+      "EcclesIncoming"
+    ],
+    "tramStopName": "LadywellIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Ladywell",
+    "nextStop": [
+      "EcclesOutgoing"
+    ],
+    "prevStop": [
+      "WeasteOutgoing"
+    ],
+    "tramStopName": "LadywellOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Eccles",
+    "nextStop": [
+      "LadywellIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "EcclesIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Eccles",
+    "nextStop": [],
+    "prevStop": [
+      "LadywellOutgoing"
+    ],
+    "tramStopName": "EcclesOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Eccles",
+    "location": "Exchange Square",
+    "nextStop": [
+      "StPetersSquareOutgoing"
+    ],
+    "prevStop": [
+      "VictoriaIncoming"
+    ],
+    "tramStopName": "ExchangeSquareIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Eccles",
+    "location": "Exchange Square",
+    "nextStop": [
+      "VictoriaOutgoing"
+    ],
+    "prevStop": [
+      "StPetersSquareIncoming"
+    ],
+    "tramStopName": "ExchangeSquareOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Market Street",
+    "nextStop": [
+      "StPetersSquareOutgoing",
+      "PiccadillyGardensOutgoing"
+    ],
+    "prevStop": [
+      "ShudehillIncoming"
+    ],
+    "tramStopName": "MarketStreetIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Market Street",
+    "nextStop": [
+      "ShudehillOutgoing"
+    ],
+    "prevStop": [
+      "StPetersSquareIncoming",
+      "PiccadillyGardensIncoming"
+    ],
+    "tramStopName": "MarketStreetOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Shudehill",
+    "nextStop": [
+      "MarketStreetIncoming"
+    ],
+    "prevStop": [
+      "VictoriaIncoming"
+    ],
+    "tramStopName": "ShudehillIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Shudehill",
+    "nextStop": [
+      "VictoriaOutgoing"
+    ],
+    "prevStop": [
+      "MarketStreetOutgoing"
+    ],
+    "tramStopName": "ShudehillOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [
+      "ShudehillIncoming",
+      "ExchangeSquareIncoming"
+    ],
+    "prevStop": [
+      "QueensRoadIncoming",
+      "MonsallIncoming"
+    ],
+    "tramStopName": "VictoriaIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Altrincham",
+    "location": "Victoria",
+    "nextStop": [
+      "QueensRoadOutgoing",
+      "MonsallOutgoing"
+    ],
+    "prevStop": [
+      "ShudehillOutgoing",
+      "ExchangeSquareOutgoing"
+    ],
+    "tramStopName": "VictoriaOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Piccadilly Gardens",
+    "nextStop": [
+      "MarketStreetOutgoing",
+      "StPetersSquareOutgoing"
+    ],
+    "prevStop": [
+      "PiccadllyIncoming"
+    ],
+    "tramStopName": "PiccadillyGardensIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Piccadilly Gardens",
+    "nextStop": [
+      "PiccadillyOutgoing"
+    ],
+    "prevStop": [
+      "MarketStreetIncoming",
+      "StPetersSquareIncoming"
+    ],
+    "tramStopName": "PiccadillyGardensOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Piccadilly",
+    "nextStop": [
+      "PiccadillyGardensIncoming"
+    ],
+    "prevStop": [
+      "NewIslingtonIncoming"
+    ],
+    "tramStopName": "PiccadllyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Piccadilly",
+    "nextStop": [
+      "NewIslingtonOutgoing"
+    ],
+    "prevStop": [
+      "PiccadillyGardensOutgoing"
+    ],
+    "tramStopName": "PiccadillyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "New Islington",
+    "nextStop": [
+      "PiccadllyIncoming"
+    ],
+    "prevStop": [
+      "HoltTownIncoming"
+    ],
+    "tramStopName": "NewIslingtonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "New Islington",
+    "nextStop": [
+      "HoltTownOutgoing"
+    ],
+    "prevStop": [
+      "PiccadillyOutgoing"
+    ],
+    "tramStopName": "NewIslingtonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Holt Town",
+    "nextStop": [
+      "NewIslingtonIncoming"
+    ],
+    "prevStop": [
+      "EtihadCampusIncoming"
+    ],
+    "tramStopName": "HoltTownIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Holt Town",
+    "nextStop": [
+      "EtihadCampusOutgoing"
+    ],
+    "prevStop": [
+      "NewIslingtonOutgoing"
+    ],
+    "tramStopName": "HoltTownOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Etihad Campus",
+    "nextStop": [
+      "HoltTownIncoming"
+    ],
+    "prevStop": [
+      "VeloparkIncoming"
+    ],
+    "tramStopName": "EtihadCampusIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Etihad Campus",
+    "nextStop": [
+      "VeloparkOutgoing"
+    ],
+    "prevStop": [
+      "HoltTownOutgoing"
+    ],
+    "tramStopName": "EtihadCampusOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Velopark",
+    "nextStop": [
+      "EtihadCampusIncoming"
+    ],
+    "prevStop": [
+      "ClaytonHallIncoming"
+    ],
+    "tramStopName": "VeloparkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Velopark",
+    "nextStop": [
+      "ClaytonHallOutgoing"
+    ],
+    "prevStop": [
+      "EtihadCampusOutgoing"
+    ],
+    "tramStopName": "VeloparkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Clayton Hall",
+    "nextStop": [
+      "VeloparkIncoming"
+    ],
+    "prevStop": [
+      "EdgeLaneIncoming"
+    ],
+    "tramStopName": "ClaytonHallIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Clayton Hall",
+    "nextStop": [
+      "EdgeLaneOutgoing"
+    ],
+    "prevStop": [
+      "VeloparkOutgoing"
+    ],
+    "tramStopName": "ClaytonHallOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Edge Lane",
+    "nextStop": [
+      "ClaytonHallIncoming"
+    ],
+    "prevStop": [
+      "CemeteryRoadIncoming"
+    ],
+    "tramStopName": "EdgeLaneIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Edge Lane",
+    "nextStop": [
+      "CemeteryRoadOutgoing"
+    ],
+    "prevStop": [
+      "ClaytonHallOutgoing"
+    ],
+    "tramStopName": "EdgeLaneOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Cemetery Road",
+    "nextStop": [
+      "EdgeLaneIncoming"
+    ],
+    "prevStop": [
+      "DroylsdenIncoming"
+    ],
+    "tramStopName": "CemeteryRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Cemetery Road",
+    "nextStop": [
+      "DroylsdenOutgoing"
+    ],
+    "prevStop": [
+      "EdgeLaneOutgoing"
+    ],
+    "tramStopName": "CemeteryRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Droylsden",
+    "nextStop": [
+      "CemeteryRoadIncoming"
+    ],
+    "prevStop": [
+      "AudenshawIncoming"
+    ],
+    "tramStopName": "DroylsdenIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Droylsden",
+    "nextStop": [
+      "AudenshawOutgoing"
+    ],
+    "prevStop": [
+      "CemeteryRoadOutgoing"
+    ],
+    "tramStopName": "DroylsdenOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Audenshaw",
+    "nextStop": [
+      "DroylsdenIncoming"
+    ],
+    "prevStop": [
+      "AshtonMossIncoming"
+    ],
+    "tramStopName": "AudenshawIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Audenshaw",
+    "nextStop": [
+      "AshtonMossOutgoing"
+    ],
+    "prevStop": [
+      "DroylsdenOutgoing"
+    ],
+    "tramStopName": "AudenshawOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Ashton Moss",
+    "nextStop": [
+      "AudenshawIncoming"
+    ],
+    "prevStop": [
+      "AshtonWestIncoming"
+    ],
+    "tramStopName": "AshtonMossIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Ashton Moss",
+    "nextStop": [
+      "AshtonWestOutgoing"
+    ],
+    "prevStop": [
+      "AudenshawOutgoing"
+    ],
+    "tramStopName": "AshtonMossOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Ashton West",
+    "nextStop": [
+      "AshtonMossIncoming"
+    ],
+    "prevStop": [
+      "Ashton-under-LyneIncoming"
+    ],
+    "tramStopName": "AshtonWestIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Ashton West",
+    "nextStop": [
+      "Ashton-under-LyneOutgoing"
+    ],
+    "prevStop": [
+      "AshtonMossOutgoing"
+    ],
+    "tramStopName": "AshtonWestOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "East Manchester",
+    "location": "Ashton-under-Lyne",
+    "nextStop": [
+      "AshtonWestIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "Ashton-under-LyneIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "East Manchester",
+    "location": "Ashton-under-Lyne",
+    "nextStop": [],
+    "prevStop": [
+      "AshtonWestOutgoing"
+    ],
+    "tramStopName": "Ashton-under-LyneOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Queens Road",
+    "nextStop": [
+      "VictoriaIncoming"
+    ],
+    "prevStop": [
+      "AbrahamMossIncoming"
+    ],
+    "tramStopName": "QueensRoadIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Queens Road",
+    "nextStop": [
+      "AbrahamMossOutgoing"
+    ],
+    "prevStop": [
+      "VictoriaOutgoing"
+    ],
+    "tramStopName": "QueensRoadOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Abraham Moss",
+    "nextStop": [
+      "QueensRoadIncoming"
+    ],
+    "prevStop": [
+      "CrumpsallIncoming"
+    ],
+    "tramStopName": "AbrahamMossIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Abraham Moss",
+    "nextStop": [
+      "CrumpsallOutgoing"
+    ],
+    "prevStop": [
+      "QueensRoadOutgoing"
+    ],
+    "tramStopName": "AbrahamMossOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Crumpsall",
+    "nextStop": [
+      "AbrahamMossIncoming"
+    ],
+    "prevStop": [
+      "BowkerValeIncoming"
+    ],
+    "tramStopName": "CrumpsallIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Crumpsall",
+    "nextStop": [
+      "BowkerValeOutgoing"
+    ],
+    "prevStop": [
+      "AbrahamMossOutgoing"
+    ],
+    "tramStopName": "CrumpsallOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Bowker Vale",
+    "nextStop": [
+      "CrumpsallIncoming"
+    ],
+    "prevStop": [
+      "HeatonParkIncoming"
+    ],
+    "tramStopName": "BowkerValeIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Bowker Vale",
+    "nextStop": [
+      "HeatonParkOutgoing"
+    ],
+    "prevStop": [
+      "CrumpsallOutgoing"
+    ],
+    "tramStopName": "BowkerValeOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Heaton Park",
+    "nextStop": [
+      "BowkerValeIncoming"
+    ],
+    "prevStop": [
+      "PrestwichIncoming"
+    ],
+    "tramStopName": "HeatonParkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Heaton Park",
+    "nextStop": [
+      "PrestwichOutgoing"
+    ],
+    "prevStop": [
+      "BowkerValeOutgoing"
+    ],
+    "tramStopName": "HeatonParkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Prestwich",
+    "nextStop": [
+      "HeatonParkIncoming"
+    ],
+    "prevStop": [
+      "BessesothBarnIncoming"
+    ],
+    "tramStopName": "PrestwichIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Prestwich",
+    "nextStop": [
+      "BessesothBarnOutgoing"
+    ],
+    "prevStop": [
+      "HeatonParkOutgoing"
+    ],
+    "tramStopName": "PrestwichOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Besses o' th' Barn",
+    "nextStop": [
+      "PrestwichIncoming"
+    ],
+    "prevStop": [
+      "WhitefieldIncoming"
+    ],
+    "tramStopName": "BessesothBarnIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Besses o' th' Barn",
+    "nextStop": [
+      "WhitefieldOutgoing"
+    ],
+    "prevStop": [
+      "PrestwichOutgoing"
+    ],
+    "tramStopName": "BessesothBarnOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Whitefield",
+    "nextStop": [
+      "BessesothBarnIncoming"
+    ],
+    "prevStop": [
+      "RadcliffeIncoming"
+    ],
+    "tramStopName": "WhitefieldIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Whitefield",
+    "nextStop": [
+      "RadcliffeOutgoing"
+    ],
+    "prevStop": [
+      "BessesothBarnOutgoing"
+    ],
+    "tramStopName": "WhitefieldOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Radcliffe",
+    "nextStop": [
+      "WhitefieldIncoming"
+    ],
+    "prevStop": [
+      "BuryIncoming"
+    ],
+    "tramStopName": "RadcliffeIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Radcliffe",
+    "nextStop": [
+      "BuryOutgoing"
+    ],
+    "prevStop": [
+      "WhitefieldOutgoing"
+    ],
+    "tramStopName": "RadcliffeOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Bury",
+    "location": "Bury",
+    "nextStop": [
+      "RadcliffeIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "BuryIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Bury",
+    "location": "Bury",
+    "nextStop": [],
+    "prevStop": [
+      "RadcliffeOutgoing"
+    ],
+    "tramStopName": "BuryOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Monsall",
+    "nextStop": [
+      "VictoriaIncoming"
+    ],
+    "prevStop": [
+      "CentralParkIncoming"
+    ],
+    "tramStopName": "MonsallIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Monsall",
+    "nextStop": [
+      "CentralParkOutgoing"
+    ],
+    "prevStop": [
+      "VictoriaOutgoing"
+    ],
+    "tramStopName": "MonsallOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Central Park",
+    "nextStop": [
+      "MonsallIncoming"
+    ],
+    "prevStop": [
+      "NewtonHeathandMostonIncoming"
+    ],
+    "tramStopName": "CentralParkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Central Park",
+    "nextStop": [
+      "NewtonHeathandMostonOutgoing"
+    ],
+    "prevStop": [
+      "MonsallOutgoing"
+    ],
+    "tramStopName": "CentralParkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Newton Heath and Moss",
+    "nextStop": [
+      "CentralParkIncoming"
+    ],
+    "prevStop": [
+      "FailsworthIncoming"
+    ],
+    "tramStopName": "NewtonHeathandMostonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Newton Heath and Moss",
+    "nextStop": [
+      "FailsworthOutgoing"
+    ],
+    "prevStop": [
+      "CentralParkOutgoing"
+    ],
+    "tramStopName": "NewtonHeathandMostonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Failsworth",
+    "nextStop": [
+      "NewtonHeathandMostonIncoming"
+    ],
+    "prevStop": [
+      "HollinwoodIncoming"
+    ],
+    "tramStopName": "FailsworthIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Failsworth",
+    "nextStop": [
+      "HollinwoodOutgoing"
+    ],
+    "prevStop": [
+      "NewtonHeathandMostonOutgoing"
+    ],
+    "tramStopName": "FailsworthOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Hollinwood",
+    "nextStop": [
+      "FailsworthIncoming"
+    ],
+    "prevStop": [
+      "SouthChaddertonIncoming"
+    ],
+    "tramStopName": "HollinwoodIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Hollinwood",
+    "nextStop": [
+      "SouthChaddertonOutgoing"
+    ],
+    "prevStop": [
+      "FailsworthOutgoing"
+    ],
+    "tramStopName": "HollinwoodOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "South Chadderton",
+    "nextStop": [
+      "HollinwoodIncoming"
+    ],
+    "prevStop": [
+      "FreeholdIncoming"
+    ],
+    "tramStopName": "SouthChaddertonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "South Chadderton",
+    "nextStop": [
+      "FreeholdOutgoing"
+    ],
+    "prevStop": [
+      "HollinwoodOutgoing"
+    ],
+    "tramStopName": "SouthChaddertonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Freehold",
+    "nextStop": [
+      "SouthChaddertonIncoming"
+    ],
+    "prevStop": [
+      "WestwoodIncoming"
+    ],
+    "tramStopName": "FreeholdIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Freehold",
+    "nextStop": [
+      "WestwoodOutgoing"
+    ],
+    "prevStop": [
+      "SouthChaddertonOutgoing"
+    ],
+    "tramStopName": "FreeholdOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Westwood",
+    "nextStop": [
+      "FreeholdIncoming"
+    ],
+    "prevStop": [
+      "OldhamKingStreetIncoming"
+    ],
+    "tramStopName": "WestwoodIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Westwood",
+    "nextStop": [
+      "OldhamKingStreetOutgoing"
+    ],
+    "prevStop": [
+      "FreeholdOutgoing"
+    ],
+    "tramStopName": "WestwoodOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham King Street",
+    "nextStop": [
+      "WestwoodIncoming"
+    ],
+    "prevStop": [
+      "OldhamCentralIncoming"
+    ],
+    "tramStopName": "OldhamKingStreetIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham King Street",
+    "nextStop": [
+      "OldhamCentralOutgoing"
+    ],
+    "prevStop": [
+      "WestwoodOutgoing"
+    ],
+    "tramStopName": "OldhamKingStreetOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham Central",
+    "nextStop": [
+      "OldhamKingStreetIncoming"
+    ],
+    "prevStop": [
+      "OldhamMumpsIncoming"
+    ],
+    "tramStopName": "OldhamCentralIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham Central",
+    "nextStop": [
+      "OldhamMumpsOutgoing"
+    ],
+    "prevStop": [
+      "OldhamKingStreetOutgoing"
+    ],
+    "tramStopName": "OldhamCentralOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham Mumps",
+    "nextStop": [
+      "OldhamCentralIncoming"
+    ],
+    "prevStop": [
+      "ShawandCromptonIncoming"
+    ],
+    "tramStopName": "OldhamMumpsIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Oldham Mumps",
+    "nextStop": [
+      "ShawandCromptonOutgoing"
+    ],
+    "prevStop": [
+      "OldhamCentralOutgoing"
+    ],
+    "tramStopName": "OldhamMumpsOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Shaw and Crompton",
+    "nextStop": [
+      "OldhamMumpsIncoming"
+    ],
+    "prevStop": [
+      "NewheyIncoming"
+    ],
+    "tramStopName": "ShawandCromptonIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Shaw and Crompton",
+    "nextStop": [
+      "NewheyOutgoing"
+    ],
+    "prevStop": [
+      "OldhamMumpsOutgoing"
+    ],
+    "tramStopName": "ShawandCromptonOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Newhey",
+    "nextStop": [
+      "ShawandCromptonIncoming"
+    ],
+    "prevStop": [
+      "MilnrowIncoming"
+    ],
+    "tramStopName": "NewheyIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Newhey",
+    "nextStop": [
+      "MilnrowOutgoing"
+    ],
+    "prevStop": [
+      "ShawandCromptonOutgoing"
+    ],
+    "tramStopName": "NewheyOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Milnrow",
+    "nextStop": [
+      "NewheyIncoming"
+    ],
+    "prevStop": [
+      "KingswayBusinessParkIncoming"
+    ],
+    "tramStopName": "MilnrowIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Milnrow",
+    "nextStop": [
+      "KingswayBusinessParkOutgoing"
+    ],
+    "prevStop": [
+      "NewheyOutgoing"
+    ],
+    "tramStopName": "MilnrowOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Kingsway Business Park",
+    "nextStop": [
+      "MilnrowIncoming"
+    ],
+    "prevStop": [
+      "NewboldIncoming"
+    ],
+    "tramStopName": "KingswayBusinessParkIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Kingsway Business Park",
+    "nextStop": [
+      "NewboldOutgoing"
+    ],
+    "prevStop": [
+      "MilnrowOutgoing"
+    ],
+    "tramStopName": "KingswayBusinessParkOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Newbold",
+    "nextStop": [
+      "KingswayBusinessParkIncoming"
+    ],
+    "prevStop": [
+      "RochdaleRailwayStationIncoming"
+    ],
+    "tramStopName": "NewboldIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Newbold",
+    "nextStop": [
+      "RochdaleRailwayStationOutgoing"
+    ],
+    "prevStop": [
+      "KingswayBusinessParkOutgoing"
+    ],
+    "tramStopName": "NewboldOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Rochdale Railway Station",
+    "nextStop": [
+      "NewboldIncoming"
+    ],
+    "prevStop": [
+      "RochdaleTownCentreIncoming"
+    ],
+    "tramStopName": "RochdaleRailwayStationIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Rochdale Railway Station",
+    "nextStop": [
+      "RochdaleTownCentreOutgoing"
+    ],
+    "prevStop": [
+      "NewboldOutgoing"
+    ],
+    "tramStopName": "RochdaleRailwayStationOutgoing"
+  },
+  {
+    "direction": "Incoming",
+    "line": "Oldham & Rochdale",
+    "location": "Rochdale Town Centre",
+    "nextStop": [
+      "RochdaleRailwayStationIncoming"
+    ],
+    "prevStop": [],
+    "tramStopName": "RochdaleTownCentreIncoming"
+  },
+  {
+    "direction": "Outgoing",
+    "line": "Oldham & Rochdale",
+    "location": "Rochdale Town Centre",
+    "nextStop": [],
+    "prevStop": [
+      "RochdaleRailwayStationOutgoing"
+    ],
+    "tramStopName": "RochdaleTownCentreOutgoing"
+  }
+]
