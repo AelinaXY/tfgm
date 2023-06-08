@@ -1,6 +1,6 @@
 package com.tfgm.controllers;
 
-import com.tfgm.models.NewTramStop;
+import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import java.io.IOException;
 import java.net.URI;
@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 public class TramController {
 
-  private final HashMap<String, NewTramStop> tramStopHashMap = new HashMap<>();
+  private final HashMap<String, TramStop> tramStopHashMap = new HashMap<>();
 
   public TramController(String tramDataPath) throws IOException {
     JSONArray allTramStopData =
@@ -37,7 +37,7 @@ public class TramController {
       JSONObject tempStop = allTramStopData.getJSONObject(i);
       tramStopHashMap.put(
           tempStop.getString("tramStopName"),
-          new NewTramStop(
+          new TramStop(
               tempStop.getString("location"),
               tempStop.getString("direction"),
               tempStop.getString("line")));
@@ -45,7 +45,7 @@ public class TramController {
     for (int i = 0; i < allTramStopData.length(); i++) {
       JSONObject tempStop = allTramStopData.getJSONObject(i);
 
-      NewTramStop currentTramStop = tramStopHashMap.get(tempStop.getString("tramStopName"));
+      TramStop currentTramStop = tramStopHashMap.get(tempStop.getString("tramStopName"));
 
       currentTramStop.setPrevAndNextStops(
           tempStop.getJSONArray("prevStop").toList().stream()
@@ -58,13 +58,13 @@ public class TramController {
               .toArray(TramStopContainer[]::new));
     }
 
-    for (NewTramStop newTramStop : tramStopHashMap.values()) {
+    for (TramStop tramStop : tramStopHashMap.values()) {
 
-      System.out.println(newTramStop.toString());
-      for (TramStopContainer n : newTramStop.getNextStops()) {
+      System.out.println(tramStop.toString());
+      for (TramStopContainer n : tramStop.getNextStops()) {
         TramStopContainer nextStopPrevReference =
             Arrays.stream(n.getTramStop().getPrevStops())
-                .filter(s -> s.getTramStop().equals(newTramStop))
+                .filter(s -> s.getTramStop().equals(tramStop))
                 .toList()
                 .get(0);
 
@@ -73,7 +73,7 @@ public class TramController {
     }
 
     // MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
-    for (NewTramStop i : tramStopHashMap.values()) {
+    for (TramStop i : tramStopHashMap.values()) {
       System.out.println("\n\n" + i.getStopName() + i.getDirection());
       System.out.println(i);
 
@@ -115,35 +115,35 @@ public class TramController {
         for (int j = 0; j < 4; j++) {
           if (!(currentStation.getString("Dest" + j).equals(""))) {
             if (currentStation.getString("Status" + j).equals("Departing")) {
-              NewTramStop newTramStop =
+              TramStop tramStop =
                   tramStopHashMap.get(
                       currentStation.getString("StationLocation").replaceAll("[^A-Za-z]+", "")
                           + currentStation.getString("Direction"));
 
-              if (newTramStop != null) {
-                if (!newTramStop.getLastUpdated().contains((getUpdateString(currentStation, j)))) {
-                  newTramStop.addToLastUpdated(getUpdateString(currentStation, j));
+              if (tramStop != null) {
+                if (!tramStop.getLastUpdated().contains((getUpdateString(currentStation, j)))) {
+                  tramStop.addToLastUpdated(getUpdateString(currentStation, j));
 
                   /*if (currentStation.getString("StationLocation").equals("Exchange Square")
                       && currentStation.getString("Dest" + j).equals("East Didsbury")) {
                     System.out.println(currentStation);
                   }*/
 
-                  newTramStop.tramDeparture(currentStation.getString("Dest" + j));
+                  tramStop.tramDeparture(currentStation.getString("Dest" + j));
                 }
               }
             }
 
             if (currentStation.getString("Status" + j).equals("Arrived")) {
-              NewTramStop newTramStop =
+              TramStop tramStop =
                   tramStopHashMap.get(
                       currentStation.getString("StationLocation").replaceAll("[^A-Za-z]+", "")
                           + currentStation.getString("Direction"));
-              if (newTramStop != null) {
+              if (tramStop != null) {
 
-                if (!newTramStop.getLastUpdated().contains((getUpdateString(currentStation, j)))) {
-                  newTramStop.addToLastUpdated(getUpdateString(currentStation, j));
-                  newTramStop.tramArrival();
+                if (!tramStop.getLastUpdated().contains((getUpdateString(currentStation, j)))) {
+                  tramStop.addToLastUpdated(getUpdateString(currentStation, j));
+                  tramStop.tramArrival();
                 }
               }
             }
