@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run App" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.tfgm.App" />
+    <option name="MAIN_CLASS_NAME" value="com.tfgm.TfgmApplication" />
     <module name="tfgm" />
     <method v="2">
       <option name="Make" enabled="true" />
