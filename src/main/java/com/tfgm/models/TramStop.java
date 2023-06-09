@@ -5,59 +5,111 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+    * The main TramStop entity. This entity represents the combination of a tram stop and direction.
+    *
+    * @author aelina
+    */
 public class TramStop {
 
-  private final String stopName;
+    /** The official name of the tram stop. */
+    private final String stopName;
 
-  private final String direction;
+    /**
+     * The direction a tram stop is going. Incoming is towards the centre of manchester, Outgoing is
+     * away.
+     */
+    private final String direction;
 
-  private final String line;
+    /** The overall line the stop is on. */
+    private final String line;
 
-  private final ArrayList<String> lastUpdated = new ArrayList<>();
+    /**
+     * An arraylist of the previous updates this TramStop has had. Generally in the format
+     * "YYYYMMDDHHMM{DestinationName}."
+     */
+    private final ArrayList<String> lastUpdated = new ArrayList<>();
 
-  private final Queue<Tram> tramQueue = new LinkedList<>();
+    /** A representation of Trams currently at this Station going in a direction. */
+    private final Queue<Tram> tramQueue = new LinkedList<>();
 
-  private TramStopContainer[] nextStops;
+    /**
+     * The next nodes in the graph. Please see {@link com.tfgm.models.TramStopContainer} for more
+     * details.
+     */
+    private TramStopContainer[] nextStops;
+    /**
+     * The next previous nodes in the graph. Please see {@link com.tfgm.models.TramStopContainer} for
+     * more details.
+     */
+    private TramStopContainer[] prevStops;
 
-  private TramStopContainer[] prevStops;
+    /**
+     * Constructor for class TramStop.
+     *
+     * @param stopName Name of the stop.
+     * @param direction Direction of stop.
+     * @param line Line of the stop.
+     */
+    public TramStop(String stopName, String direction, String line) {
+        this.stopName = stopName;
+        this.direction = direction;
+        this.line = line;
+    }
 
-  public TramStop(String stopName, String direction, String line) {
-    this.stopName = stopName;
-    this.direction = direction;
-    this.line = line;
-  }
+    /**
+     * A method to set the previous and next stops. These are in the {@link
+     * com.tfgm.models.TramStopContainer} form as they require a "link".
+     *
+     * @param prevStops The previous stops.
+     * @param nextStops The next stops.
+     */
+    public void setPrevAndNextStops(TramStopContainer[] prevStops, TramStopContainer[] nextStops) {
+        this.prevStops = prevStops;
+        this.nextStops = nextStops;
+    }
 
-  public void setPrevAndNextStops(TramStopContainer[] prevStops, TramStopContainer[] nextStops) {
-    this.prevStops = prevStops;
-    this.nextStops = nextStops;
-  }
-
-  @Override
-  public String toString() {
-    return "NewTramStop [stopName="
-        + stopName
-        + ", direction="
-        + direction
-        + ", line="
-        + line
-        + ", nextStops: "
-        + (nextStops.length > 0
+    /**
+     * An override of the toString method that avoids infinite loops.
+     *
+     * @return A string version of the class.
+     */
+    @Override
+    public String toString() {
+        return "NewTramStop [stopName="
+            + stopName
+            + ", direction="
+            + direction
+            + ", line="
+            + line
+            + ", nextStops: "
+            + (nextStops.length > 0
             ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList()
             : "none")
-        + ", prevStops: "
-        + (prevStops.length > 0
+            + ", prevStops: "
+            + (prevStops.length > 0
             ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList()
             : "none")
-        + "]";
-  }
+            + "]";
+    }
 
-  public TramStopContainer[] getNextStops() {
-    return nextStops;
-  }
+    /**
+     * Simple nextStops getter.
+     *
+     * @return Returns the nextStops array
+     */
+    public TramStopContainer[] getNextStops() {
+        return nextStops;
+    }
 
-  public TramStopContainer[] getPrevStops() {
-    return prevStops;
-  }
+    /**
+     * Simple prevStops getter.
+     *
+     * @return Returns the prevStops array
+     */
+    public TramStopContainer[] getPrevStops() {
+        return prevStops;
+    }
 
   public String getStopName() {
     return stopName;

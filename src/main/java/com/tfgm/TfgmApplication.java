@@ -14,21 +14,14 @@ public class TfgmApplication {
 
   public static void main(String[] args)
       throws URISyntaxException, IOException, InterruptedException {
-    SpringApplication.run(TfgmApplication.class, args);
-    //    int count = 0;
-    //    TramStopService tramService =
-    //        new TramStopService("src/main/resources/static/TramStopData.json");
-    //
-    //    while (true) {
-    //      System.out.println("---------LOOOOP---------" + count);
-    //      tramService.update();
-    //      TimeUnit.SECONDS.sleep(10);
-    //      count += 10;
-    //    }
+//    SpringApplication.run(TfgmApplication.class, args);
+
+      mainRunner();
+
   }
 
   @EventListener(ApplicationReadyEvent.class)
-  public void mainRunner() throws IOException, URISyntaxException, InterruptedException {
+  public static void mainRunner() throws IOException, URISyntaxException, InterruptedException {
     int count = 0;
     TramStopService tramService =
         new TramStopService("src/main/resources/static/TramStopData.json");
