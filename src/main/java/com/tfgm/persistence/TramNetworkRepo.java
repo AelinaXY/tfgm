@@ -34,6 +34,6 @@ public class TramNetworkRepo {
       }
     }
 
-    repository.save(new TramNetworkDTO("", Instant.now(), allTrams));
+    repository.save(new TramNetworkDTO("", Instant.now().getEpochSecond(), allTrams));
   }
 }

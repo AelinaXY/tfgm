@@ -70,7 +70,7 @@ public class TramStopGraphService {
                 + tramStopContainer.getTramStop().getStopName()
                 + ". Final Destination: "
                 + tramQueue.peek().getEndOfLine());
-        tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop)) ;
+        tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
         return;
       }
     }

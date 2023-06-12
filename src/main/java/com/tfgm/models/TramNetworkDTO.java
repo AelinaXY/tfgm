@@ -12,14 +12,14 @@ public class TramNetworkDTO {
 
     @Id
     private String id;
-    private Instant timestamp;
+    private Long timestamp;
     private ArrayList<Tram> tramArrayList;
 
 
     public TramNetworkDTO() {
     }
 
-    public TramNetworkDTO(String id, Instant timestamp, ArrayList<Tram> tramArrayList) {
+    public TramNetworkDTO(String id, Long timestamp, ArrayList<Tram> tramArrayList) {
         this.id = id;
         this.timestamp = timestamp;
         this.tramArrayList = tramArrayList;
@@ -35,11 +35,11 @@ public class TramNetworkDTO {
         this.id = id;
     }
 
-    public Instant getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
