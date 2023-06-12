@@ -1,23 +1,25 @@
 package com.tfgm.models;
 
-import org.json.JSONArray;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
+
 @Document(collection = "tramstopdata")
-public class TramStopData {
+public class TramStopDTO {
 
   @Id private String id;
-  private String direction;
+
+    private String tramStopName;
+    private String direction;
   private String line;
   private String location;
   private String[] nextStop;
   private String[] prevStop;
-  private String tramStopName;
 
-  public TramStopData() {}
+  public TramStopDTO() {}
 
-  public TramStopData(
+  public TramStopDTO(
       String id,
       String direction,
       String line,
@@ -38,7 +40,7 @@ public class TramStopData {
     return id;
   }
 
-  public void setId(String id) {
+    public void setId(String id) {
     this.id = id;
   }
 
@@ -89,4 +91,17 @@ public class TramStopData {
   public void setTramStopName(String tramStopName) {
     this.tramStopName = tramStopName;
   }
+
+    @Override
+    public String toString() {
+        return "TramStopData{" +
+            "id='" + id + '\'' +
+            ", direction='" + direction + '\'' +
+            ", line='" + line + '\'' +
+            ", location='" + location + '\'' +
+            ", nextStop=" + Arrays.toString(nextStop) +
+            ", prevStop=" + Arrays.toString(prevStop) +
+            ", tramStopName='" + tramStopName + '\'' +
+            '}';
+    }
 }

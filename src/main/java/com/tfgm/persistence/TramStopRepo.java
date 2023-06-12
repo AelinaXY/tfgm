@@ -2,13 +2,12 @@ package com.tfgm.persistence;
 
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
-import com.tfgm.models.TramStopData;
+import com.tfgm.models.TramStopDTO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TramStopRepo {
 
-  //  @Value("${tram.data.url}")
-  private String tramDataPath = "src/main/resources/static/TramStopData.json";
+  private final HashMap<String, TramStop> tramStopHashMap = new HashMap<>();
 
-  private HashMap<String, TramStop> tramStopHashMap = new HashMap<>();
-
-  private TramStopRepoUtilities utilities = new TramStopRepoUtilities();
+  private final TramStopRepoUtilities utilities = new TramStopRepoUtilities();
 
   @Autowired private TramStopDataRepository repository;
 
@@ -31,48 +27,39 @@ public class TramStopRepo {
     // Reads all of the TramStopData from the static JSON file.
     this.repository = tramStopDataRepository;
 
-    JSONArray allTramStopData =
-        new JSONArray(
-            Files.readAllLines(Paths.get(tramDataPath)).stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining()));
+    List<TramStopDTO> allTramStopDTO = repository.findAll();
 
-//      firstRun(allTramStopData);
-      List<TramStopData> allTramStopData2 = repository.findAll();
-
-    System.out.println(allTramStopData2);
 
     // Iterates through and adds all the tram stops to a hashmap
-    for (int i = 0; i < allTramStopData.length(); i++) {
-      JSONObject currentTramStop = allTramStopData.getJSONObject(i);
-      String tramStopName = currentTramStop.getString("tramStopName");
+    for (TramStopDTO currentTramStop : allTramStopDTO) {
+      String tramStopName = currentTramStop.getTramStopName();
+      ;
 
       tramStopHashMap.put(
           tramStopName,
           new TramStop(
               // Gets Tram Stop name as shown in official material
-              currentTramStop.getString("location"),
+              currentTramStop.getLocation(),
               // Gets direction
-              currentTramStop.getString("direction"),
+              currentTramStop.getDirection(),
               // Gets line
-              currentTramStop.getString("line")));
+              currentTramStop.getLine()));
     }
 
     // Iterates through the tram stop array again to create connections between stations. This is so
     // that we can be sure that all the stops exist before making connections
-    for (int i = 0; i < allTramStopData.length(); i++) {
+    for (TramStopDTO currentTramDTO : allTramStopDTO) {
 
-      JSONObject currentTramJson = allTramStopData.getJSONObject(i);
-      String tramStopName = currentTramJson.getString("tramStopName");
+      String tramStopName = currentTramDTO.getTramStopName();
 
       TramStop currentTramStop = tramStopHashMap.get(tramStopName);
 
-      JSONArray previousStopJsonArray = currentTramJson.getJSONArray("prevStop");
-      JSONArray nextStopJsonArray = currentTramJson.getJSONArray("nextStop");
+      String[] previousStopArray = currentTramDTO.getPrevStop();
+      String[] nextStopArray = currentTramDTO.getNextStop();
 
       TramStopContainer[] previousStops =
-          utilities.findStopLinks(previousStopJsonArray, tramStopHashMap);
-      TramStopContainer[] nextStops = utilities.findStopLinks(nextStopJsonArray, tramStopHashMap);
+          utilities.findStopLinks(previousStopArray, tramStopHashMap);
+      TramStopContainer[] nextStops = utilities.findStopLinks(nextStopArray, tramStopHashMap);
 
       currentTramStop.setPrevAndNextStops(previousStops, nextStops);
     }
@@ -80,8 +67,6 @@ public class TramStopRepo {
     // Iterates through the hashmap and ensures that there is a consistent link stop between two
     // nodes in the graph
     for (TramStop tramStop : tramStopHashMap.values()) {
-
-//      System.out.println(tramStop.toString());
 
       for (TramStopContainer n : tramStop.getNextStops()) {
         TramStopContainer nextStopsContainerToThisStop =
@@ -91,6 +76,7 @@ public class TramStopRepo {
         // stops link stop to this tram stop
         nextStopsContainerToThisStop.setTramLinkStop(n.getTramLinkStop());
       }
+      System.out.println(tramStop.toString());
     }
   }
 
@@ -106,7 +92,7 @@ public class TramStopRepo {
       String[] prevStops = utilities.jsonArrayToStringArray(currentStop.getJSONArray("prevStop"));
 
       repository.save(
-          new TramStopData(
+          new TramStopDTO(
               currentStop.getString("tramStopName"),
               currentStop.getString("direction"),
               currentStop.getString("line"),
