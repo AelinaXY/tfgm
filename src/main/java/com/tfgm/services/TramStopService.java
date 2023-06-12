@@ -1,14 +1,11 @@
 package com.tfgm.services;
 
 import com.tfgm.models.TramStop;
-import com.tfgm.models.TramStopContainer;
+import com.tfgm.persistence.TramStopRepo;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,90 +15,24 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TramStopService {
-  private final HashMap<String, TramStop> tramStopHashMap = new HashMap<>();
+  private HashMap<String, TramStop> tramStopHashMap;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
   private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
 
-  public TramStopService(String tramDataPath) throws IOException {
+  private TramStopRepo tramStopRepo;
 
-    // Reads all of the TramStopData from the static JSON file.
-    JSONArray allTramStopData =
-        new JSONArray(
-            Files.readAllLines(Paths.get(tramDataPath)).stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining()));
-
-    // Iterates through and adds all the tram stops to a hashmap
-    for (int i = 0; i < allTramStopData.length(); i++) {
-      JSONObject currentTramStop = allTramStopData.getJSONObject(i);
-      String tramStopName = currentTramStop.getString("tramStopName");
-
-      tramStopHashMap.put(
-          tramStopName,
-          new TramStop(
-              // Gets Tram Stop name as shown in official material
-              currentTramStop.getString("location"),
-              // Gets direction
-              currentTramStop.getString("direction"),
-              // Gets line
-              currentTramStop.getString("line")));
-    }
-
-    // Iterates through the tram stop array again to create connections between stations. This is so
-    // that we can be sure that all the stops exist before making connections
-    for (int i = 0; i < allTramStopData.length(); i++) {
-
-      JSONObject currentTramJson = allTramStopData.getJSONObject(i);
-      String tramStopName = currentTramJson.getString("tramStopName");
-
-      TramStop currentTramStop = tramStopHashMap.get(tramStopName);
-
-      JSONArray previousStopJsonArray = currentTramJson.getJSONArray("prevStop");
-      JSONArray nextStopJsonArray = currentTramJson.getJSONArray("nextStop");
-
-      TramStopContainer[] previousStops =
-          utilities.findStopLinks(previousStopJsonArray, tramStopHashMap);
-      TramStopContainer[] nextStops = utilities.findStopLinks(nextStopJsonArray, tramStopHashMap);
-
-      currentTramStop.setPrevAndNextStops(previousStops, nextStops);
-    }
-
-    // Iterates through the hashmap and ensures that there is a consistent link stop between two
-    // nodes in the graph
-    for (TramStop tramStop : tramStopHashMap.values()) {
-
-      System.out.println(tramStop.toString());
-
-      for (TramStopContainer n : tramStop.getNextStops()) {
-        TramStopContainer nextStopsContainerToThisStop =
-            utilities.findTramStopContainerToTramStop(n, tramStop);
-
-        // Makes sure that this tram stops link stop to the next tram stop is equal to the next tram
-        // stops link stop to this tram stop
-        nextStopsContainerToThisStop.setTramLinkStop(n.getTramLinkStop());
-      }
-    }
-
-    // MAKE SURE YOU REMOVE APOSTROPHES AND WHITESPACE WHEN FINDING TRAMSTOP
-    for (TramStop i : tramStopHashMap.values()) {
-      System.out.println("\n\n" + i.getStopName() + i.getDirection());
-      System.out.println(i);
-
-      System.out.println("\nNextStop:");
-      for (TramStopContainer n : i.getNextStops()) {
-        System.out.println(n.getTramLinkStop());
-      }
-      System.out.println("\nPrevStop:");
-      for (TramStopContainer n : i.getPrevStops()) {
-        System.out.println(n.getTramLinkStop());
-      }
-    }
+  public TramStopService(TramStopRepo tramStopRepo) throws IOException {
+    this.tramStopRepo = tramStopRepo;
   }
 
   public void update() throws URISyntaxException, IOException {
+
+    tramStopHashMap = tramStopRepo.getTramStops();
     HttpClient httpclient = HttpClients.createDefault();
 
     URIBuilder builder = new URIBuilder("https://api.tfgm.com/odata/Metrolinks");

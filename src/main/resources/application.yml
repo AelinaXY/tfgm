@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: https://api.tfgm.com/odata/Metrolinks
+
+server:
+  port: 8080
+
+tram:
+  data:
+    url: src/main/resources/static/TramStopData.json
