@@ -1,6 +1,11 @@
 spring:
   datasource:
     url: https://api.tfgm.com/odata/Metrolinks
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: tfgm
 
 server:
   port: 8080

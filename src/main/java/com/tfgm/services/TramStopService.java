@@ -15,6 +15,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,7 @@ public class TramStopService {
 
   private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
 
+  @Autowired
   private TramStopRepo tramStopRepo;
 
   public TramStopService(TramStopRepo tramStopRepo) throws IOException {
