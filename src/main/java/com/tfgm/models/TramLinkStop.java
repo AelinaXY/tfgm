@@ -18,4 +18,8 @@ public class TramLinkStop {
   public int queueLength() {
     return tramQueue.size();
   }
+
+    public Queue<Tram> getTramQueue() {
+        return tramQueue;
+    }
 }

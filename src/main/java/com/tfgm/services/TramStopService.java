@@ -1,6 +1,8 @@
 package com.tfgm.services;
 
+import com.tfgm.models.TramNetworkDTO;
 import com.tfgm.models.TramStop;
+import com.tfgm.persistence.TramNetworkRepo;
 import com.tfgm.persistence.TramStopRepo;
 import java.io.IOException;
 import java.net.URI;
@@ -26,10 +28,14 @@ public class TramStopService {
   private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
 
   @Autowired
+  private TramNetworkRepo tramNetworkRepo;
+
+  @Autowired
   private TramStopRepo tramStopRepo;
 
-  public TramStopService(TramStopRepo tramStopRepo) throws IOException {
+  public TramStopService(TramStopRepo tramStopRepo, TramNetworkRepo tramNetworkRepo) throws IOException {
     this.tramStopRepo = tramStopRepo;
+    this.tramNetworkRepo = tramNetworkRepo;
   }
 
   public void update() throws URISyntaxException, IOException {
@@ -100,6 +106,8 @@ public class TramStopService {
           }
         }
       }
+
+      tramNetworkRepo.dumpTramNetwork(tramStopRepo.getTramStops());
     }
   }
 }

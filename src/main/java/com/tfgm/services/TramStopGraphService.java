@@ -8,6 +8,8 @@ import java.util.Queue;
 
 public class TramStopGraphService {
 
+  private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
+
   public void tramDeparture(String endOfLine, TramStop tramStop) {
     Tram departingTram;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
@@ -29,12 +31,12 @@ public class TramStopGraphService {
         // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
         // found.
         if (findEndOfLine(
-            Arrays.stream(departingTram.getDestination().split(" "))
+            Arrays.stream(departingTram.getEndOfLine().split(" "))
                     .reduce((first, second) -> second)
                     .get()
                     .matches("MCUK|MediaCityUK")
                 ? "MediaCityUK"
-                : departingTram.getDestination(),
+                : departingTram.getEndOfLine(),
             tramStopContainer.getTramStop())) {
           tramStopContainer.getTramLinkStop().addTram(departingTram);
           System.out.println(
@@ -43,7 +45,9 @@ public class TramStopGraphService {
                   + " to "
                   + tramStopContainer.getTramStop().getStopName()
                   + ". Final Destination: "
-                  + departingTram.getDestination());
+                  + departingTram.getEndOfLine());
+          departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
+          departingTram.setOrigin(rawNameToCompositeName(tramStop));
           return;
         }
       }
@@ -65,7 +69,8 @@ public class TramStopGraphService {
                 + " from "
                 + tramStopContainer.getTramStop().getStopName()
                 + ". Final Destination: "
-                + tramQueue.peek().getDestination());
+                + tramQueue.peek().getEndOfLine());
+        tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop)) ;
         return;
       }
     }
@@ -83,5 +88,9 @@ public class TramStopGraphService {
       }
     }
     return false;
+  }
+
+  private String rawNameToCompositeName(TramStop tramStop) {
+    return utilities.cleanStationName(tramStop.getStopName()) + tramStop.getDirection();
   }
 }
