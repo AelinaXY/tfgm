@@ -4,11 +4,13 @@ import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONArray;
 
 public class TramStopRepoUtilities {
   public TramStopContainer[] findStopLinks(
-      String[] arrayOfStops, HashMap<String, TramStop> tramStopHashMap) {
+      String[] arrayOfStops, Map<String, TramStop> tramStopHashMap) {
     // Takes a JSON array of stops and finds them in the hashmap. The found stops are converted to
     // TramStopContainers and added to an array. This is so that queues may be added to the edges of
     // the graph

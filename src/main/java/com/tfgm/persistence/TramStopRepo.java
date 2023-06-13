@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TramStopRepo {
 
-  private final HashMap<String, TramStop> tramStopHashMap = new HashMap<>();
+  private final Map<String, TramStop> tramStopHashMap = new HashMap<>();
 
   private final TramStopRepoUtilities utilities = new TramStopRepoUtilities();
 
@@ -79,7 +81,7 @@ public class TramStopRepo {
     }
   }
 
-  public HashMap<String, TramStop> getTramStops() throws IOException {
+  public Map<String, TramStop> getTramStops() throws IOException {
     return tramStopHashMap;
   }
 

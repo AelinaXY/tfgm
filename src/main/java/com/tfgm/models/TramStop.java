@@ -2,10 +2,7 @@ package com.tfgm.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * The main TramStop entity. This entity represents the combination of a tram stop and direction.
@@ -30,7 +27,7 @@ public class TramStop {
    * An arraylist of the previous updates this TramStop has had. Generally in the format
    * "YYYYMMDDHHMM{DestinationName}."
    */
-  private final ArrayList<String> lastUpdated = new ArrayList<>();
+  private final List<String> lastUpdated = new ArrayList<>();
 
   /** A representation of Trams currently at this Station going in a direction. */
   private final Queue<Tram> tramQueue = new LinkedList<>();
@@ -121,7 +118,7 @@ public class TramStop {
     return direction;
   }
 
-  public ArrayList<String> getLastUpdated() {
+  public List<String> getLastUpdated() {
     return lastUpdated;
   }
 

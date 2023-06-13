@@ -3,7 +3,6 @@ package com.tfgm.services;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
-import java.util.Arrays;
 import java.util.Queue;
 
 public class TramStopGraphService {
@@ -14,7 +13,7 @@ public class TramStopGraphService {
     Tram departingTram;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
-    if (tramQueue.size() > 0) {
+    if (!tramQueue.isEmpty()) {
       departingTram = tramQueue.remove();
     } else {
       departingTram = new Tram(endOfLine.length() * tramStop.getStopName().length(), endOfLine);
@@ -24,17 +23,15 @@ public class TramStopGraphService {
 
     for (TramStopContainer tramStopContainer : nextStops) {
 
-      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square"))
+      if (!(("Exchange Square".equals(tramStopContainer.getTramStop().getStopName())))
           || endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
 
         // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
         // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
         // found.
         if (findEndOfLine(
-            Arrays.stream(departingTram.getEndOfLine().split(" "))
-                    .reduce((first, second) -> second)
-                    .get()
-                    .matches("MCUK|MediaCityUK")
+            departingTram.getEndOfLine().contains("MCUK")
+                    || departingTram.getEndOfLine().contains("MediaCityUK")
                 ? "MediaCityUK"
                 : departingTram.getEndOfLine(),
             tramStopContainer.getTramStop())) {
@@ -60,7 +57,7 @@ public class TramStopGraphService {
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
     for (TramStopContainer tramStopContainer : prevStops) {
-      if (tramStopContainer.getTramLinkStop().queueLength() > 0) {
+      if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
         tramQueue.add(tramStopContainer.getTramLinkStop().popTram());
         assert tramQueue.peek() != null;
         System.out.println(

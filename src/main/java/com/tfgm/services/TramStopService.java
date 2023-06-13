@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TramStopService {
-  private HashMap<String, TramStop> tramStopHashMap;
+  private Map<String, TramStop> tramStopHashMap;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
   private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
