@@ -10,8 +10,6 @@ import java.util.HashMap;
 @TimeSeries(collection="tramnetwork", timeField = "timestamp")
 public class TramNetworkDTO {
 
-    @Id
-    private String id;
     private Long timestamp;
     private ArrayList<Tram> tramArrayList;
 
@@ -19,20 +17,9 @@ public class TramNetworkDTO {
     public TramNetworkDTO() {
     }
 
-    public TramNetworkDTO(String id, Long timestamp, ArrayList<Tram> tramArrayList) {
-        this.id = id;
+    public TramNetworkDTO(Long timestamp, ArrayList<Tram> tramArrayList) {
         this.timestamp = timestamp;
         this.tramArrayList = tramArrayList;
-    }
-
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Long getTimestamp() {
@@ -43,4 +30,22 @@ public class TramNetworkDTO {
         this.timestamp = timestamp;
     }
 
+    @Override
+    public String toString() {
+        return "TramNetworkDTO{" +
+            "timestamp=" + timestamp +
+            ", tramArrayList=" + tramArrayList +
+            '}';
+    }
+
+    public String toJSONString() {
+        return "{" +
+            "timestamp=" + timestamp +
+            ", tramArrayList=" + tramArrayList.stream().map(m->m.toJSONString()).toList() +
+            '}';
+    }
+
+    public ArrayList<Tram> getTramArrayList() {
+        return tramArrayList;
+    }
 }

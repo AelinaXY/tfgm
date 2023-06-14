@@ -27,6 +27,9 @@ public class Tram {
     public String getOrigin() {
         return origin;
     }
+    public String getDestination() {
+        return destination;
+    }
 
     public void setOrigin(String origin) {
         this.origin = origin;
@@ -36,8 +39,21 @@ public class Tram {
     this.destination = destination;
   }
 
-  @Override
-  public String toString() {
-    return "Tram [id=" + id + ", destination=" + destination + "]";
-  }
+    @Override
+    public String toString() {
+        return "Tram{" +
+            "id=" + id +
+            ", endOfLine='" + endOfLine + '\'' +
+            ", destination='" + destination + '\'' +
+            ", origin='" + origin + '\'' +
+            '}';
+    }
+    public String toJSONString() {
+        return "{" +
+            "id=" + id +
+            ", endOfLine='" + endOfLine + '\'' +
+            ", destination='" + destination + '\'' +
+            ", origin='" + origin + '\'' +
+            '}';
+    }
 }

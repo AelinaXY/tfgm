@@ -5,11 +5,7 @@ import com.tfgm.models.TramNetworkDTO;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,6 +34,16 @@ public class TramNetworkRepo {
       }
     }
 
-    repository.save(new TramNetworkDTO("", Instant.now().getEpochSecond(), allTrams));
+    repository.save(new TramNetworkDTO(Instant.now().getEpochSecond(), allTrams));
+  }
+
+  public List<TramNetworkDTO> getAllTrams()
+  {
+      return repository.findAll();
+  }
+
+  public TramNetworkDTO getByTimestamp(Long timestamp)
+  {
+      return repository.findByTimestamp(timestamp);
   }
 }
