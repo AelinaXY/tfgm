@@ -1,7 +1,5 @@
 package com.tfgm.models;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.*;
 
 /**
@@ -51,9 +49,22 @@ public class TramStop {
    * @param line Line of the stop.
    */
   public TramStop(String stopName, String direction, String line) {
-    this.stopName = stopName;
-    this.direction = direction;
-    this.line = line;
+
+    if (!stopName.trim().equals("")) {
+      this.stopName = stopName;
+    } else {
+      throw new IllegalArgumentException("stopName is '" + stopName + "'");
+    }
+    if (!direction.trim().equals("")) {
+      this.direction = direction;
+    } else {
+      throw new IllegalArgumentException("direction is '" + direction + "'");
+    }
+    if (!line.trim().equals("")) {
+      this.line = line;
+    } else {
+      throw new IllegalArgumentException("line is '" + line + "'");
+    }
   }
 
   /**
@@ -143,21 +154,13 @@ public class TramStop {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
-    TramStop other = (TramStop) obj;
-    if (stopName == null) {
-      if (other.stopName != null) return false;
-    } else if (!stopName.equals(other.stopName)) return false;
-    if (direction == null) {
-      if (other.direction != null) return false;
-    } else if (!direction.equals(other.direction)) return false;
-    if (line == null) {
-      if (other.line != null) return false;
-    } else if (!line.equals(other.line)) return false;
-    if (!Arrays.equals(nextStops, other.nextStops)) return false;
-    return Arrays.equals(prevStops, other.prevStops);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    TramStop tramStop = (TramStop) o;
+
+    if (!stopName.equals(tramStop.stopName)) return false;
+    return direction.equals(tramStop.direction);
   }
 }
