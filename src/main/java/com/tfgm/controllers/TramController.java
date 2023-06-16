@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/trams")
 public class TramController {
@@ -38,4 +40,13 @@ public class TramController {
   public ResponseEntity<String> getAllTramsAt(@PathVariable String tramStopName) {
     return ResponseEntity.ok(service.getAllTramsAt(tramStopName).toString());
   }
+
+    @CrossOrigin
+    @GetMapping("/alltramsatstop")
+    public ResponseEntity<String> getAllTramsAtAllStops() {
+        System.out.println("requestIn:" + Instant.now());
+    String response = service.getAllTramsAtAllStops();
+        System.out.println("requestOut:" + Instant.now());
+        return ResponseEntity.ok(response);
+    }
 }

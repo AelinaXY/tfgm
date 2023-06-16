@@ -3,6 +3,7 @@ package com.tfgm;
 import com.tfgm.services.TramStopService;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +30,7 @@ public class TfgmApplication {
     int count = 0;
 
     while (true) {
-      System.out.println("---------LOOOOP---------" + count);
+      System.out.println("---------LOOOOP---------" + Instant.now());
       tramService.update();
       TimeUnit.SECONDS.sleep(10);
       count += 10;
