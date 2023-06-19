@@ -1,11 +1,21 @@
 spring:
   datasource:
-    url: https://api.tfgm.com/odata/Metrolinks
+    url: jdbc:postgresql://localhost:5432/tfgm
+    username: postgres
+    password: pass
   data:
     mongodb:
       host: 127.0.0.1
       port: 27017
       database: tfgm
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
 
 server:
   port: 8080

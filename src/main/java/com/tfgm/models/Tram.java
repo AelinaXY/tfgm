@@ -24,36 +24,52 @@ public class Tram {
     return endOfLine;
   }
 
-    public String getOrigin() {
-        return origin;
-    }
-    public String getDestination() {
-        return destination;
-    }
+  public String getOrigin() {
+    return origin;
+  }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
+  public String getDestination() {
+    return destination;
+  }
 
-    public void setDestination(String destination) {
+  public void setOrigin(String origin) {
+    this.origin = origin;
+  }
+
+  public void setDestination(String destination) {
     this.destination = destination;
   }
 
-    @Override
-    public String toString() {
-        return "Tram{" +
-            "id=" + id +
-            ", endOfLine='" + endOfLine + '\'' +
-            ", destination='" + destination + '\'' +
-            ", origin='" + origin + '\'' +
-            '}';
-    }
-    public String toJSONString() {
-        return "{" +
-            "id=" + id +
-            ", endOfLine='" + endOfLine + '\'' +
-            ", destination='" + destination + '\'' +
-            ", origin='" + origin + '\'' +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return "Tram{"
+        + "id="
+        + id
+        + ", endOfLine='"
+        + endOfLine
+        + '\''
+        + ", destination='"
+        + destination
+        + '\''
+        + ", origin='"
+        + origin
+        + '\''
+        + '}';
+  }
+
+  public String toJSONString() {
+    return "{"
+        + "\"id\":"
+        + id
+        + ", \"endOfLine\":\""
+        + endOfLine
+        + '\"'
+        + ", \"destination\":\""
+        + destination
+        + '\"'
+        + ", \"origin\":\""
+        + origin
+        + '\"'
+        + '}';
+  }
 }

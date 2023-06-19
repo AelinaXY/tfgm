@@ -55,7 +55,7 @@ public class TramNetworkService {
   }
 
   public String getAllTramsAtAllStops() {
-      List<Tram> tramList = getLatestTramInfo();
+    List<Tram> tramList = getLatestTramInfo();
 
     // Finds all Trams at Stops
     tramList = tramList.stream().filter(m -> m.getDestination().equals(m.getOrigin())).toList();
@@ -81,19 +81,17 @@ public class TramNetworkService {
   }
 
   private List<Tram> getLatestTramInfo() {
-    System.out.println("latestInfoDBin"+Instant.now());
+    System.out.println("latestInfoDBin" + Instant.now());
     List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
-    System.out.println("latestInfoDBOut:"+Instant.now());
+    System.out.println("latestInfoDBOut:" + Instant.now());
 
-
-      TramNetworkDTO latestTramInfo =
+    TramNetworkDTO latestTramInfo =
         tramNetworkDTOList.stream()
             .reduce(
                 (first, second) -> (first.getTimestamp() > second.getTimestamp()) ? first : second)
             .get();
-      System.out.println("latestInfoStreamOut:"+Instant.now());
+    System.out.println("latestInfoStreamOut:" + Instant.now());
 
-
-      return new ArrayList<>(latestTramInfo.getTramArrayList());
+    return new ArrayList<>(latestTramInfo.getTramArrayList());
   }
 }
