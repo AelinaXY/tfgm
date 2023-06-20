@@ -1,9 +1,6 @@
 package com.tfgm.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * The main TramStop entity. This entity represents the combination of a tram stop and direction.
@@ -12,7 +9,7 @@ import java.util.Queue;
  */
 public class TramStop {
 
-  /** The offical name of the tram stop. */
+  /** The official name of the tram stop. */
   private final String stopName;
 
   /**
@@ -28,7 +25,7 @@ public class TramStop {
    * An arraylist of the previous updates this TramStop has had. Generally in the format
    * "YYYYMMDDHHMM{DestinationName}."
    */
-  private final ArrayList<String> lastUpdated = new ArrayList<>();
+  private final List<String> lastUpdated = new ArrayList<>();
 
   /** A representation of Trams currently at this Station going in a direction. */
   private final Queue<Tram> tramQueue = new LinkedList<>();
@@ -52,9 +49,22 @@ public class TramStop {
    * @param line Line of the stop.
    */
   public TramStop(String stopName, String direction, String line) {
-    this.stopName = stopName;
-    this.direction = direction;
-    this.line = line;
+
+    if (!stopName.trim().equals("")) {
+      this.stopName = stopName;
+    } else {
+      throw new IllegalArgumentException("stopName is '" + stopName + "'");
+    }
+    if (!direction.trim().equals("")) {
+      this.direction = direction;
+    } else {
+      throw new IllegalArgumentException("direction is '" + direction + "'");
+    }
+    if (!line.trim().equals("")) {
+      this.line = line;
+    } else {
+      throw new IllegalArgumentException("line is '" + line + "'");
+    }
   }
 
   /**
@@ -111,7 +121,6 @@ public class TramStop {
     return prevStops;
   }
 
-
   public String getStopName() {
     return stopName;
   }
@@ -120,7 +129,7 @@ public class TramStop {
     return direction;
   }
 
-  public ArrayList<String> getLastUpdated() {
+  public List<String> getLastUpdated() {
     return lastUpdated;
   }
 
@@ -128,74 +137,8 @@ public class TramStop {
     this.lastUpdated.add(lastUpdated);
   }
 
-  public void tramDeparture(String endOfLine) {
-    Tram departingTram;
-    if (tramQueue.size() > 0) {
-      departingTram = tramQueue.remove();
-    } else {
-      departingTram = new Tram(endOfLine.length() * stopName.length(), endOfLine);
-    }
-
-    for (TramStopContainer tramStopContainer : nextStops) {
-
-      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square"))
-          || endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
-
-        // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
-        // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
-        // found.
-        if (findEndOfLine(
-            Arrays.stream(departingTram.getDestination().split(" "))
-                    .reduce((first, second) -> second)
-                    .get()
-                    .matches("MCUK|MediaCityUK")
-                ? "MediaCityUK"
-                : departingTram.getDestination(),
-            tramStopContainer.getTramStop())) {
-          tramStopContainer.getTramLinkStop().addTram(departingTram);
-          System.out.println(
-              "Tram left from "
-                  + stopName
-                  + " to "
-                  + tramStopContainer.getTramStop().getStopName()
-                  + ". Final Destination: "
-                  + departingTram.getDestination());
-          return;
-        }
-      }
-    }
-  }
-
-  public void tramArrival() {
-    for (TramStopContainer tramStopContainer : prevStops) {
-      if (tramStopContainer.getTramLinkStop().queueLength() > 0) {
-        tramQueue.add(tramStopContainer.getTramLinkStop().popTram());
-        assert tramQueue.peek() != null;
-        System.out.println(
-            "Tram arrived at "
-                + stopName
-                + " from "
-                + tramStopContainer.getTramStop().getStopName()
-                + ". Final Destination: "
-                + tramQueue.peek().getDestination());
-        return;
-      }
-    }
-  }
-
-  private boolean findEndOfLine(String endOfLine, TramStop tramStop) {
-    //    if (tramStop == null) return false;
-    if (tramStop.getStopName().equals(endOfLine)) {
-      return true;
-    }
-
-    for (TramStopContainer tramStopContainer : tramStop.nextStops) {
-      boolean res = findEndOfLine(endOfLine, tramStopContainer.getTramStop());
-      if (res) {
-        return true;
-      }
-    }
-    return false;
+  public Queue<Tram> getTramQueue() {
+    return tramQueue;
   }
 
   @Override
@@ -211,21 +154,13 @@ public class TramStop {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
-    TramStop other = (TramStop) obj;
-    if (stopName == null) {
-      if (other.stopName != null) return false;
-    } else if (!stopName.equals(other.stopName)) return false;
-    if (direction == null) {
-      if (other.direction != null) return false;
-    } else if (!direction.equals(other.direction)) return false;
-    if (line == null) {
-      if (other.line != null) return false;
-    } else if (!line.equals(other.line)) return false;
-    if (!Arrays.equals(nextStops, other.nextStops)) return false;
-    return Arrays.equals(prevStops, other.prevStops);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    TramStop tramStop = (TramStop) o;
+
+    if (!stopName.equals(tramStop.stopName)) return false;
+    return direction.equals(tramStop.direction);
   }
 }

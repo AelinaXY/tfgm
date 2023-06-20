@@ -3,11 +3,13 @@ package com.tfgm.models;
 public class Tram {
 
   private int id;
+  private String endOfLine;
   private String destination;
+  private String origin;
 
-  public Tram(int id, String destination) {
+  public Tram(int id, String endOfLine) {
     this.id = id;
-    this.destination = destination;
+    this.endOfLine = endOfLine;
   }
 
   public int getId() {
@@ -18,8 +20,20 @@ public class Tram {
     this.id = id;
   }
 
+  public String getEndOfLine() {
+    return endOfLine;
+  }
+
+  public String getOrigin() {
+    return origin;
+  }
+
   public String getDestination() {
     return destination;
+  }
+
+  public void setOrigin(String origin) {
+    this.origin = origin;
   }
 
   public void setDestination(String destination) {
@@ -28,6 +42,34 @@ public class Tram {
 
   @Override
   public String toString() {
-    return "Tram [id=" + id + ", destination=" + destination + "]";
+    return "Tram{"
+        + "id="
+        + id
+        + ", endOfLine='"
+        + endOfLine
+        + '\''
+        + ", destination='"
+        + destination
+        + '\''
+        + ", origin='"
+        + origin
+        + '\''
+        + '}';
+  }
+
+  public String toJSONString() {
+    return "{"
+        + "\"id\":"
+        + id
+        + ", \"endOfLine\":\""
+        + endOfLine
+        + '\"'
+        + ", \"destination\":\""
+        + destination
+        + '\"'
+        + ", \"origin\":\""
+        + origin
+        + '\"'
+        + '}';
   }
 }
