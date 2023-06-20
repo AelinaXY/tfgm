@@ -16,6 +16,7 @@ public class TramStopGraphService {
     if (!tramQueue.isEmpty()) {
       departingTram = tramQueue.remove();
     } else {
+      System.out.println("Tram created at " + tramStop.getStopName() + ".");
       departingTram = new Tram(endOfLine.length() * tramStop.getStopName().length(), endOfLine);
     }
 
@@ -36,13 +37,13 @@ public class TramStopGraphService {
                 : departingTram.getEndOfLine(),
             tramStopContainer.getTramStop())) {
           tramStopContainer.getTramLinkStop().addTram(departingTram);
-//          System.out.println(
-//              "Tram left from "
-//                  + tramStop.getStopName()
-//                  + " to "
-//                  + tramStopContainer.getTramStop().getStopName()
-//                  + ". Final Destination: "
-//                  + departingTram.getEndOfLine());
+          System.out.println(
+              "Tram left from "
+                  + tramStop.getStopName()
+                  + " to "
+                  + tramStopContainer.getTramStop().getStopName()
+                  + ". Final Destination: "
+                  + departingTram.getEndOfLine());
           departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
           departingTram.setOrigin(rawNameToCompositeName(tramStop));
           return;
@@ -58,16 +59,27 @@ public class TramStopGraphService {
 
     for (TramStopContainer tramStopContainer : prevStops) {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
-        tramQueue.add(tramStopContainer.getTramLinkStop().popTram());
-        assert tramQueue.peek() != null;
-//        System.out.println(
-//            "Tram arrived at "
-//                + tramStop.getStopName()
-//                + " from "
-//                + tramStopContainer.getTramStop().getStopName()
-//                + ". Final Destination: "
-//                + tramQueue.peek().getEndOfLine());
-        tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
+        Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
+
+        String endOfLineName = arrivedTram.getEndOfLine().contains("MCUK")
+            || arrivedTram.getEndOfLine().contains("MediaCityUK")
+            ? ("MediaCityUK")
+            : arrivedTram.getEndOfLine();
+
+        if (!endOfLineName.equals(tramStop.getStopName())) {
+          tramQueue.add(arrivedTram);
+          assert tramQueue.peek() != null;
+          System.out.println(
+              "Tram arrived at "
+                  + tramStop.getStopName()
+                  + " from "
+                  + tramStopContainer.getTramStop().getStopName()
+                  + ". Final Destination: "
+                  + tramQueue.peek().getEndOfLine());
+          tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
+        } else {
+          System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
+        }
         return;
       }
     }
