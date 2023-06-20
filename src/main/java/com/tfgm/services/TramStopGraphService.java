@@ -61,12 +61,7 @@ public class TramStopGraphService {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
         Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
 
-        String endOfLineName = arrivedTram.getEndOfLine().contains("MCUK")
-            || arrivedTram.getEndOfLine().contains("MediaCityUK")
-            ? ("MediaCityUK")
-            : arrivedTram.getEndOfLine();
-
-        if (!endOfLineName.equals(tramStop.getStopName())) {
+        if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
           tramQueue.add(arrivedTram);
           assert tramQueue.peek() != null;
           System.out.println(
