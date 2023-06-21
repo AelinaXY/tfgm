@@ -1,21 +1,22 @@
 package com.tfgm.models;
 
-import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.util.ArrayList;
-import org.hibernate.annotations.Type;
-import org.springframework.data.mongodb.core.mapping.TimeSeries;
+import java.util.UUID;
+import org.antlr.v4.runtime.misc.NotNull;
 
-@Entity()
+@Entity
 @Table(name = "tramnetwork")
-@TimeSeries(collection = "tramnetwork", timeField = "timestamp")
 public class TramNetworkDTO {
 
-  @Id private Long timestamp;
+  @Id private UUID uuid = UUID.randomUUID();
 
-  @Type(JsonBinaryType.class)
+  @NotNull
+  @Column(name = "timestamp")
+  private Long timestamp;
+
+  @OneToMany
+  @JoinColumn(name = "tramnetwork_uuid")
   private ArrayList<Tram> tramArrayList;
 
   public TramNetworkDTO() {}

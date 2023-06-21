@@ -1,24 +1,26 @@
 package com.tfgm.models;
 
+import jakarta.persistence.*;
+import java.util.UUID;
+
+@Entity
+@Table(name = "trams")
 public class Tram {
 
-  private int id;
+  @Id private UUID uuid = UUID.randomUUID();
   private String endOfLine;
   private String destination;
   private String origin;
 
-  public Tram(int id, String endOfLine) {
-    this.id = id;
+  @ManyToOne
+  @JoinColumn(name = "tramnetwork_uuid", insertable = false, updatable = false)
+  private TramNetworkDTO tramNetworkDTO;
+
+  public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
+  public Tram() {}
 
   public String getEndOfLine() {
     return endOfLine;
@@ -43,8 +45,8 @@ public class Tram {
   @Override
   public String toString() {
     return "Tram{"
-        + "id="
-        + id
+        + "uuid="
+        + uuid
         + ", endOfLine='"
         + endOfLine
         + '\''
@@ -59,8 +61,8 @@ public class Tram {
 
   public String toJSONString() {
     return "{"
-        + "\"id\":"
-        + id
+        + "\"uuid\":"
+        + uuid
         + ", \"endOfLine\":\""
         + endOfLine
         + '\"'

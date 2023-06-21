@@ -17,7 +17,7 @@ public class TramStopGraphService {
       departingTram = tramQueue.remove();
     } else {
       System.out.println("Tram created at " + tramStop.getStopName() + ".");
-      departingTram = new Tram(endOfLine.length() * tramStop.getStopName().length(), endOfLine);
+      departingTram = new Tram(endOfLine);
     }
 
     TramStopContainer[] nextStops = tramStop.getNextStops();
