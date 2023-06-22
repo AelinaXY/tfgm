@@ -7,7 +7,6 @@ import java.util.Queue;
 
 public class TramStopGraphService {
 
-  private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
 
   public void tramDeparture(String endOfLine, TramStop tramStop) {
     Tram departingTram;
@@ -95,6 +94,6 @@ public class TramStopGraphService {
   }
 
   private String rawNameToCompositeName(TramStop tramStop) {
-    return utilities.cleanStationName(tramStop.getStopName()) + tramStop.getDirection();
+    return TramStopServiceUtilities.cleanStationName(tramStop.getStopName()) + tramStop.getDirection();
   }
 }

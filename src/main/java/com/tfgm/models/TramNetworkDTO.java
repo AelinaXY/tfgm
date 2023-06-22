@@ -2,6 +2,7 @@ package com.tfgm.models;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -17,11 +18,11 @@ public class TramNetworkDTO {
 
   @OneToMany
   @JoinColumn(name = "tramnetwork_uuid")
-  private ArrayList<Tram> tramArrayList;
+  private List<Tram> tramArrayList;
 
   public TramNetworkDTO() {}
 
-  public TramNetworkDTO(Long timestamp, ArrayList<Tram> tramArrayList) {
+  public TramNetworkDTO(Long timestamp, List<Tram> tramArrayList) {
     this.timestamp = timestamp;
     this.tramArrayList = tramArrayList;
   }
@@ -48,7 +49,7 @@ public class TramNetworkDTO {
         + '}';
   }
 
-  public ArrayList<Tram> getTramArrayList() {
+  public List<Tram> getTramArrayList() {
     return tramArrayList;
   }
 }

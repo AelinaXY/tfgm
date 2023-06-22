@@ -7,22 +7,23 @@ import com.tfgm.models.TramStopContainer;
 import java.time.Instant;
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public class TramNetworkRepo {
+public class TramNetworkDTORepoCustomImpl implements TramNetworkDTORepoCustom {
 
-  @Autowired private TramNetworkDTORepo repository;
+     private final TramNetworkDTORepoBasic repository;
+     private final TramRepo tramRepo;
 
-  @Autowired
-  public TramNetworkRepo(TramNetworkDTORepo repository) {
-    this.repository = repository;
-  }
+    public TramNetworkDTORepoCustomImpl(TramNetworkDTORepoBasic tramNetworkDTORepoBasic, TramRepo tramRepo) {
+        this.repository = tramNetworkDTORepoBasic;
+        this.tramRepo = tramRepo;
+    }
 
-  public void dumpTramNetwork(Map<String, TramStop> tramStopHashMap) {
+    public void saveTramNetwork(Map<String, TramStop> tramStopHashMap) {
 
-    ArrayList<Tram> allTrams = new ArrayList<>();
+    List<Tram> allTrams = new ArrayList<>();
 
     for (TramStop tramStop : tramStopHashMap.values()) {
 
@@ -34,16 +35,8 @@ public class TramNetworkRepo {
       }
     }
 
+    tramRepo.saveAll(allTrams);
+
     repository.save(new TramNetworkDTO(Instant.now().getEpochSecond(), allTrams));
-  }
-
-  public List<TramNetworkDTO> getAllTrams()
-  {
-      return repository.findAll();
-  }
-
-  public TramNetworkDTO getByTimestamp(Long timestamp)
-  {
-      return repository.findByTimestamp(timestamp);
   }
 }

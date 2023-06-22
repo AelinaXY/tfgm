@@ -2,13 +2,14 @@ package com.tfgm.services;
 
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramNetworkDTO;
-import com.tfgm.persistence.TramNetworkRepo;
+import com.tfgm.persistence.TramNetworkDTORepo;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,24 +17,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class TramNetworkService {
 
-  @Autowired private TramNetworkRepo tramNetworkRepo;
+  @Autowired private TramNetworkDTORepo tramNetworkRepo;
 
-  public TramNetworkService(TramNetworkRepo tramNetworkRepo) throws IOException {
+  public TramNetworkService(TramNetworkDTORepo tramNetworkRepo) throws IOException {
     this.tramNetworkRepo = tramNetworkRepo;
   }
 
   public List<String> getAllTrams() {
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.findAll();
 
     return tramNetworkDTOList.stream().map(m -> m.toJSONString()).toList();
   }
 
   public TramNetworkDTO getByTimestamp(Long timestamp) {
-    return tramNetworkRepo.getByTimestamp(timestamp);
+    return tramNetworkRepo.findByTimestamp(timestamp);
   }
 
   public List<Long> getAllTimestamps() {
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.findAll();
 
     return tramNetworkDTOList.stream().map(m -> m.getTimestamp()).toList();
   }
@@ -82,7 +83,7 @@ public class TramNetworkService {
 
   private List<Tram> getLatestTramInfo() {
     System.out.println("latestInfoDBin" + Instant.now());
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.findAll();
     System.out.println("latestInfoDBOut:" + Instant.now());
 
     TramNetworkDTO latestTramInfo =
