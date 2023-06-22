@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import org.hibernate.annotations.Type;
 import org.springframework.data.mongodb.core.mapping.TimeSeries;
 
-@Entity()
-@Table(name = "tramnetwork")
 @TimeSeries(collection = "tramnetwork", timeField = "timestamp")
 public class TramNetworkDTO {
 
-  @Id private Long timestamp;
+private Long timestamp;
 
-  @Type(JsonBinaryType.class)
   private ArrayList<Tram> tramArrayList;
 
   public TramNetworkDTO() {}
