@@ -5,22 +5,16 @@ import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@Table(name = "trams")
 public class Tram {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID uuid;
-  @Column(name = "endOfLine")
   private String endOfLine;
-    @Column(name = "destination")
+
     private String destination;
-    @Column(name = "origin")
+
     private String origin;
 
-  @ManyToOne
-  @JoinColumn(name = "tramnetwork_uuid", insertable = false, updatable = false)
+
   private TramNetworkDTO tramNetworkDTO;
 
   public Tram(String endOfLine) {

@@ -104,7 +104,7 @@ public class TramStopService {
         }
       }
 
-        tramNetworkDTORepo.saveTramNetwork(tramStopRepo.getTramStops());
+      System.out.println(tramNetworkDTORepo.getAll());
     }
   }
 }
