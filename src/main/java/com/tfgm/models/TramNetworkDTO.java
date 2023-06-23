@@ -1,24 +1,33 @@
 package com.tfgm.models;
 
-import jakarta.persistence.*;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "tramnetwork")
 public class TramNetworkDTO {
 
-  @Id private UUID uuid = UUID.randomUUID();
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID uuid;
 
   @NotNull
   @Column(name = "timestamp")
   private Long timestamp;
 
-  @OneToMany
-  @JoinColumn(name = "tramnetwork_uuid")
-  private List<Tram> tramArrayList;
+  @Column(columnDefinition = "jsonb")
+  @Type(JsonType.class)
+  private List<Tram> tramArrayList = new ArrayList<>();
 
   public TramNetworkDTO() {}
 

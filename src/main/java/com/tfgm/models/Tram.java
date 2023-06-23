@@ -1,16 +1,23 @@
 package com.tfgm.models;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "trams")
 public class Tram {
 
-  @Id private UUID uuid = UUID.randomUUID();
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID uuid;
+  @Column(name = "endOfLine")
   private String endOfLine;
-  private String destination;
-  private String origin;
+    @Column(name = "destination")
+    private String destination;
+    @Column(name = "origin")
+    private String origin;
 
   @ManyToOne
   @JoinColumn(name = "tramnetwork_uuid", insertable = false, updatable = false)
@@ -74,4 +81,28 @@ public class Tram {
         + '\"'
         + '}';
   }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tram tram = (Tram) o;
+
+        if (!Objects.equals(uuid, tram.uuid)) return false;
+        if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
+        if (!Objects.equals(destination, tram.destination)) return false;
+        if (!Objects.equals(origin, tram.origin)) return false;
+        return Objects.equals(tramNetworkDTO, tram.tramNetworkDTO);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (endOfLine != null ? endOfLine.hashCode() : 0);
+        result = 31 * result + (destination != null ? destination.hashCode() : 0);
+        result = 31 * result + (origin != null ? origin.hashCode() : 0);
+        result = 31 * result + (tramNetworkDTO != null ? tramNetworkDTO.hashCode() : 0);
+        return result;
+    }
 }

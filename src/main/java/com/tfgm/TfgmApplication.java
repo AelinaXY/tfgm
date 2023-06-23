@@ -27,13 +27,12 @@ public class TfgmApplication {
   @Autowired TramStopService tramService;
 
   public static void main(String[] args) {
-    SpringApplication.run(TfgmApplication.class, args);
+      SpringApplication.run(TfgmApplication.class, args);
   }
 
   @EventListener(ApplicationReadyEvent.class)
   public void mainRunner()
       throws IOException, URISyntaxException, InterruptedException {
-
     while (true) {
       System.out.println("---------LOOOOP---------" + Instant.now());
       tramService.update();
