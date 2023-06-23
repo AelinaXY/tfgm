@@ -24,3 +24,8 @@ server:
 tram:
   data:
     url: src/main/resources/static/TramStopData.json
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.tfgm.typehandler

@@ -104,7 +104,7 @@ public class TramStopService {
         }
       }
 
-      System.out.println(tramNetworkDTORepo.getAll());
+      tramNetworkDTORepo.saveTramNetwork(tramStopHashMap);
     }
   }
 }

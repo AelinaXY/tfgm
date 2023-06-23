@@ -8,15 +8,17 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
+import org.apache.ibatis.type.MappedTypes;
 import org.postgresql.util.PGobject;
 
 @MappedJdbcTypes(JdbcType.OTHER)
+@MappedTypes(List.class)
 public class JSONtoTramListTypeHandler extends BaseTypeHandler<List<Tram>> {
-  private static final TypeReference<List<Tram>> LIST_TYPE_REFERENCE = new TypeReference<>() {};
     private static final TypeReference<Tram> TRAM_TYPE_REFERENCE = new TypeReference<>() {};
 
 

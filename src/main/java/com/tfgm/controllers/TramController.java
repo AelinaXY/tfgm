@@ -20,7 +20,10 @@ public class TramController {
   @CrossOrigin
   @GetMapping("/")
   public ResponseEntity<String> getTrams() {
-    return ResponseEntity.ok(service.getAllTrams().toString());
+
+      return ResponseEntity.ok(
+          service.getAllTrams().stream().map(m -> m.toJSONString()).toList().toString()
+      );
   }
 
 //  @CrossOrigin
@@ -30,11 +33,11 @@ public class TramController {
 //    return ResponseEntity.ok(service.getByTimestamp(Long.valueOf(timestamp)).toJSONString());
 //  }
 //
-//  @CrossOrigin
-//  @GetMapping("/timestamps")
-//  public ResponseEntity<String> getTramAtTime() {
-//    return ResponseEntity.ok(service.getAllTimestamps().toString());
-//  }
+  @CrossOrigin
+  @GetMapping("/timestamps")
+  public ResponseEntity<String> getTramAtTime() {
+    return ResponseEntity.ok(service.getAllTimestamps().toString());
+  }
 //
 //  @CrossOrigin
 //  @GetMapping("/{tramStopName}")

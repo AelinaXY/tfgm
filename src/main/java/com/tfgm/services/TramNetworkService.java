@@ -33,11 +33,11 @@ public class TramNetworkService {
 //    return tramNetworkRepo.findByTimestamp(timestamp);
 //  }
 //
-//  public List<Long> getAllTimestamps() {
-//    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.findAll();
-//
-//    return tramNetworkDTOList.stream().map(m -> m.getTimestamp()).toList();
-//  }
+  public List<Long> getAllTimestamps() {
+    List<Long> tramNetworkDTOTimestampList = tramNetworkRepo.getAllTimestamps();
+
+    return tramNetworkDTOTimestampList;
+  }
 //
 //  public List<String> getAllTramsAt(String tramStopName) {
 //    List<Tram> tramList = getLatestTramInfo();

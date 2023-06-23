@@ -19,10 +19,10 @@ public class TramNetworkDTO {
     this.tramArrayList = tramArrayList;
   }
 
-  public TramNetworkDTO(UUID id, Long timestamp, String tramArrayList) {
+  public TramNetworkDTO(UUID id, Long timestamp, List<Tram> tramArrayList) {
     this.uuid = id;
     this.timestamp = timestamp;
-    this.tramArrayList = null;
+    this.tramArrayList = tramArrayList;
   }
 
   public Long getTimestamp() {
