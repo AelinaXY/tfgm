@@ -45,12 +45,12 @@ public class TramController {
 //    return ResponseEntity.ok(service.getAllTramsAt(tramStopName).toString());
 //  }
 //
-//    @CrossOrigin
-//    @GetMapping("/alltramsatstop")
-//    public ResponseEntity<String> getAllTramsAtAllStops() {
-//        System.out.println("requestIn:" + Instant.now());
-//    String response = service.getAllTramsAtAllStops();
-//        System.out.println("requestOut:" + Instant.now());
-//        return ResponseEntity.ok(response);
-//    }
+    @CrossOrigin
+    @GetMapping("/alltramsatstop")
+    public ResponseEntity<String> getAllTramsAtAllStops() {
+        System.out.println("requestIn:" + Instant.now());
+    String response = service.getAllTramsAtAllStops();
+        System.out.println("requestOut:" + Instant.now());
+        return ResponseEntity.ok(response);
+    }
 }

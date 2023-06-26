@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
@@ -17,12 +15,11 @@ import org.apache.ibatis.type.MappedTypes;
 import org.postgresql.util.PGobject;
 
 @MappedJdbcTypes(JdbcType.OTHER)
-@MappedTypes(List.class)
+//@MappedTypes(List.class)
 public class JSONtoTramListTypeHandler extends BaseTypeHandler<List<Tram>> {
-    private static final TypeReference<Tram> TRAM_TYPE_REFERENCE = new TypeReference<>() {};
+  private static final TypeReference<Tram> TRAM_TYPE_REFERENCE = new TypeReference<>() {};
 
-
-    @Override
+  @Override
   public void setNonNullParameter(
       final PreparedStatement statement,
       final int columnIndex,
@@ -48,9 +45,9 @@ public class JSONtoTramListTypeHandler extends BaseTypeHandler<List<Tram>> {
     statement.setArray(columnIndex, statement.getConnection().createArrayOf("jsonb", jsonValues));
   }
 
-    @Override
-  public List<Tram> getNullableResult(
-      final ResultSet resultSet, final String columnName) throws SQLException {
+  @Override
+  public List<Tram> getNullableResult(final ResultSet resultSet, final String columnName)
+      throws SQLException {
     final Array outputArray = resultSet.getArray(columnName);
 
     if (!resultSet.wasNull()) {
@@ -61,8 +58,8 @@ public class JSONtoTramListTypeHandler extends BaseTypeHandler<List<Tram>> {
   }
 
   @Override
-  public List<Tram> getNullableResult(
-      final ResultSet resultSet, final int columnIndex) throws SQLException {
+  public List<Tram> getNullableResult(final ResultSet resultSet, final int columnIndex)
+      throws SQLException {
     final Array outputArray = resultSet.getArray(columnIndex);
 
     if (!resultSet.wasNull()) {
