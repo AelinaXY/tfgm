@@ -26,12 +26,12 @@ public class TramNetworkDTORepoImpl implements TramNetworkDTORepo {
     return TNMapper.getAll();
   }
 
-    @Override
-    public List<Long> getAllTimestamps() {
-        return TNMapper.getAllTimestamps();
-    }
+  @Override
+  public List<Long> getAllTimestamps() {
+    return TNMapper.getAllTimestamps();
+  }
 
-    @Override
+  @Override
   public void saveTramNetwork(Map<String, TramStop> tramStopHashMap) {
 
     List<Tram> allTrams = new ArrayList<>();
@@ -49,5 +49,10 @@ public class TramNetworkDTORepoImpl implements TramNetworkDTORepo {
     UUID uuid = UUID.randomUUID();
 
     TNMapper.create(new TramNetworkDTO(uuid, Instant.now().getEpochSecond(), allTrams));
+  }
+
+  @Override
+  public TramNetworkDTO findByTimestamp(Long timestamp) {
+    return TNMapper.getByTimestamp(timestamp);
   }
 }

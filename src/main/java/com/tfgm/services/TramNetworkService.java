@@ -29,10 +29,10 @@ public class TramNetworkService {
     return tramNetworkDTOList;
   }
 
-//  public TramNetworkDTO getByTimestamp(Long timestamp) {
-//    return tramNetworkRepo.findByTimestamp(timestamp);
-//  }
-//
+  public TramNetworkDTO getByTimestamp(Long timestamp) {
+    return tramNetworkRepo.findByTimestamp(timestamp);
+  }
+
   public List<Long> getAllTimestamps() {
     List<Long> tramNetworkDTOTimestampList = tramNetworkRepo.getAllTimestamps();
 
@@ -55,8 +55,8 @@ public class TramNetworkService {
 //    return tramList.stream().map(m -> m.toJSONString()).toList();
 //  }
 //
-  public String getAllTramsAtAllStops() {
-    List<Tram> tramList = getLatestTramInfo();
+  public String getAllTramsAtTimestamp(Long timestamp) {
+    List<Tram> tramList = getLatestTramInfo(timestamp);
 
     // Finds all Trams at Stops
     tramList = tramList.stream().filter(m -> m.getDestination().equals(m.getOrigin())).toList();
@@ -81,18 +81,12 @@ public class TramNetworkService {
     return returnJSONObject.toString();
   }
 
-  private List<Tram> getLatestTramInfo() {
+  private List<Tram> getLatestTramInfo(Long timestamp) {
     System.out.println("latestInfoDBin" + Instant.now());
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAll();
+    TramNetworkDTO tramNetworkDTO = tramNetworkRepo.findByTimestamp(timestamp);
     System.out.println("latestInfoDBOut:" + Instant.now());
 
-    TramNetworkDTO latestTramInfo =
-        tramNetworkDTOList.stream()
-            .reduce(
-                (first, second) -> (first.getTimestamp() > second.getTimestamp()) ? first : second)
-            .get();
-    System.out.println("latestInfoStreamOut:" + Instant.now());
 
-    return new ArrayList<>(latestTramInfo.getTramArrayList());
+    return new ArrayList<>(tramNetworkDTO.getTramArrayList());
   }
 }

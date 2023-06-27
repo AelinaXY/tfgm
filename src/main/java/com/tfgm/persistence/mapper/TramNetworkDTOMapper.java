@@ -19,8 +19,13 @@ public interface TramNetworkDTOMapper {
   @Select("SELECT * FROM tramnetwork")
   List<TramNetworkDTO> getAll();
 
-  @Select("SELECT timestamp FROM tramnetwork")
+  @Select("SELECT timestamp FROM tramnetwork ORDER BY timestamp ASC")
   List<Long> getAllTimestamps();
+
+
+  @ResultMap("TNResult")
+  @Select("SELECT * FROM tramnetwork WHERE timestamp = #{timestamp} LIMIT 1")
+  TramNetworkDTO getByTimestamp(@Param("timestamp") Long timestamp);
 
   @Insert(
       "INSERT INTO tramnetwork(uuid,timestamp,tramjson) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{timestamp}, #{tramArrayList, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONtoTramListTypeHandler})")

@@ -12,4 +12,6 @@ public interface TramNetworkDTORepo {
   List<Long> getAllTimestamps();
 
   void saveTramNetwork(Map<String, TramStop> tramStopHashMap);
+
+  TramNetworkDTO findByTimestamp(Long timestamp);
 }
