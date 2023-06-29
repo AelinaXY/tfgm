@@ -7,7 +7,6 @@ import java.util.Queue;
 
 public class TramStopGraphService {
 
-
   public void tramDeparture(String endOfLine, TramStop tramStop) {
     Tram departingTram;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
@@ -51,31 +50,56 @@ public class TramStopGraphService {
     }
   }
 
-  public void tramArrival(TramStop tramStop) {
+  // LEGACY CODE
+  //  public void tramArrival(TramStop tramStop) {
+  //
+  //    TramStopContainer[] prevStops = tramStop.getPrevStops();
+  //    Queue<Tram> tramQueue = tramStop.getTramQueue();
+  //
+  //    for (TramStopContainer tramStopContainer : prevStops) {
+  //      if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
+  //        tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
+  //      }
+  //    }
+  //  }
+
+  public void tramArrival(String endOfLine, TramStop tramStop) {
 
     TramStopContainer[] prevStops = tramStop.getPrevStops();
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
     for (TramStopContainer tramStopContainer : prevStops) {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
-        Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
-
-        if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
-          tramQueue.add(arrivedTram);
-          assert tramQueue.peek() != null;
-          System.out.println(
-              "Tram arrived at "
-                  + tramStop.getStopName()
-                  + " from "
-                  + tramStopContainer.getTramStop().getStopName()
-                  + ". Final Destination: "
-                  + tramQueue.peek().getEndOfLine());
-          tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
-        } else {
-          System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
+        if (tramStopContainer
+            .getTramLinkStop()
+            .getTramQueue()
+            .peek()
+            .getEndOfLine()
+            .equals(endOfLine)) {
+          tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
+          return;
         }
-        return;
       }
+    }
+  }
+
+  private void tramArrivalHelper(
+      TramStop tramStop, Queue<Tram> tramQueue, TramStopContainer tramStopContainer) {
+    Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
+
+    if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
+      tramQueue.add(arrivedTram);
+      assert tramQueue.peek() != null;
+      System.out.println(
+          "Tram arrived at "
+              + tramStop.getStopName()
+              + " from "
+              + tramStopContainer.getTramStop().getStopName()
+              + ". Final Destination: "
+              + tramQueue.peek().getEndOfLine());
+      tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
+    } else {
+      System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
     }
   }
 
@@ -94,6 +118,7 @@ public class TramStopGraphService {
   }
 
   private String rawNameToCompositeName(TramStop tramStop) {
-    return TramStopServiceUtilities.cleanStationName(tramStop.getStopName()) + tramStop.getDirection();
+    return TramStopServiceUtilities.cleanStationName(tramStop.getStopName())
+        + tramStop.getDirection();
   }
 }

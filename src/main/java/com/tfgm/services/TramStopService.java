@@ -95,7 +95,7 @@ public class TramStopService {
                   if (isTramDeparting) {
                     tramStopGraphService.tramDeparture(nextDestination, foundTramStop);
                   } else {
-                    tramStopGraphService.tramArrival(foundTramStop);
+                    tramStopGraphService.tramArrival(nextDestination, foundTramStop);
                   }
                 }
               }
