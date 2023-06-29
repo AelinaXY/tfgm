@@ -1,15 +1,12 @@
 package com.tfgm.services;
 
-import com.tfgm.models.TramNetworkDTO;
 import com.tfgm.models.TramStop;
-import com.tfgm.persistence.TramNetworkRepo;
+import com.tfgm.persistence.TramNetworkDTORepo;
 import com.tfgm.persistence.TramStopRepo;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,17 +24,14 @@ public class TramStopService {
   private Map<String, TramStop> tramStopHashMap;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
-  private final TramStopServiceUtilities utilities = new TramStopServiceUtilities();
+  @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
 
-  @Autowired
-  private TramNetworkRepo tramNetworkRepo;
+  @Autowired private TramStopRepo tramStopRepo;
 
-  @Autowired
-  private TramStopRepo tramStopRepo;
-
-  public TramStopService(TramStopRepo tramStopRepo, TramNetworkRepo tramNetworkRepo) throws IOException {
+  public TramStopService(TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo)
+      throws IOException {
     this.tramStopRepo = tramStopRepo;
-    this.tramNetworkRepo = tramNetworkRepo;
+    this.tramNetworkDTORepo = tramNetworkDTORepo;
   }
 
   public void update() throws URISyntaxException, IOException {
@@ -82,14 +76,15 @@ public class TramStopService {
 
             if (isTramDeparting || isTramArriving) {
               String rawStationName = currentStation.getString("StationLocation");
-              String cleanStationName = utilities.cleanStationName(rawStationName);
+              String cleanStationName = TramStopServiceUtilities.cleanStationName(rawStationName);
               String stationDirection = currentStation.getString("Direction");
               String compositeStationName = cleanStationName + stationDirection;
 
               TramStop foundTramStop = tramStopHashMap.get(compositeStationName);
 
               if (foundTramStop != null) {
-                String stopUpdateString = utilities.getUpdateString(currentStation, j);
+                String stopUpdateString =
+                    TramStopServiceUtilities.getUpdateString(currentStation, j);
                 boolean uniqueTramDeparting =
                     foundTramStop.getLastUpdated().contains(stopUpdateString);
 
@@ -100,7 +95,7 @@ public class TramStopService {
                   if (isTramDeparting) {
                     tramStopGraphService.tramDeparture(nextDestination, foundTramStop);
                   } else {
-                    tramStopGraphService.tramArrival(foundTramStop);
+                    tramStopGraphService.tramArrival(nextDestination, foundTramStop);
                   }
                 }
               }
@@ -109,7 +104,7 @@ public class TramStopService {
         }
       }
 
-      tramNetworkRepo.dumpTramNetwork(tramStopRepo.getTramStops());
+      tramNetworkDTORepo.saveTramNetwork(tramStopHashMap);
     }
   }
 }

@@ -2,13 +2,14 @@ package com.tfgm.services;
 
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramNetworkDTO;
-import com.tfgm.persistence.TramNetworkRepo;
+import com.tfgm.persistence.TramNetworkDTORepo;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,46 +17,46 @@ import org.springframework.stereotype.Service;
 @Service
 public class TramNetworkService {
 
-  @Autowired private TramNetworkRepo tramNetworkRepo;
+  @Autowired private TramNetworkDTORepo tramNetworkRepo;
 
-  public TramNetworkService(TramNetworkRepo tramNetworkRepo) throws IOException {
+  public TramNetworkService(TramNetworkDTORepo tramNetworkRepo) throws IOException {
     this.tramNetworkRepo = tramNetworkRepo;
   }
 
-  public List<String> getAllTrams() {
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+  public List<TramNetworkDTO> getAllTrams() {
+    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAll();
 
-    return tramNetworkDTOList.stream().map(m -> m.toJSONString()).toList();
+    return tramNetworkDTOList;
   }
 
   public TramNetworkDTO getByTimestamp(Long timestamp) {
-    return tramNetworkRepo.getByTimestamp(timestamp);
+    return tramNetworkRepo.findByTimestamp(timestamp);
   }
 
   public List<Long> getAllTimestamps() {
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+    List<Long> tramNetworkDTOTimestampList = tramNetworkRepo.getAllTimestamps();
 
-    return tramNetworkDTOList.stream().map(m -> m.getTimestamp()).toList();
+    return tramNetworkDTOTimestampList;
   }
-
-  public List<String> getAllTramsAt(String tramStopName) {
-    List<Tram> tramList = getLatestTramInfo();
-
-    String tramStopRegex = tramStopName + "Outgoing|" + tramStopName + "Incoming";
-
-    tramList =
-        tramList.stream()
-            .filter(
-                m ->
-                    m.getDestination().matches(tramStopRegex)
-                        && m.getOrigin().matches(tramStopRegex))
-            .toList();
-
-    return tramList.stream().map(m -> m.toJSONString()).toList();
-  }
-
-  public String getAllTramsAtAllStops() {
-    List<Tram> tramList = getLatestTramInfo();
+//
+//  public List<String> getAllTramsAt(String tramStopName) {
+//    List<Tram> tramList = getLatestTramInfo();
+//
+//    String tramStopRegex = tramStopName + "Outgoing|" + tramStopName + "Incoming";
+//
+//    tramList =
+//        tramList.stream()
+//            .filter(
+//                m ->
+//                    m.getDestination().matches(tramStopRegex)
+//                        && m.getOrigin().matches(tramStopRegex))
+//            .toList();
+//
+//    return tramList.stream().map(m -> m.toJSONString()).toList();
+//  }
+//
+  public String getAllTramsAtTimestamp(Long timestamp) {
+    List<Tram> tramList = getLatestTramInfo(timestamp);
 
     // Finds all Trams at Stops
     tramList = tramList.stream().filter(m -> m.getDestination().equals(m.getOrigin())).toList();
@@ -80,18 +81,12 @@ public class TramNetworkService {
     return returnJSONObject.toString();
   }
 
-  private List<Tram> getLatestTramInfo() {
+  private List<Tram> getLatestTramInfo(Long timestamp) {
     System.out.println("latestInfoDBin" + Instant.now());
-    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkRepo.getAllTrams();
+    TramNetworkDTO tramNetworkDTO = tramNetworkRepo.findByTimestamp(timestamp);
     System.out.println("latestInfoDBOut:" + Instant.now());
 
-    TramNetworkDTO latestTramInfo =
-        tramNetworkDTOList.stream()
-            .reduce(
-                (first, second) -> (first.getTimestamp() > second.getTimestamp()) ? first : second)
-            .get();
-    System.out.println("latestInfoStreamOut:" + Instant.now());
 
-    return new ArrayList<>(latestTramInfo.getTramArrayList());
+    return new ArrayList<>(tramNetworkDTO.getTramArrayList());
   }
 }

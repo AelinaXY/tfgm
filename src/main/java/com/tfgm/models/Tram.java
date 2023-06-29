@@ -1,24 +1,27 @@
 package com.tfgm.models;
 
+import jakarta.persistence.*;
+import java.util.Objects;
+import java.util.UUID;
+
 public class Tram {
 
-  private int id;
+  private UUID uuid;
   private String endOfLine;
+
   private String destination;
+
   private String origin;
 
-  public Tram(int id, String endOfLine) {
-    this.id = id;
+  private String carriages;
+
+  private TramNetworkDTO tramNetworkDTO;
+
+  public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
+  public Tram() {}
 
   public String getEndOfLine() {
     return endOfLine;
@@ -43,8 +46,8 @@ public class Tram {
   @Override
   public String toString() {
     return "Tram{"
-        + "id="
-        + id
+        + "uuid="
+        + uuid
         + ", endOfLine='"
         + endOfLine
         + '\''
@@ -59,8 +62,8 @@ public class Tram {
 
   public String toJSONString() {
     return "{"
-        + "\"id\":"
-        + id
+        + "\"uuid\":"
+        + uuid
         + ", \"endOfLine\":\""
         + endOfLine
         + '\"'
@@ -71,5 +74,29 @@ public class Tram {
         + origin
         + '\"'
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Tram tram = (Tram) o;
+
+    if (!Objects.equals(uuid, tram.uuid)) return false;
+    if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
+    if (!Objects.equals(destination, tram.destination)) return false;
+    if (!Objects.equals(origin, tram.origin)) return false;
+    return Objects.equals(tramNetworkDTO, tram.tramNetworkDTO);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = uuid != null ? uuid.hashCode() : 0;
+    result = 31 * result + (endOfLine != null ? endOfLine.hashCode() : 0);
+    result = 31 * result + (destination != null ? destination.hashCode() : 0);
+    result = 31 * result + (origin != null ? origin.hashCode() : 0);
+    result = 31 * result + (tramNetworkDTO != null ? tramNetworkDTO.hashCode() : 0);
+    return result;
   }
 }

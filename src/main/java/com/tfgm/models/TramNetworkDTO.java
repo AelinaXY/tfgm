@@ -1,26 +1,26 @@
 package com.tfgm.models;
 
-import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.util.ArrayList;
-import org.hibernate.annotations.Type;
-import org.springframework.data.mongodb.core.mapping.TimeSeries;
+import java.util.List;
+import java.util.UUID;
 
-@Entity()
-@Table(name = "tramnetwork")
-@TimeSeries(collection = "tramnetwork", timeField = "timestamp")
 public class TramNetworkDTO {
 
-  @Id private Long timestamp;
+  private UUID uuid;
 
-  @Type(JsonBinaryType.class)
-  private ArrayList<Tram> tramArrayList;
+  private Long timestamp;
+
+  private List<Tram> tramArrayList = new ArrayList<>();
 
   public TramNetworkDTO() {}
 
-  public TramNetworkDTO(Long timestamp, ArrayList<Tram> tramArrayList) {
+  public TramNetworkDTO(Long timestamp, List<Tram> tramArrayList) {
+    this.timestamp = timestamp;
+    this.tramArrayList = tramArrayList;
+  }
+
+  public TramNetworkDTO(UUID id, Long timestamp, List<Tram> tramArrayList) {
+    this.uuid = id;
     this.timestamp = timestamp;
     this.tramArrayList = tramArrayList;
   }
@@ -47,7 +47,7 @@ public class TramNetworkDTO {
         + '}';
   }
 
-  public ArrayList<Tram> getTramArrayList() {
+  public List<Tram> getTramArrayList() {
     return tramArrayList;
   }
 }

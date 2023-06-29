@@ -1,8 +1,17 @@
 package com.tfgm.persistence;
 
 import com.tfgm.models.TramNetworkDTO;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.tfgm.models.TramStop;
+import java.util.List;
+import java.util.Map;
 
-public interface TramNetworkDTORepo extends MongoRepository<TramNetworkDTO, String> {
-    TramNetworkDTO findByTimestamp(Long timestamp);
+/** */
+public interface TramNetworkDTORepo {
+  List<TramNetworkDTO> getAll();
+
+  List<Long> getAllTimestamps();
+
+  void saveTramNetwork(Map<String, TramStop> tramStopHashMap);
+
+  TramNetworkDTO findByTimestamp(Long timestamp);
 }

@@ -1,11 +1,10 @@
 package com.tfgm.controllers;
 
 import com.tfgm.services.TramNetworkService;
+import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
 
 @RestController
 @RequestMapping("/trams")
@@ -20,7 +19,9 @@ public class TramController {
   @CrossOrigin
   @GetMapping("/")
   public ResponseEntity<String> getTrams() {
-    return ResponseEntity.ok(service.getAllTrams().toString());
+
+    return ResponseEntity.ok(
+        service.getAllTrams().stream().map(m -> m.toJSONString()).toList().toString());
   }
 
   @CrossOrigin
@@ -31,22 +32,22 @@ public class TramController {
 
   @CrossOrigin
   @GetMapping("/timestamps")
-  public ResponseEntity<String> getTramAtTime() {
+  public ResponseEntity<String> getAllTimestamps() {
     return ResponseEntity.ok(service.getAllTimestamps().toString());
   }
-
+  //
+  //  @CrossOrigin
+  //  @GetMapping("/{tramStopName}")
+  //  public ResponseEntity<String> getAllTramsAt(@PathVariable String tramStopName) {
+  //    return ResponseEntity.ok(service.getAllTramsAt(tramStopName).toString());
+  //  }
+  //
   @CrossOrigin
-  @GetMapping("/{tramStopName}")
-  public ResponseEntity<String> getAllTramsAt(@PathVariable String tramStopName) {
-    return ResponseEntity.ok(service.getAllTramsAt(tramStopName).toString());
+  @GetMapping("/alltramsatstop/{timestamp}")
+  public ResponseEntity<String> getAllTramsAtAllStops(@PathVariable Long timestamp) {
+    System.out.println("requestIn:" + Instant.now());
+    String response = service.getAllTramsAtTimestamp(timestamp);
+    System.out.println("requestOut:" + Instant.now());
+    return ResponseEntity.ok(response);
   }
-
-    @CrossOrigin
-    @GetMapping("/alltramsatstop")
-    public ResponseEntity<String> getAllTramsAtAllStops() {
-        System.out.println("requestIn:" + Instant.now());
-    String response = service.getAllTramsAtAllStops();
-        System.out.println("requestOut:" + Instant.now());
-        return ResponseEntity.ok(response);
-    }
 }
