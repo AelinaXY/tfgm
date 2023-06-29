@@ -1,12 +1,16 @@
 package com.tfgm.services;
 
+import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
+import com.tfgm.models.TramStopContainer;
 import com.tfgm.persistence.TramNetworkDTORepo;
 import com.tfgm.persistence.TramStopRepo;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.Map;
+import java.util.Queue;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,6 +26,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TramStopService {
   private Map<String, TramStop> tramStopHashMap;
+
+  private Long timeToLive = 3600L;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
   @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
@@ -104,7 +110,35 @@ public class TramStopService {
         }
       }
 
+      removeOldTrams(tramStopHashMap);
       tramNetworkDTORepo.saveTramNetwork(tramStopHashMap);
+    }
+  }
+
+  private void removeOldTrams(Map<String, TramStop> tramStopHashMap) {
+    Long timeStamp = Instant.now().getEpochSecond();
+
+    for (TramStop tramStop : tramStopHashMap.values()) {
+      Queue<Tram> tramQueue = tramStop.getTramQueue();
+
+      removeOldTramsLoop(timeStamp, tramQueue);
+
+      for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+        Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
+
+        removeOldTramsLoop(timeStamp, containerTramQueue);
+      }
+    }
+  }
+
+  private void removeOldTramsLoop(Long timeStamp, Queue<Tram> tramQueue) {
+    for (Tram tram : tramQueue) {
+      if (tram.getLastUpdated() + timeToLive < timeStamp) {
+        System.out.println("Removed " + tram);
+        System.out.println("TIME: " + timeStamp);
+        System.out.println("LAST UPDATE: " + tram.getLastUpdated());
+        tramQueue.remove(tram);
+      }
     }
   }
 }

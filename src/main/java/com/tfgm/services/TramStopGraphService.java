@@ -3,6 +3,8 @@ package com.tfgm.services;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
+
+import java.time.Instant;
 import java.util.Queue;
 
 public class TramStopGraphService {
@@ -15,7 +17,7 @@ public class TramStopGraphService {
       departingTram = tramQueue.remove();
     } else {
       System.out.println("Tram created at " + tramStop.getStopName() + ".");
-      departingTram = new Tram(endOfLine);
+      departingTram = new Tram(endOfLine, Instant.now().getEpochSecond());
     }
 
     TramStopContainer[] nextStops = tramStop.getNextStops();
@@ -44,6 +46,7 @@ public class TramStopGraphService {
                   + departingTram.getEndOfLine());
           departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
           departingTram.setOrigin(rawNameToCompositeName(tramStop));
+          departingTram.setLastUpdated(Instant.now().getEpochSecond());
           return;
         }
       }
@@ -88,6 +91,9 @@ public class TramStopGraphService {
     Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
 
     if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
+        arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
+        arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
+
       tramQueue.add(arrivedTram);
       assert tramQueue.peek() != null;
       System.out.println(
@@ -96,8 +102,7 @@ public class TramStopGraphService {
               + " from "
               + tramStopContainer.getTramStop().getStopName()
               + ". Final Destination: "
-              + tramQueue.peek().getEndOfLine());
-      tramQueue.peek().setOrigin(rawNameToCompositeName(tramStop));
+              + arrivedTram.getEndOfLine());
     } else {
       System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
     }

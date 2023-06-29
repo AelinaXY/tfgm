@@ -13,12 +13,17 @@ public class Tram {
 
   private String origin;
 
-  private String carriages;
+  private Long lastUpdated;
 
   private TramNetworkDTO tramNetworkDTO;
 
   public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
+  }
+
+  public Tram(String endOfLine, Long lastUpdated) {
+    this.endOfLine = endOfLine;
+    this.lastUpdated = lastUpdated;
   }
 
   public Tram() {}
@@ -43,24 +48,26 @@ public class Tram {
     this.destination = destination;
   }
 
-  @Override
-  public String toString() {
-    return "Tram{"
-        + "uuid="
-        + uuid
-        + ", endOfLine='"
-        + endOfLine
-        + '\''
-        + ", destination='"
-        + destination
-        + '\''
-        + ", origin='"
-        + origin
-        + '\''
-        + '}';
+  public Long getLastUpdated() {
+    return lastUpdated;
   }
 
-  public String toJSONString() {
+  public void setLastUpdated(Long lastUpdated) {
+    this.lastUpdated = lastUpdated;
+  }
+
+    @Override
+    public String toString() {
+        return "Tram{" +
+            "uuid=" + uuid +
+            ", endOfLine='" + endOfLine + '\'' +
+            ", destination='" + destination + '\'' +
+            ", origin='" + origin + '\'' +
+            ", lastUpdated=" + lastUpdated +
+            '}';
+    }
+
+    public String toJSONString() {
     return "{"
         + "\"uuid\":"
         + uuid
@@ -83,11 +90,9 @@ public class Tram {
 
     Tram tram = (Tram) o;
 
-    if (!Objects.equals(uuid, tram.uuid)) return false;
     if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
     if (!Objects.equals(destination, tram.destination)) return false;
-    if (!Objects.equals(origin, tram.origin)) return false;
-    return Objects.equals(tramNetworkDTO, tram.tramNetworkDTO);
+    return Objects.equals(origin, tram.origin);
   }
 
   @Override
