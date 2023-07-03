@@ -1,6 +1,8 @@
 package com.tfgm.models;
 
 import jakarta.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,6 +17,8 @@ public class Tram {
 
   private Long lastUpdated;
 
+  private Map<String, Long> tramHistory = new HashMap<>();
+
   private TramNetworkDTO tramNetworkDTO;
 
   public Tram(String endOfLine) {
@@ -24,6 +28,27 @@ public class Tram {
   public Tram(String endOfLine, Long lastUpdated) {
     this.endOfLine = endOfLine;
     this.lastUpdated = lastUpdated;
+  }
+
+  public Tram(UUID uuid, String endOfLine, Long lastUpdated) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.lastUpdated = lastUpdated;
+  }
+
+  public Tram(
+      UUID uuid,
+      String endOfLine,
+      String destination,
+      String origin,
+      Long lastUpdated,
+      Map<String, Long> tramHistory) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.destination = destination;
+    this.origin = origin;
+    this.lastUpdated = lastUpdated;
+    this.tramHistory = tramHistory;
   }
 
   public Tram() {}
@@ -56,21 +81,44 @@ public class Tram {
     this.lastUpdated = lastUpdated;
   }
 
-    @Override
-    public String toString() {
-        return "Tram{" +
-            "uuid=" + uuid +
-            ", endOfLine='" + endOfLine + '\'' +
-            ", destination='" + destination + '\'' +
-            ", origin='" + origin + '\'' +
-            ", lastUpdated=" + lastUpdated +
-            '}';
-    }
+  public void addToTramHistory(String stop, Long timestamp) {
+    tramHistory.put(stop, timestamp);
+  }
 
-    public String toJSONString() {
-    return "{"
-        + "\"uuid\":"
+  public Map<String, Long> getTramHistory() {
+    return tramHistory;
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  @Override
+  public String toString() {
+    return "Tram{"
+        + "uuid="
         + uuid
+        + ", endOfLine='"
+        + endOfLine
+        + '\''
+        + ", destination='"
+        + destination
+        + '\''
+        + ", origin='"
+        + origin
+        + '\''
+        + ", lastUpdated="
+        + lastUpdated
+        + ", tramHistory="
+        + tramHistory
+        + '}';
+  }
+
+  public String toJSONString() {
+    return "{"
+        + "\"uuid\":\""
+        + uuid
+        + "\""
         + ", \"endOfLine\":\""
         + endOfLine
         + '\"'

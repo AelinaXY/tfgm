@@ -57,8 +57,11 @@ public class TramNetworkService {
 //
   public String getAllTramsAtTimestamp(Long timestamp) {
     List<Tram> tramList = getLatestTramInfo(timestamp);
+    System.out.println("TRAMS: " + tramList.size());
 
-    // Finds all Trams at Stops
+
+
+      // Finds all Trams at Stops
     tramList = tramList.stream().filter(m -> m.getDestination().equals(m.getOrigin())).toList();
 
     JSONObject returnJSONObject = new JSONObject();

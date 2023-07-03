@@ -1,5 +1,6 @@
 package com.tfgm.persistence.mapper;
 
+import com.tfgm.models.Tram;
 import com.tfgm.models.TramNetworkDTO;
 import com.tfgm.typehandler.JSONtoTramListTypeHandler;
 import com.tfgm.typehandler.UUIDTypeHandler;
@@ -22,7 +23,6 @@ public interface TramNetworkDTOMapper {
   @Select("SELECT timestamp FROM tramnetwork ORDER BY timestamp ASC")
   List<Long> getAllTimestamps();
 
-
   @ResultMap("TNResult")
   @Select("SELECT * FROM tramnetwork WHERE timestamp = #{timestamp} LIMIT 1")
   TramNetworkDTO getByTimestamp(@Param("timestamp") Long timestamp);
@@ -30,4 +30,5 @@ public interface TramNetworkDTOMapper {
   @Insert(
       "INSERT INTO tramnetwork(uuid,timestamp,tramjson) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{timestamp}, #{tramArrayList, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONtoTramListTypeHandler})")
   void create(TramNetworkDTO tramNetworkDTO);
+
 }

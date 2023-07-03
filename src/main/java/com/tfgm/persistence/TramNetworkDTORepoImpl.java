@@ -32,7 +32,7 @@ public class TramNetworkDTORepoImpl implements TramNetworkDTORepo {
   }
 
   @Override
-  public void saveTramNetwork(Map<String, TramStop> tramStopHashMap) {
+  public void saveTramNetwork(Map<String, TramStop> tramStopHashMap, Long timestamp) {
 
     List<Tram> allTrams = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class TramNetworkDTORepoImpl implements TramNetworkDTORepo {
 
     UUID uuid = UUID.randomUUID();
 
-    TNMapper.create(new TramNetworkDTO(uuid, Instant.now().getEpochSecond(), allTrams));
+    TNMapper.create(new TramNetworkDTO(uuid, timestamp, allTrams));
   }
 
   @Override

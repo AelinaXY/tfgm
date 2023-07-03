@@ -1,5 +1,6 @@
 package com.tfgm.controllers;
 
+import com.tfgm.services.JourneyRoutingService;
 import com.tfgm.services.TramNetworkService;
 import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ public class TramController {
 
   @Autowired TramNetworkService service;
 
-  public TramController(TramNetworkService service) {
+  @Autowired JourneyRoutingService journeyRoutingService;
+
+  public TramController(TramNetworkService service, JourneyRoutingService journeyRoutingService) {
     this.service = service;
+    this.journeyRoutingService = journeyRoutingService;
   }
 
   @CrossOrigin
@@ -49,5 +53,13 @@ public class TramController {
     String response = service.getAllTramsAtTimestamp(timestamp);
     System.out.println("requestOut:" + Instant.now());
     return ResponseEntity.ok(response);
+  }
+
+  @CrossOrigin
+  @GetMapping("/journeyPing")
+  public void testing() {
+    System.out.println("requestIn TEST:" + Instant.now());
+    journeyRoutingService.tester();
+    System.out.println("requestOut TEST:" + Instant.now());
   }
 }

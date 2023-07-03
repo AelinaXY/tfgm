@@ -4,6 +4,7 @@ import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import com.tfgm.persistence.TramNetworkDTORepo;
+import com.tfgm.persistence.TramRepo;
 import com.tfgm.persistence.TramStopRepo;
 import java.io.IOException;
 import java.net.URI;
@@ -27,17 +28,20 @@ import org.springframework.stereotype.Service;
 public class TramStopService {
   private Map<String, TramStop> tramStopHashMap;
 
-  private Long timeToLive = 3600L;
+  private Long timeToLive = 1800L;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
   @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
 
+  @Autowired private TramRepo tramRepo;
+
   @Autowired private TramStopRepo tramStopRepo;
 
-  public TramStopService(TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo)
+  public TramStopService(TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
       throws IOException {
     this.tramStopRepo = tramStopRepo;
     this.tramNetworkDTORepo = tramNetworkDTORepo;
+    this.tramRepo = tramRepo;
   }
 
   public void update() throws URISyntaxException, IOException {
@@ -62,6 +66,8 @@ public class TramStopService {
 
     HttpResponse response = httpclient.execute(request);
     HttpEntity entity = response.getEntity();
+
+    Long timestamp = Instant.now().getEpochSecond();
 
     if (entity != null) {
       String jsonString = EntityUtils.toString(entity);
@@ -99,7 +105,7 @@ public class TramStopService {
                   foundTramStop.addToLastUpdated(stopUpdateString);
 
                   if (isTramDeparting) {
-                    tramStopGraphService.tramDeparture(nextDestination, foundTramStop);
+                    tramStopGraphService.tramDeparture(nextDestination, foundTramStop, timestamp);
                   } else {
                     tramStopGraphService.tramArrival(nextDestination, foundTramStop);
                   }
@@ -111,7 +117,8 @@ public class TramStopService {
       }
 
       removeOldTrams(tramStopHashMap);
-      tramNetworkDTORepo.saveTramNetwork(tramStopHashMap);
+      tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
+      tramRepo.saveTrams(tramStopHashMap);
     }
   }
 
@@ -138,6 +145,7 @@ public class TramStopService {
         System.out.println("TIME: " + timeStamp);
         System.out.println("LAST UPDATE: " + tram.getLastUpdated());
         tramQueue.remove(tram);
+//        tramRepo.delete(tram.getUuid());
       }
     }
   }

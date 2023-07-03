@@ -34,7 +34,6 @@ public class TramStopRepo {
     // Iterates through and adds all the tram stops to a hashmap
     for (TramStopDTO currentTramStop : allTramStopDTO) {
       String tramStopName = currentTramStop.getTramStopName();
-      ;
 
       tramStopHashMap.put(
           tramStopName,

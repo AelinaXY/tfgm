@@ -6,10 +6,11 @@ import com.tfgm.models.TramStopContainer;
 
 import java.time.Instant;
 import java.util.Queue;
+import java.util.UUID;
 
 public class TramStopGraphService {
 
-  public void tramDeparture(String endOfLine, TramStop tramStop) {
+  public void tramDeparture(String endOfLine, TramStop tramStop, Long timestamp) {
     Tram departingTram;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
@@ -17,8 +18,10 @@ public class TramStopGraphService {
       departingTram = tramQueue.remove();
     } else {
       System.out.println("Tram created at " + tramStop.getStopName() + ".");
-      departingTram = new Tram(endOfLine, Instant.now().getEpochSecond());
+      departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
     }
+
+    departingTram.addToTramHistory(tramStop.getStopName(), timestamp);
 
     TramStopContainer[] nextStops = tramStop.getNextStops();
 
@@ -46,7 +49,7 @@ public class TramStopGraphService {
                   + departingTram.getEndOfLine());
           departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
           departingTram.setOrigin(rawNameToCompositeName(tramStop));
-          departingTram.setLastUpdated(Instant.now().getEpochSecond());
+          departingTram.setLastUpdated(timestamp);
           return;
         }
       }
