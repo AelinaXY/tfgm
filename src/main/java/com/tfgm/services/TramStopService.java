@@ -81,8 +81,14 @@ public class TramStopService {
         JSONObject currentStation = tfgmValueArray.getJSONObject(i);
 
         for (int j = 0; j < 4; j++) {
-          String nextDestination = currentStation.getString("Dest" + j);
-          boolean nextDestinationNull = nextDestination.equals("");
+          String endOfLine = currentStation.getString("Dest" + j);
+          boolean nextDestinationNull = endOfLine.equals("");
+
+          //Sometimes Deansgate - Castlefield ends up without it's dash causing issues
+            if(endOfLine.equals("Deansgate Castlefield"))
+            {
+                endOfLine = "Deansgate - Castlefield";
+            }
 
           if (!nextDestinationNull) {
             String nextStatus = currentStation.getString("Status" + j);
@@ -103,14 +109,14 @@ public class TramStopService {
                 boolean uniqueTramDeparting =
                     foundTramStop.getLastUpdated().contains(stopUpdateString);
 
-                if (!uniqueTramDeparting) {
+                if (!uniqueTramDeparting && !endOfLine.equals("See Tram Front")) {
 
                   foundTramStop.addToLastUpdated(stopUpdateString);
 
-                  if (isTramDeparting) {
-                    tramStopGraphService.tramDeparture(nextDestination, foundTramStop, timestamp);
+                  if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
+                    tramStopGraphService.tramDeparture(endOfLine, foundTramStop, timestamp);
                   } else {
-                    tramStopGraphService.tramArrival(nextDestination, foundTramStop);
+                    tramStopGraphService.tramArrival(endOfLine, foundTramStop);
                   }
                 }
               }

@@ -54,6 +54,7 @@ public class TramStopGraphService {
         }
       }
     }
+    System.out.println("TRAM ISSUE: " + departingTram + " created but not left");
   }
 
   // LEGACY CODE
@@ -76,14 +77,13 @@ public class TramStopGraphService {
 
     for (TramStopContainer tramStopContainer : prevStops) {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
-        if (tramStopContainer
-            .getTramLinkStop()
-            .getTramQueue()
-            .peek()
-            .getEndOfLine()
-            .equals(endOfLine)) {
-          tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
-          return;
+        for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue())
+        {
+          if (tram.getEndOfLine()
+              .equals(endOfLine)) {
+            tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
+            return;
+          }
         }
       }
     }
