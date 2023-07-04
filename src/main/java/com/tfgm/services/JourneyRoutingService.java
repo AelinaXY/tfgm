@@ -1,12 +1,15 @@
 package com.tfgm.services;
 
 import com.tfgm.models.Journey;
+import com.tfgm.models.Person;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.persistence.JourneyRepo;
+import com.tfgm.persistence.PersonRepo;
 import com.tfgm.persistence.TramRepo;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +21,21 @@ public class JourneyRoutingService {
 
   @Autowired private JourneyRepo journeyRepo;
 
-  public JourneyRoutingService(TramRepo tramRepo, JourneyRepo journeyRepo) throws IOException {
+  @Autowired private PersonRepo personRepo;
+
+  public JourneyRoutingService(TramRepo tramRepo, JourneyRepo journeyRepo, PersonRepo personRepo)
+      throws IOException {
     this.tramRepo = tramRepo;
     this.journeyRepo = journeyRepo;
+    this.personRepo = personRepo;
   }
 
-  private List<Journey> routeJourney(Long timestampStart, String origin, String destination) {
+  private List<Journey> routeJourney(Person person) {
+    Long timestampStart = person.getTapInTime();
+
+    String origin = person.getTapInStop();
+    String destination = person.getTapOutStop();
+
     ArrayList<Journey> tramJourneyList = new ArrayList<>();
     List<Tram> originTrams = tramRepo.getInNextTwoHours(timestampStart, origin);
 
@@ -40,7 +52,8 @@ public class JourneyRoutingService {
                 origin,
                 tramHistory.get(destination),
                 destination,
-                tram.getUuid());
+                tram.getUuid(),
+                person.getUuid());
         tramJourneyList.add(tramJourney);
         return tramJourneyList;
       }
@@ -56,28 +69,19 @@ public class JourneyRoutingService {
 
         for (String stop : destinationTramHistory.keySet()) {
 
-            if(destinationTramHistory.containsKey("Wharfside"))
-            {
-            System.out.println("hi");
-                if(destinationTramHistory.get("Wharfside") == 1688394701L)
-                {
-              System.out.println("hi");
-                }
-            }
-
           if (originTramHistory.containsKey(stop)) {
-            System.out.println(stop);
-            if (originTramHistory.get(stop) < timestamp && originTramHistory.get(origin) < originTramHistory.get(stop) && destinationTramHistory.get(stop) < destinationTramHistory.get(destination)){
+            if (originTramHistory.get(stop) < timestamp
+                && originTramHistory.get(origin) < originTramHistory.get(stop)
+                && destinationTramHistory.get(stop) < destinationTramHistory.get(destination)) {
               stopName = stop;
               timestamp = destinationTramHistory.get(stop);
             }
           }
         }
 
-        System.out.println(stopName);
-        System.out.println(timestamp);
         if (stopName != null) {
           if (originTramHistory.get(stopName) < timestamp) {
+            System.out.println(stopName);
             Journey originTramJourney =
                 new Journey(
                     UUID.randomUUID(),
@@ -85,7 +89,8 @@ public class JourneyRoutingService {
                     origin,
                     originTramHistory.get(stopName),
                     stopName,
-                    originTram.getUuid());
+                    originTram.getUuid(),
+                    person.getUuid());
             tramJourneyList.add(originTramJourney);
             Journey destinationTramJourney =
                 new Journey(
@@ -94,7 +99,8 @@ public class JourneyRoutingService {
                     stopName,
                     destinationTramHistory.get(destination),
                     destination,
-                    destinationTram.getUuid());
+                    destinationTram.getUuid(),
+                    person.getUuid());
             tramJourneyList.add(destinationTramJourney);
 
             return tramJourneyList;
@@ -107,8 +113,150 @@ public class JourneyRoutingService {
   }
 
   public void tester() {
-    List<Journey> listOfJourneys = routeJourney(1688393998L, "Stretford", "Wharfside");
+    System.out.println("Create new Person");
+    Person testPerson =
+        new Person(
+            UUID.randomUUID(), "TestPerson", 1688393998L, "Stretford", 1688398998L, "Firswood");
+
+    System.out.println("Save Person");
+    personRepo.savePeople(Arrays.asList(testPerson));
+
+    System.out.println("Getting person");
+
+    Person returnedPerson = personRepo.getPerson(testPerson.getUuid());
+
+    List<Journey> listOfJourneys = routeJourney(returnedPerson);
 
     journeyRepo.saveJourneys(listOfJourneys);
+  }
+
+  public void peoplePopulate() {
+
+    Long startingTime = 1688338800L;
+
+    List<Person> personList = new ArrayList<>();
+
+    List<String> tramStopList =
+        Arrays.asList(
+            "Abraham Moss",
+            "Altrincham",
+            "Anchorage",
+            "Ashton Moss",
+            "Ashton West",
+            "Ashton-under-Lyne",
+            "Audenshaw",
+            "Baguely",
+            "Barlow Moor Road",
+            "Barton Dock Road",
+            "Benchill",
+            "Besses o' th' Barn",
+            "Bowker Vale",
+            "Broadway",
+            "Brooklands",
+            "Burton Road",
+            "Bury",
+            "Cemetery Road",
+            "Central Park",
+            "Chorlton",
+            "Clayton Hall",
+            "Cornbrook",
+            "Crossacres",
+            "Crumpsall",
+            "Dane Road",
+            "Deansgate - Castlefield",
+            "Didsbury Village",
+            "Droylsden",
+            "East Didsbury",
+            "Eccles",
+            "Edge Lane",
+            "Etihad Campus",
+            "Exchange Quay",
+            "Exchange Square",
+            "Failsworth",
+            "Firswood",
+            "Freehold",
+            "Harbour City",
+            "Heaton Park",
+            "Hollinwood",
+            "Holt Town",
+            "Imperial War Museum",
+            "Kingsway Business Park",
+            "Ladywell",
+            "Langworthy",
+            "Manchester Airport",
+            "Market Street",
+            "Martinscroft",
+            "MediaCityUK",
+            "Milnrow",
+            "Monsall",
+            "Moor Road",
+            "Navigation Road",
+            "New Islington",
+            "Newbold",
+            "Newhey",
+            "Newton Heath and Moss",
+            "Northern Moor",
+            "Old Trafford",
+            "Oldham Central",
+            "Oldham King Street",
+            "Oldham Mumps",
+            "Parkway",
+            "Peel Hall",
+            "Piccadilly",
+            "Piccadilly Gardens",
+            "Pomona",
+            "Prestwich",
+            "Queens Road",
+            "Radcliffe",
+            "Robinswood Road",
+            "Rochdale Railway Station",
+            "Rochdale Town Centre",
+            "Roundthorn",
+            "Sale",
+            "Sale Water Park",
+            "Salford Quays",
+            "Shadowmoss",
+            "Shaw and Crompton",
+            "Shudehill",
+            "South Chadderton",
+            "St Peter's Square",
+            "St Werburgh's Road",
+            "Stretford",
+            "The Trafford Centre",
+            "Timperly",
+            "Trafford Bar",
+            "Velopark",
+            "Victoria",
+            "Village",
+            "Weaste",
+            "West Didsbury",
+            "Westwood",
+            "Wharfside",
+            "Whitefield",
+            "Withington",
+            "Wythenshawe Park",
+            "Wythenshawe Town Centre");
+
+    int randomNum;
+
+    for (int i = 0; i < 40000; i++) {
+
+//      System.out.println("Created Person number " + i);
+
+      randomNum = ThreadLocalRandom.current().nextInt(0, tramStopList.size());
+
+      String startStop = tramStopList.get(randomNum);
+
+      randomNum = ThreadLocalRandom.current().nextInt(0, tramStopList.size());
+
+      String endStop = tramStopList.get(randomNum);
+
+
+      personList.add(new Person(UUID.randomUUID(), String.valueOf(i),Long.valueOf(ThreadLocalRandom.current().nextInt(startingTime.intValue(), startingTime.intValue()+86400)), startStop, Long.valueOf(ThreadLocalRandom.current().nextInt(startingTime.intValue(), startingTime.intValue()+86400)), endStop));
+
+
+    }
+
+    personRepo.savePeople(personList);
   }
 }

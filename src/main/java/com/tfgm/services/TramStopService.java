@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import org.apache.http.HttpEntity;
@@ -37,7 +39,8 @@ public class TramStopService {
 
   @Autowired private TramStopRepo tramStopRepo;
 
-  public TramStopService(TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
+  public TramStopService(
+      TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
       throws IOException {
     this.tramStopRepo = tramStopRepo;
     this.tramNetworkDTORepo = tramNetworkDTORepo;
@@ -130,23 +133,30 @@ public class TramStopService {
 
       removeOldTramsLoop(timeStamp, tramQueue);
 
-      for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
-        Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
+      if (tramStop.getNextStops() != null) {
+        for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+          Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
 
-        removeOldTramsLoop(timeStamp, containerTramQueue);
+          removeOldTramsLoop(timeStamp, containerTramQueue);
+        }
       }
     }
   }
 
   private void removeOldTramsLoop(Long timeStamp, Queue<Tram> tramQueue) {
+    List<Tram> listToRemove = new ArrayList<>();
     for (Tram tram : tramQueue) {
       if (tram.getLastUpdated() + timeToLive < timeStamp) {
         System.out.println("Removed " + tram);
         System.out.println("TIME: " + timeStamp);
         System.out.println("LAST UPDATE: " + tram.getLastUpdated());
-        tramQueue.remove(tram);
-//        tramRepo.delete(tram.getUuid());
+        listToRemove.add(tram);
+        //        tramRepo.delete(tram.getUuid());
       }
+    }
+
+    for (Tram tram : listToRemove) {
+      tramQueue.remove(tram);
     }
   }
 }

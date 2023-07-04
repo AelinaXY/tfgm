@@ -62,4 +62,12 @@ public class TramController {
     journeyRoutingService.tester();
     System.out.println("requestOut TEST:" + Instant.now());
   }
+
+    @CrossOrigin
+    @GetMapping("/makePeople")
+    public void makePeople() {
+    System.out.println("requestIn People:" + Instant.now());
+        journeyRoutingService.peoplePopulate();
+        System.out.println("requestOut People:" + Instant.now());
+    }
 }
