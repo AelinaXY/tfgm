@@ -70,4 +70,20 @@ public class TramController {
         journeyRoutingService.peoplePopulate();
         System.out.println("requestOut People:" + Instant.now());
     }
+
+    @CrossOrigin
+    @GetMapping("/makeJourney")
+    public void makeJourney() {
+        System.out.println("requestIn Journey:" + Instant.now());
+        journeyRoutingService.populateJourneys();
+        System.out.println("requestOut Journey:" + Instant.now());
+    }
+
+    @CrossOrigin
+    @GetMapping("/updateTramNetworkDTO")
+    public void updateTramNetworkDTO() {
+        System.out.println("requestIn TramNetwork:" + Instant.now());
+        journeyRoutingService.populateTramNumbers();
+        System.out.println("requestOut TramNetwork:" + Instant.now());
+    }
 }

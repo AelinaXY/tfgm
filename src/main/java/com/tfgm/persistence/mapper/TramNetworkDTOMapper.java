@@ -17,7 +17,7 @@ public interface TramNetworkDTOMapper {
     @Arg(column = "timestamp", javaType = Long.class),
     @Arg(column = "tramJson", javaType = List.class, typeHandler = JSONtoTramListTypeHandler.class),
   })
-  @Select("SELECT * FROM tramnetwork")
+  @Select("SELECT * FROM tramnetwork ORDER BY timestamp DESC")
   List<TramNetworkDTO> getAll();
 
   @Select("SELECT timestamp FROM tramnetwork ORDER BY timestamp ASC")
@@ -28,7 +28,8 @@ public interface TramNetworkDTOMapper {
   TramNetworkDTO getByTimestamp(@Param("timestamp") Long timestamp);
 
   @Insert(
-      "INSERT INTO tramnetwork(uuid,timestamp,tramjson) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{timestamp}, #{tramArrayList, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONtoTramListTypeHandler})")
+      "INSERT INTO tramnetwork(uuid,timestamp,tramjson) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{timestamp}, #{tramArrayList, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONtoTramListTypeHandler})"
+      +"ON CONFLICT (uuid) DO UPDATE SET timestamp = excluded.timestamp, tramjson = excluded.tramjson;")
   void create(TramNetworkDTO tramNetworkDTO);
 
 }

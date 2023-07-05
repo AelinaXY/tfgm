@@ -7,6 +7,7 @@ import com.tfgm.typehandler.JSONMapLongHandler;
 import com.tfgm.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,4 +28,9 @@ public interface PersonMapper {
     })
     @Select("SELECT * FROM people WHERE uuid = #{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Person get(@Param("uuid") UUID uuid);
+
+
+    @ResultMap("personResult")
+    @Select("SELECT * FROM people")
+    List<Person> getAll();
 }

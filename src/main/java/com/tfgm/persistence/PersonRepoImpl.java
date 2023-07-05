@@ -35,4 +35,9 @@ public class PersonRepoImpl implements PersonRepo {
     public Person getPerson(UUID uuid) {
         return PMapper.get(uuid);
     }
+
+    @Override
+    public List<Person> getAll() {
+        return PMapper.getAll();
+    }
 }

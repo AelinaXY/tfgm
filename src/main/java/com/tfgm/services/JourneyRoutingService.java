@@ -1,11 +1,9 @@
 package com.tfgm.services;
 
-import com.tfgm.models.Journey;
-import com.tfgm.models.Person;
-import com.tfgm.models.Tram;
-import com.tfgm.models.TramStop;
+import com.tfgm.models.*;
 import com.tfgm.persistence.JourneyRepo;
 import com.tfgm.persistence.PersonRepo;
+import com.tfgm.persistence.TramNetworkDTORepo;
 import com.tfgm.persistence.TramRepo;
 import java.io.IOException;
 import java.util.*;
@@ -23,11 +21,18 @@ public class JourneyRoutingService {
 
   @Autowired private PersonRepo personRepo;
 
-  public JourneyRoutingService(TramRepo tramRepo, JourneyRepo journeyRepo, PersonRepo personRepo)
+  @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
+
+  public JourneyRoutingService(
+      TramRepo tramRepo,
+      JourneyRepo journeyRepo,
+      PersonRepo personRepo,
+      TramNetworkDTORepo tramNetworkDTORepo)
       throws IOException {
     this.tramRepo = tramRepo;
     this.journeyRepo = journeyRepo;
     this.personRepo = personRepo;
+    this.tramNetworkDTORepo = tramNetworkDTORepo;
   }
 
   private List<Journey> routeJourney(Person person) {
@@ -241,7 +246,7 @@ public class JourneyRoutingService {
 
     for (int i = 0; i < 40000; i++) {
 
-//      System.out.println("Created Person number " + i);
+      //      System.out.println("Created Person number " + i);
 
       randomNum = ThreadLocalRandom.current().nextInt(0, tramStopList.size());
 
@@ -251,12 +256,54 @@ public class JourneyRoutingService {
 
       String endStop = tramStopList.get(randomNum);
 
-
-      personList.add(new Person(UUID.randomUUID(), String.valueOf(i),Long.valueOf(ThreadLocalRandom.current().nextInt(startingTime.intValue(), startingTime.intValue()+86400)), startStop, Long.valueOf(ThreadLocalRandom.current().nextInt(startingTime.intValue(), startingTime.intValue()+86400)), endStop));
-
-
+      personList.add(
+          new Person(
+              UUID.randomUUID(),
+              String.valueOf(i),
+              Long.valueOf(
+                  ThreadLocalRandom.current()
+                      .nextInt(startingTime.intValue(), startingTime.intValue() + 86400)),
+              startStop,
+              Long.valueOf(
+                  ThreadLocalRandom.current()
+                      .nextInt(startingTime.intValue(), startingTime.intValue() + 86400)),
+              endStop));
     }
 
     personRepo.savePeople(personList);
+  }
+
+  public void populateJourneys() {
+    System.out.println("Start Journey Population");
+    List<Person> personList = personRepo.getAll();
+
+    List<Journey> journeyList = new ArrayList<>();
+
+    for (Person person : personList) {
+      List<Journey> tempJourney = routeJourney(person);
+
+      if (tempJourney != null) {
+        journeyList.addAll(tempJourney);
+      }
+    }
+
+    journeyRepo.saveJourneys(journeyList);
+  }
+
+  public void populateTramNumbers() {
+    List<TramNetworkDTO> tramNetworkDTOList = tramNetworkDTORepo.getAll();
+
+    int count = 0;
+    for (TramNetworkDTO tramNetworkDTO : tramNetworkDTOList) {
+      System.out.println(count);
+      count++;
+      for (Tram tram : tramNetworkDTO.getTramArrayList()) {
+        Long passengers =
+            journeyRepo.countPassengers(tram.getUuid(), tramNetworkDTO.getTimestamp());
+        tram.setPopulation(passengers);
+      }
+
+      tramNetworkDTORepo.saveTramNetworkDTO(tramNetworkDTO);
+    }
   }
 }

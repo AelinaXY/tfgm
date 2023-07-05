@@ -10,4 +10,6 @@ import java.util.UUID;
 /** */
 public interface JourneyRepo {
   void saveJourneys(List<Journey> journeyList);
+
+  long countPassengers(UUID tramUUID, Long timestamp);
   }

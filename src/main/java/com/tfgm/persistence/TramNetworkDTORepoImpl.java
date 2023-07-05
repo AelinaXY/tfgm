@@ -51,8 +51,15 @@ public class TramNetworkDTORepoImpl implements TramNetworkDTORepo {
     TNMapper.create(new TramNetworkDTO(uuid, timestamp, allTrams));
   }
 
-  @Override
+    @Override
+    public void saveTramNetworkDTO(TramNetworkDTO tramNetworkDTO) {
+      TNMapper.create(tramNetworkDTO);
+    }
+
+    @Override
   public TramNetworkDTO findByTimestamp(Long timestamp) {
     return TNMapper.getByTimestamp(timestamp);
   }
+
+
 }

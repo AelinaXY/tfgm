@@ -10,4 +10,6 @@ public interface PersonRepo {
   void savePeople(List<Person> peopleList);
 
   Person getPerson(UUID uuid);
+
+  List<Person> getAll();
   }
