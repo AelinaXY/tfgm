@@ -15,10 +15,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TramRepoImpl implements TramRepo {
 
-  private final TramMapper TMapper;
+  private final TramMapper tramMapper;
 
-  public TramRepoImpl(TramMapper TMapper) {
-    this.TMapper = TMapper;
+  public TramRepoImpl(TramMapper tramMapper) {
+    this.tramMapper = tramMapper;
   }
 
   @Override
@@ -29,33 +29,32 @@ public class TramRepoImpl implements TramRepo {
     for (TramStop tramStop : tramStopHashMap.values()) {
 
       allTrams.addAll(tramStop.getTramQueue());
-      TramStopContainer[] nextStops = tramStop.getNextStops();
 
-      for (TramStopContainer nextTramStop : nextStops) {
+      for (TramStopContainer nextTramStop : tramStop.getNextStops()) {
         allTrams.addAll(nextTramStop.getTramLinkStop().getTramQueue());
       }
     }
 
     System.out.println("SAVING TRAMS: " + Instant.now());
     for (Tram tram : allTrams) {
-      TMapper.create(tram);
+      tramMapper.create(tram);
     }
     System.out.println("DONE SAVING TRAMS: " + Instant.now());
   }
 
     @Override
     public Tram delete(UUID uuid) {
-        return TMapper.delete(uuid);
+        return tramMapper.delete(uuid);
     }
 
     @Override
     public int deleteAll() {
-      return TMapper.deleteAll();
+      return tramMapper.deleteAll();
 
     }
 
     @Override
     public List<Tram> getInNextTwoHours(Long timestamp, String stopName) {
-        return TMapper.getAfterTS(timestamp,stopName);
+        return tramMapper.getAfterTS(timestamp,stopName);
     }
 }

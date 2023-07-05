@@ -1,5 +1,6 @@
 package com.tfgm.models;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Journey {
@@ -86,5 +87,53 @@ public class Journey {
 
   public void setPersonUUID(UUID personUUID) {
     this.personUUID = personUUID;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Journey journey = (Journey) o;
+
+    if (!Objects.equals(getOnTime, journey.getOnTime)) return false;
+    if (!Objects.equals(getOnStop, journey.getOnStop)) return false;
+    if (!Objects.equals(getOffTime, journey.getOffTime)) return false;
+    if (!Objects.equals(getOffStop, journey.getOffStop)) return false;
+    if (!Objects.equals(tramUUID, journey.tramUUID)) return false;
+    return Objects.equals(personUUID, journey.personUUID);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getOnTime != null ? getOnTime.hashCode() : 0;
+    result = 31 * result + (getOnStop != null ? getOnStop.hashCode() : 0);
+    result = 31 * result + (getOffTime != null ? getOffTime.hashCode() : 0);
+    result = 31 * result + (getOffStop != null ? getOffStop.hashCode() : 0);
+    result = 31 * result + (tramUUID != null ? tramUUID.hashCode() : 0);
+    result = 31 * result + (personUUID != null ? personUUID.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Journey{"
+        + "uuid="
+        + uuid
+        + ", getOnTime="
+        + getOnTime
+        + ", getOnStop='"
+        + getOnStop
+        + '\''
+        + ", getOffTime="
+        + getOffTime
+        + ", getOffStop='"
+        + getOffStop
+        + '\''
+        + ", tramUUID="
+        + tramUUID
+        + ", personUUID="
+        + personUUID
+        + '}';
   }
 }

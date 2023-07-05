@@ -41,7 +41,7 @@ public class JourneyRoutingService {
     String origin = person.getTapInStop();
     String destination = person.getTapOutStop();
 
-    ArrayList<Journey> tramJourneyList = new ArrayList<>();
+    List<Journey> tramJourneyList = new ArrayList<>();
     List<Tram> originTrams = tramRepo.getInNextTwoHours(timestampStart, origin);
 
     List<Tram> destinationTrams = tramRepo.getInNextTwoHours(timestampStart, destination);

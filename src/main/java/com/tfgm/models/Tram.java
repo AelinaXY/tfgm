@@ -99,7 +99,7 @@ public class Tram {
   }
 
   public Map<String, Long> getTramHistory() {
-    return tramHistory;
+    return new HashMap<>(tramHistory);
   }
 
   public UUID getUuid() {

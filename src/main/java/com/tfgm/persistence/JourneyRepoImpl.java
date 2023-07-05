@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JourneyRepoImpl implements JourneyRepo {
 
-  private final JourneyMapper JMapper;
+  private final JourneyMapper journeyMapper;
 
-  public JourneyRepoImpl(JourneyMapper JMapper) {
-    this.JMapper = JMapper;
+  public JourneyRepoImpl(JourneyMapper journeyMapper) {
+    this.journeyMapper = journeyMapper;
   }
 
   @Override
@@ -24,13 +24,13 @@ public class JourneyRepoImpl implements JourneyRepo {
       for (Journey journey : journeyList) {
         System.out.println("Saved Journey " + i);
         i++;
-        JMapper.create(journey);
+        journeyMapper.create(journey);
       }
     }
   }
 
     @Override
     public long countPassengers(UUID tramUUID, Long timestamp) {
-        return JMapper.countPassengers(tramUUID,timestamp);
+        return journeyMapper.countPassengers(tramUUID,timestamp);
     }
 }

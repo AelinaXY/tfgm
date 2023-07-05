@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/trams")
 public class TramController {
+  TramNetworkService service;
 
-  @Autowired TramNetworkService service;
+  JourneyRoutingService journeyRoutingService;
 
-  @Autowired JourneyRoutingService journeyRoutingService;
-
+  @Autowired
   public TramController(TramNetworkService service, JourneyRoutingService journeyRoutingService) {
     this.service = service;
     this.journeyRoutingService = journeyRoutingService;
@@ -63,27 +63,27 @@ public class TramController {
     System.out.println("requestOut TEST:" + Instant.now());
   }
 
-    @CrossOrigin
-    @GetMapping("/makePeople")
-    public void makePeople() {
+  @CrossOrigin
+  @GetMapping("/makePeople")
+  public void makePeople() {
     System.out.println("requestIn People:" + Instant.now());
-        journeyRoutingService.peoplePopulate();
-        System.out.println("requestOut People:" + Instant.now());
-    }
+    journeyRoutingService.peoplePopulate();
+    System.out.println("requestOut People:" + Instant.now());
+  }
 
-    @CrossOrigin
-    @GetMapping("/makeJourney")
-    public void makeJourney() {
-        System.out.println("requestIn Journey:" + Instant.now());
-        journeyRoutingService.populateJourneys();
-        System.out.println("requestOut Journey:" + Instant.now());
-    }
+  @CrossOrigin
+  @GetMapping("/makeJourney")
+  public void makeJourney() {
+    System.out.println("requestIn Journey:" + Instant.now());
+    journeyRoutingService.populateJourneys();
+    System.out.println("requestOut Journey:" + Instant.now());
+  }
 
-    @CrossOrigin
-    @GetMapping("/updateTramNetworkDTO")
-    public void updateTramNetworkDTO() {
-        System.out.println("requestIn TramNetwork:" + Instant.now());
-        journeyRoutingService.populateTramNumbers();
-        System.out.println("requestOut TramNetwork:" + Instant.now());
-    }
+  @CrossOrigin
+  @GetMapping("/updateTramNetworkDTO")
+  public void updateTramNetworkDTO() {
+    System.out.println("requestIn TramNetwork:" + Instant.now());
+    journeyRoutingService.populateTramNumbers();
+    System.out.println("requestOut TramNetwork:" + Instant.now());
+  }
 }
