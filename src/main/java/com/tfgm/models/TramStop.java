@@ -21,11 +21,8 @@ public class TramStop {
   /** The overall line the stop is on. */
   private final String line;
 
-  /**
-   * An arraylist of the previous updates this TramStop has had. Generally in the format
-   * "YYYYMMDDHHMM{DestinationName}."
-   */
-  private final List<String> lastUpdated = new ArrayList<>();
+  /** An arraylist of the previous updates this TramStop has had." */
+  private final List<TramUpdate> lastUpdated = new ArrayList<>();
 
   /** A representation of Trams currently at this Station going in a direction. */
   private final Queue<Tram> tramQueue = new LinkedList<>();
@@ -40,6 +37,8 @@ public class TramStop {
    * more details.
    */
   private TramStopContainer[] prevStops;
+
+  private int lastUpdateCount = 0;
 
   /**
    * Constructor for class TramStop.
@@ -129,12 +128,32 @@ public class TramStop {
     return direction;
   }
 
-  public List<String> getLastUpdated() {
-    return lastUpdated;
+  public int getLastUpdatedSize() {
+    return lastUpdated.size();
   }
 
-  public void addToLastUpdated(String lastUpdated) {
-    this.lastUpdated.add(lastUpdated);
+  public String getLastUpdatedString() {
+    return lastUpdated.toString();
+  }
+
+  public void addToLastUpdated(String updateCode, Long position) {
+    this.lastUpdated.add(new TramUpdate(updateCode, position));
+  }
+
+  public boolean isValidTram(String updateCode, Long position) {
+    List<TramUpdate> correctUpdateCode =
+        lastUpdated.stream().filter(m -> m.getUpdateCode().equals(updateCode)).toList();
+
+    for (int i = 0; i < correctUpdateCode.size(); i++) {
+      if (position <= correctUpdateCode.get(i).getUpdatePosition()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public void clearLastUpdated() {
+    lastUpdated.clear();
   }
 
   public Queue<Tram> getTramQueue() {
@@ -162,5 +181,17 @@ public class TramStop {
 
     if (!stopName.equals(tramStop.stopName)) return false;
     return direction.equals(tramStop.direction);
+  }
+
+  public int getLastUpdateCount() {
+    return lastUpdateCount;
+  }
+
+  public void incrementLastUpdateCount() {
+    lastUpdateCount++;
+  }
+
+  public void zeroLastUpdateCount() {
+    lastUpdateCount = 0;
   }
 }

@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.function.Supplier;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -101,6 +98,7 @@ public class TramStopService {
             boolean isTramArriving = nextStatus.equals("Arrived");
 
             if (isTramDeparting || isTramArriving) {
+
               String rawStationName = currentStation.getString("StationLocation");
               String cleanStationName = TramStopServiceUtilities.cleanStationName(rawStationName);
               String stationDirection = currentStation.getString("Direction");
@@ -109,19 +107,22 @@ public class TramStopService {
               TramStop foundTramStop = tramStopHashMap.get(compositeStationName);
 
               if (foundTramStop != null) {
-                String stopUpdateString =
-                    TramStopServiceUtilities.getUpdateString(currentStation, j);
-                boolean uniqueTramDeparting =
-                    foundTramStop.getLastUpdated().contains(stopUpdateString);
 
-                if (!uniqueTramDeparting && !endOfLine.equals("See Tram Front")) {
+                foundTramStop.incrementLastUpdateCount();
 
-                  foundTramStop.addToLastUpdated(stopUpdateString);
+                String stopUpdateCode = TramStopServiceUtilities.getUpdateString(currentStation, j);
+                boolean uniqueTramDepartArrive =
+                    foundTramStop.isValidTram(stopUpdateCode, (long) j);
+
+                if (uniqueTramDepartArrive && !endOfLine.equals("See Tram Front")) {
+
+                  foundTramStop.addToLastUpdated(stopUpdateCode, (long) j);
 
                   if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
-                    tramStopGraphService.tramDeparture(endOfLine, foundTramStop, timestamp);
+                    tramStopGraphService.tramDeparture(
+                        endOfLine, foundTramStop, timestamp, currentStation);
                   } else {
-                    tramStopGraphService.tramArrival(endOfLine, foundTramStop);
+                    tramStopGraphService.tramArrival(endOfLine, foundTramStop, currentStation);
                   }
                 }
               }
@@ -130,6 +131,7 @@ public class TramStopService {
         }
       }
 
+      zeroAllStops(tramStopHashMap);
       removeOldTrams(tramStopHashMap);
       tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
       tramRepo.saveTrams(tramStopHashMap);
@@ -168,6 +170,22 @@ public class TramStopService {
 
     for (Tram tram : listToRemove) {
       tramQueue.remove(tram);
+    }
+  }
+
+  private void zeroAllStops(Map<String, TramStop> tramStopHashMap) {
+    for (TramStop tramStop : tramStopHashMap.values()) {
+
+      if (tramStop.getLastUpdatedSize() > 0 && tramStop.getLastUpdateCount() == 0) {
+        System.out.println(
+            tramStop.getStopName()
+                + " | "
+                + tramStop.getDirection()
+                + " | "
+                + tramStop.getLastUpdatedString());
+        tramStop.clearLastUpdated();
+      }
+      tramStop.zeroLastUpdateCount();
     }
   }
 }

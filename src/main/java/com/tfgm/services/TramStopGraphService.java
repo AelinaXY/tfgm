@@ -6,10 +6,12 @@ import com.tfgm.models.TramStopContainer;
 import java.time.Instant;
 import java.util.Queue;
 import java.util.UUID;
+import org.json.JSONObject;
 
 public class TramStopGraphService {
 
-  public void tramDeparture(String endOfLine, TramStop tramStop, Long timestamp) {
+  public void tramDeparture(
+      String endOfLine, TramStop tramStop, Long timestamp, JSONObject currentStation) {
     Tram departingTram = null;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
@@ -23,10 +25,11 @@ public class TramStopGraphService {
       }
     }
 
-
     if (departingTram == null) {
       System.out.println("Tram created at " + tramStop.getStopName() + ".");
       departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
+      System.out.println("DEPARTTRAM: " + departingTram);
+        System.out.println(currentStation);
     }
 
     departingTram.addToTramHistory(tramStop.getStopName(), timestamp);
@@ -80,7 +83,7 @@ public class TramStopGraphService {
   //    }
   //  }
 
-  public void tramArrival(String endOfLine, TramStop tramStop) {
+  public void tramArrival(String endOfLine, TramStop tramStop, JSONObject currentStation) {
 
     TramStopContainer[] prevStops = tramStop.getPrevStops();
     Queue<Tram> tramQueue = tramStop.getTramQueue();
@@ -89,6 +92,9 @@ public class TramStopGraphService {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
         for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue()) {
           if (tram.getEndOfLine().equals(endOfLine)) {
+            System.out.println("TramARRIVE: " + tram);
+            System.out.println("TFGM API: " + currentStation);
+
             tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
             return;
           }
