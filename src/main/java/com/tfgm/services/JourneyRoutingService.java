@@ -50,17 +50,19 @@ public class JourneyRoutingService {
       Map<String, Long> tramHistory = tram.getTramHistory();
 
       if (tramHistory.containsKey(destination)) {
-        Journey tramJourney =
-            new Journey(
-                UUID.randomUUID(),
-                tramHistory.get(origin),
-                origin,
-                tramHistory.get(destination),
-                destination,
-                tram.getUuid(),
-                person.getUuid());
-        tramJourneyList.add(tramJourney);
-        return tramJourneyList;
+        if (tramHistory.get(destination) > timestampStart) {
+          Journey tramJourney =
+              new Journey(
+                  UUID.randomUUID(),
+                  tramHistory.get(origin),
+                  origin,
+                  tramHistory.get(destination),
+                  destination,
+                  tram.getUuid(),
+                  person.getUuid());
+          tramJourneyList.add(tramJourney);
+          return tramJourneyList;
+        }
       }
     }
 
@@ -97,6 +99,7 @@ public class JourneyRoutingService {
                     originTram.getUuid(),
                     person.getUuid());
             tramJourneyList.add(originTramJourney);
+
             Journey destinationTramJourney =
                 new Journey(
                     UUID.randomUUID(),
@@ -137,7 +140,7 @@ public class JourneyRoutingService {
 
   public void peoplePopulate() {
 
-    Long startingTime = 1688338800L;
+    Long startingTime = 1688545542L;
 
     List<Person> personList = new ArrayList<>();
 
@@ -262,11 +265,11 @@ public class JourneyRoutingService {
               String.valueOf(i),
               Long.valueOf(
                   ThreadLocalRandom.current()
-                      .nextInt(startingTime.intValue(), startingTime.intValue() + 86400)),
+                      .nextInt(startingTime.intValue(), startingTime.intValue() + 7200)),
               startStop,
               Long.valueOf(
                   ThreadLocalRandom.current()
-                      .nextInt(startingTime.intValue(), startingTime.intValue() + 86400)),
+                      .nextInt(startingTime.intValue(), startingTime.intValue() + 7200)),
               endStop));
     }
 

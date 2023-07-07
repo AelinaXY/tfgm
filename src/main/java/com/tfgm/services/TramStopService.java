@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -38,6 +42,8 @@ public class TramStopService {
   @Autowired private TramRepo tramRepo;
 
   @Autowired private TramStopRepo tramStopRepo;
+
+  static Logger log = Logger.getLogger("TramStopService");
 
   public TramStopService(
       TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
@@ -84,11 +90,10 @@ public class TramStopService {
           String endOfLine = currentStation.getString("Dest" + j);
           boolean nextDestinationNull = endOfLine.equals("");
 
-          //Sometimes Deansgate - Castlefield ends up without it's dash causing issues
-            if(endOfLine.equals("Deansgate Castlefield"))
-            {
-                endOfLine = "Deansgate - Castlefield";
-            }
+          // Sometimes Deansgate - Castlefield ends up without it's dash causing issues
+          if (endOfLine.equals("Deansgate Castlefield")) {
+            endOfLine = "Deansgate - Castlefield";
+          }
 
           if (!nextDestinationNull) {
             String nextStatus = currentStation.getString("Status" + j);

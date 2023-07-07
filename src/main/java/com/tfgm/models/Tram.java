@@ -19,10 +19,9 @@ public class Tram {
 
   private Long population;
 
-
   private Map<String, Long> tramHistory = new HashMap<>();
 
-    private TramNetworkDTO tramNetworkDTO;
+  private TramNetworkDTO tramNetworkDTO;
 
   public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
@@ -54,17 +53,24 @@ public class Tram {
     this.tramHistory = tramHistory;
   }
 
-    public Tram(UUID uuid, String endOfLine, String destination, String origin, Long lastUpdated, Long population, Map<String, Long> tramHistory) {
-        this.uuid = uuid;
-        this.endOfLine = endOfLine;
-        this.destination = destination;
-        this.origin = origin;
-        this.lastUpdated = lastUpdated;
-        this.population = population;
-        this.tramHistory = tramHistory;
-    }
+  public Tram(
+      UUID uuid,
+      String endOfLine,
+      String destination,
+      String origin,
+      Long lastUpdated,
+      Long population,
+      Map<String, Long> tramHistory) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.destination = destination;
+    this.origin = origin;
+    this.lastUpdated = lastUpdated;
+    this.population = population;
+    this.tramHistory = tramHistory;
+  }
 
-    public Tram() {}
+  public Tram() {}
 
   public String getEndOfLine() {
     return endOfLine;
@@ -106,28 +112,38 @@ public class Tram {
     return uuid;
   }
 
-    public Long getPopulation() {
-        return population;
-    }
+  public Long getPopulation() {
+    return population;
+  }
 
-    public void setPopulation(Long population) {
-        this.population = population;
-    }
+  public void setPopulation(Long population) {
+    this.population = population;
+  }
 
-    @Override
-    public String toString() {
-        return "Tram{" +
-            "uuid=" + uuid +
-            ", endOfLine='" + endOfLine + '\'' +
-            ", destination='" + destination + '\'' +
-            ", origin='" + origin + '\'' +
-            ", lastUpdated=" + lastUpdated +
-            ", population=" + population +
-            ", tramHistory=" + tramHistory +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return "Tram{"
+        + "uuid="
+        + uuid
+        + ", endOfLine='"
+        + endOfLine
+        + '\''
+        + ", destination='"
+        + destination
+        + '\''
+        + ", origin='"
+        + origin
+        + '\''
+        + ", lastUpdated="
+        + lastUpdated
+        + ", population="
+        + population
+        + ", tramHistory="
+        + tramHistory
+        + '}';
+  }
 
-    public String toJSONString() {
+  public String toJSONString() {
     return "{"
         + "\"uuid\":\""
         + uuid
