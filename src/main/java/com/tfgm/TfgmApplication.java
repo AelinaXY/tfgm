@@ -32,7 +32,7 @@ public class TfgmApplication {
     while (true) {
       System.out.println("---------LOOOOP---------" + Instant.now());
       tramService.update();
-      TimeUnit.SECONDS.sleep(10);
+      TimeUnit.SECONDS.sleep(5);
     }
   }
 }

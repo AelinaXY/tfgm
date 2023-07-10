@@ -1,5 +1,6 @@
 package com.tfgm.controllers;
 
+import com.tfgm.services.JourneyRoutingService;
 import com.tfgm.services.TramNetworkService;
 import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/trams")
 public class TramController {
+  TramNetworkService service;
 
-  @Autowired TramNetworkService service;
+  JourneyRoutingService journeyRoutingService;
 
-  public TramController(TramNetworkService service) {
+  @Autowired
+  public TramController(TramNetworkService service, JourneyRoutingService journeyRoutingService) {
     this.service = service;
+    this.journeyRoutingService = journeyRoutingService;
   }
 
   @CrossOrigin
@@ -49,5 +53,37 @@ public class TramController {
     String response = service.getAllTramsAtTimestamp(timestamp);
     System.out.println("requestOut:" + Instant.now());
     return ResponseEntity.ok(response);
+  }
+
+  @CrossOrigin
+  @GetMapping("/journeyPing")
+  public void testing() {
+    System.out.println("requestIn TEST:" + Instant.now());
+    journeyRoutingService.tester();
+    System.out.println("requestOut TEST:" + Instant.now());
+  }
+
+  @CrossOrigin
+  @GetMapping("/makePeople")
+  public void makePeople() {
+    System.out.println("requestIn People:" + Instant.now());
+    journeyRoutingService.peoplePopulate();
+    System.out.println("requestOut People:" + Instant.now());
+  }
+
+  @CrossOrigin
+  @GetMapping("/makeJourney")
+  public void makeJourney() {
+    System.out.println("requestIn Journey:" + Instant.now());
+    journeyRoutingService.populateJourneys();
+    System.out.println("requestOut Journey:" + Instant.now());
+  }
+
+  @CrossOrigin
+  @GetMapping("/updateTramNetworkDTO")
+  public void updateTramNetworkDTO() {
+    System.out.println("requestIn TramNetwork:" + Instant.now());
+    journeyRoutingService.populateTramNumbers();
+    System.out.println("requestOut TramNetwork:" + Instant.now());
   }
 }

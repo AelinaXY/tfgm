@@ -3,22 +3,36 @@ package com.tfgm.services;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
-
 import java.time.Instant;
 import java.util.Queue;
+import java.util.UUID;
+import org.json.JSONObject;
 
 public class TramStopGraphService {
 
-  public void tramDeparture(String endOfLine, TramStop tramStop) {
-    Tram departingTram;
+  public void tramDeparture(
+      String endOfLine, TramStop tramStop, Long timestamp, JSONObject currentStation) {
+    Tram departingTram = null;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
     if (!tramQueue.isEmpty()) {
-      departingTram = tramQueue.remove();
-    } else {
-      System.out.println("Tram created at " + tramStop.getStopName() + ".");
-      departingTram = new Tram(endOfLine, Instant.now().getEpochSecond());
+      for (Tram tram : tramQueue) {
+        if (tram.getEndOfLine().equals(endOfLine)) {
+          departingTram = tram;
+          tramQueue.remove(tram);
+          break;
+        }
+      }
     }
+
+    if (departingTram == null) {
+      System.out.println("Tram created at " + tramStop.getStopName() + ".");
+      departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
+      System.out.println("DEPARTTRAM: " + departingTram);
+        System.out.println(currentStation);
+    }
+
+    departingTram.addToTramHistory(tramStop.getStopName(), timestamp);
 
     TramStopContainer[] nextStops = tramStop.getNextStops();
 
@@ -43,14 +57,17 @@ public class TramStopGraphService {
                   + " to "
                   + tramStopContainer.getTramStop().getStopName()
                   + ". Final Destination: "
-                  + departingTram.getEndOfLine());
+                  + departingTram.getEndOfLine()
+                  + "       UUID:"
+                  + departingTram.getUuid());
           departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
           departingTram.setOrigin(rawNameToCompositeName(tramStop));
-          departingTram.setLastUpdated(Instant.now().getEpochSecond());
+          departingTram.setLastUpdated(timestamp);
           return;
         }
       }
     }
+    System.out.println("TRAM ISSUE: " + departingTram + " created but not left");
   }
 
   // LEGACY CODE
@@ -66,21 +83,21 @@ public class TramStopGraphService {
   //    }
   //  }
 
-  public void tramArrival(String endOfLine, TramStop tramStop) {
+  public void tramArrival(String endOfLine, TramStop tramStop, JSONObject currentStation) {
 
     TramStopContainer[] prevStops = tramStop.getPrevStops();
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
     for (TramStopContainer tramStopContainer : prevStops) {
       if (!tramStopContainer.getTramLinkStop().isTramQueueEmpty()) {
-        if (tramStopContainer
-            .getTramLinkStop()
-            .getTramQueue()
-            .peek()
-            .getEndOfLine()
-            .equals(endOfLine)) {
-          tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
-          return;
+        for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue()) {
+          if (tram.getEndOfLine().equals(endOfLine)) {
+            System.out.println("TramARRIVE: " + tram);
+            System.out.println("TFGM API: " + currentStation);
+
+            tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
+            return;
+          }
         }
       }
     }
@@ -91,8 +108,8 @@ public class TramStopGraphService {
     Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
 
     if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
-        arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
-        arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
+      arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
+      arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
 
       tramQueue.add(arrivedTram);
       assert tramQueue.peek() != null;
@@ -102,7 +119,9 @@ public class TramStopGraphService {
               + " from "
               + tramStopContainer.getTramStop().getStopName()
               + ". Final Destination: "
-              + arrivedTram.getEndOfLine());
+              + arrivedTram.getEndOfLine()
+              + "       UUID:"
+              + arrivedTram.getUuid());
     } else {
       System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
     }
