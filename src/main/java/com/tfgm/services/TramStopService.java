@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,6 +23,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class TramStopService {
 
   @Autowired private TramStopRepo tramStopRepo;
 
-  static Logger log = Logger.getLogger("TramStopService");
+  private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
 
   public TramStopService(
       TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
@@ -128,6 +129,14 @@ public class TramStopService {
               }
             }
           }
+        }
+
+        // LOG HELP
+        if (currentStation.getString("StationLocation").equals("St Peter's Square")) {
+          logger.warn("St Peter's Square" + currentStation.getString("Direction"));
+          logger.warn(currentStation.toString());
+          logger.warn(
+              tramStopHashMap.get("StPetersSquare" + currentStation.getString("Direction")).toString());
         }
       }
 

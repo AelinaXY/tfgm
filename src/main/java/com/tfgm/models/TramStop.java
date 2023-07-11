@@ -85,21 +85,31 @@ public class TramStop {
    */
   @Override
   public String toString() {
-    return "NewTramStop [stopName="
+    return "TramStop{"
+        + "stopName='"
         + stopName
-        + ", direction="
+        + '\''
+        + ", direction='"
         + direction
-        + ", line="
+        + '\''
+        + ", line='"
         + line
-        + ", nextStops: "
+        + '\''
+        + ", lastUpdated="
+        + lastUpdated
+        + ", tramQueue="
+        + tramQueue
+        + ", nextStops: ["
         + (nextStops.length > 0
             ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList()
             : "none")
-        + ", prevStops: "
+        + ", prevStops: ["
         + (prevStops.length > 0
             ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList()
             : "none")
-        + "]";
+        + "], lastUpdateCount="
+        + lastUpdateCount
+        + '}';
   }
 
   /**

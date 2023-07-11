@@ -95,7 +95,9 @@ public class TramStopGraphService {
             System.out.println("TramARRIVE: " + tram);
             System.out.println("TFGM API: " + currentStation);
 
-            tramArrivalHelper(tramStop, tramQueue, tramStopContainer);
+            Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram(tram);
+
+            tramArrivalHelper(tramStop, tramQueue, tramStopContainer, arrivedTram);
             return;
           }
         }
@@ -104,8 +106,7 @@ public class TramStopGraphService {
   }
 
   private void tramArrivalHelper(
-      TramStop tramStop, Queue<Tram> tramQueue, TramStopContainer tramStopContainer) {
-    Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram();
+      TramStop tramStop, Queue<Tram> tramQueue, TramStopContainer tramStopContainer, Tram arrivedTram) {
 
     if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
       arrivedTram.setOrigin(rawNameToCompositeName(tramStop));

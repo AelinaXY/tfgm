@@ -24,4 +24,5 @@ public class TramStopContainer {
   public void setTramLinkStop(TramLinkStop tramLinkStop) {
     this.tramLinkStop = tramLinkStop;
   }
+
 }
