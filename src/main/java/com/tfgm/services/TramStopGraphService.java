@@ -4,6 +4,7 @@ import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import java.time.Instant;
+import java.util.List;
 import java.util.Queue;
 import java.util.UUID;
 import org.json.JSONObject;
@@ -15,6 +16,70 @@ public class TramStopGraphService {
     Tram departingTram = null;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
+    departingTram = getDepartingTram(endOfLine, null, tramQueue);
+
+    if (departingTram == null) {
+      tramArrival(endOfLine, tramStop, currentStation);
+      departingTram = getDepartingTram(endOfLine, null, tramQueue);
+      if (departingTram == null) {
+        System.out.println("Tram created at " + tramStop.getStopName() + ".");
+        departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
+        System.out.println("DEPARTTRAM: " + departingTram);
+        System.out.println(currentStation);
+      }
+    }
+
+    departingTram.addToTramHistory(tramStop.getStopName(), timestamp);
+
+    List<TramStopContainer> nextStops = List.of(tramStop.getNextStops());
+
+    for (TramStopContainer tramStopContainer : nextStops) {
+
+      // Checks if Exchange Square is in the list of next stops and if the end of line is correct
+      // for a tram to be routed through exchange square.
+      // If so it changes the next stop to be Exchange Square.
+      // This should only ever run once even though it is contained within a loop.
+      if (nextStops.stream().anyMatch(m -> m.getTramStop().getStopName().equals("Exchange Square"))
+          && endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
+        tramStopContainer =
+            nextStops.stream()
+                .filter(m -> m.getTramStop().getStopName().equals("Exchange Square"))
+                .findFirst()
+                .orElse(null);
+      }
+
+      // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
+      // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
+      // found.
+      if (findEndOfLine(getCorrectEndOfLine(departingTram), tramStopContainer.getTramStop())) {
+        tramStopContainer.getTramLinkStop().addTram(departingTram);
+        System.out.println(
+            "Tram left from "
+                + tramStop.getStopName()
+                + " to "
+                + tramStopContainer.getTramStop().getStopName()
+                + ". Final Destination: "
+                + departingTram.getEndOfLine()
+                + "       UUID:"
+                + departingTram.getUuid());
+        departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
+        departingTram.setOrigin(rawNameToCompositeName(tramStop));
+        departingTram.setLastUpdated(timestamp);
+        return;
+      }
+    }
+    System.out.println("TRAM ISSUE: " + departingTram + " created but not left");
+  }
+
+  private static String getCorrectEndOfLine(Tram departingTram) {
+    return departingTram.getEndOfLine().contains("MCUK")
+            || departingTram.getEndOfLine().contains("MediaCityUK")
+        ? "MediaCityUK"
+        : departingTram.getEndOfLine();
+  }
+
+  private static Tram getDepartingTram(
+      String endOfLine, Tram departingTram, Queue<Tram> tramQueue) {
     if (!tramQueue.isEmpty()) {
       for (Tram tram : tramQueue) {
         if (tram.getEndOfLine().equals(endOfLine)) {
@@ -24,50 +89,7 @@ public class TramStopGraphService {
         }
       }
     }
-
-    if (departingTram == null) {
-      System.out.println("Tram created at " + tramStop.getStopName() + ".");
-      departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
-      System.out.println("DEPARTTRAM: " + departingTram);
-        System.out.println(currentStation);
-    }
-
-    departingTram.addToTramHistory(tramStop.getStopName(), timestamp);
-
-    TramStopContainer[] nextStops = tramStop.getNextStops();
-
-    for (TramStopContainer tramStopContainer : nextStops) {
-
-      if (!(("Exchange Square".equals(tramStopContainer.getTramStop().getStopName())))
-          || endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
-
-        // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
-        // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
-        // found.
-        if (findEndOfLine(
-            departingTram.getEndOfLine().contains("MCUK")
-                    || departingTram.getEndOfLine().contains("MediaCityUK")
-                ? "MediaCityUK"
-                : departingTram.getEndOfLine(),
-            tramStopContainer.getTramStop())) {
-          tramStopContainer.getTramLinkStop().addTram(departingTram);
-          System.out.println(
-              "Tram left from "
-                  + tramStop.getStopName()
-                  + " to "
-                  + tramStopContainer.getTramStop().getStopName()
-                  + ". Final Destination: "
-                  + departingTram.getEndOfLine()
-                  + "       UUID:"
-                  + departingTram.getUuid());
-          departingTram.setDestination(rawNameToCompositeName(tramStopContainer.getTramStop()));
-          departingTram.setOrigin(rawNameToCompositeName(tramStop));
-          departingTram.setLastUpdated(timestamp);
-          return;
-        }
-      }
-    }
-    System.out.println("TRAM ISSUE: " + departingTram + " created but not left");
+    return departingTram;
   }
 
   // LEGACY CODE
@@ -106,25 +128,30 @@ public class TramStopGraphService {
   }
 
   private void tramArrivalHelper(
-      TramStop tramStop, Queue<Tram> tramQueue, TramStopContainer tramStopContainer, Tram arrivedTram) {
+      TramStop tramStop,
+      Queue<Tram> tramQueue,
+      TramStopContainer tramStopContainer,
+      Tram arrivedTram) {
 
-    if (!arrivedTram.getEndOfLine().equals(tramStop.getStopName())) {
-      arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
-      arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
+    arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
+    arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
 
-      tramQueue.add(arrivedTram);
-      assert tramQueue.peek() != null;
-      System.out.println(
-          "Tram arrived at "
-              + tramStop.getStopName()
-              + " from "
-              + tramStopContainer.getTramStop().getStopName()
-              + ". Final Destination: "
-              + arrivedTram.getEndOfLine()
-              + "       UUID:"
-              + arrivedTram.getUuid());
-    } else {
-      System.out.println("Tram arrived at " + tramStop.getStopName() + ". END OF LINE");
+    tramQueue.add(arrivedTram);
+    assert tramQueue.peek() != null;
+    System.out.println(
+        "Tram arrived at "
+            + tramStop.getStopName()
+            + " from "
+            + tramStopContainer.getTramStop().getStopName()
+            + ". Final Destination: "
+            + arrivedTram.getEndOfLine()
+            + "       UUID:"
+            + arrivedTram.getUuid());
+
+    if (getCorrectEndOfLine(arrivedTram).equals(tramStop.getStopName())) {
+      System.out.println("END OF LINE | Setting toRemove True");
+
+      arrivedTram.setToRemove(true);
     }
   }
 

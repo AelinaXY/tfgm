@@ -23,6 +23,8 @@ public class Tram {
 
   private TramNetworkDTO tramNetworkDTO;
 
+  private boolean toRemove = false;
+
   public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
   }
@@ -120,7 +122,15 @@ public class Tram {
     this.population = population;
   }
 
-  @Override
+    public boolean isToRemove() {
+        return toRemove;
+    }
+
+    public void setToRemove(boolean toRemove) {
+        this.toRemove = toRemove;
+    }
+
+    @Override
   public String toString() {
     return "Tram{"
         + "uuid="

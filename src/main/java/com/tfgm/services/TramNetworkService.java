@@ -57,7 +57,7 @@ public class TramNetworkService {
 //
   public String getAllTramsAtTimestamp(Long timestamp) {
     List<Tram> tramList = getLatestTramInfo(timestamp);
-    System.out.println("TRAMS: " + tramList.size());
+    System.out.println("TRAMS SIZE: " + tramList.size());
 
 
 
