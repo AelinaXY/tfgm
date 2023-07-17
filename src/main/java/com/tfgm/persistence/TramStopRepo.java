@@ -4,11 +4,9 @@ import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import com.tfgm.models.TramStopDTO;
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +19,24 @@ public class TramStopRepo {
 
   private final TramStopRepoUtilities utilities = new TramStopRepoUtilities();
 
-  @Autowired private TramStopDataRepository repository;
+  //  private String tramDataPath = "src/main/resources/static/TramStopData.json";
+
+  private TramStopDataRepository repository;
 
   @Autowired
   public TramStopRepo(TramStopDataRepository tramStopDataRepository) throws IOException {
     // Reads all of the TramStopData from the static JSON file.
     this.repository = tramStopDataRepository;
 
-    List<TramStopDTO> allTramStopDTO = repository.findAll();
+    //    JSONArray allTramStopData =
+    //        new JSONArray(
+    //            Files.readAllLines(Paths.get(tramDataPath)).stream()
+    //                .map(String::valueOf)
+    //                .collect(Collectors.joining()));
+    //
+    //    firstRun(allTramStopData);
 
+    List<TramStopDTO> allTramStopDTO = repository.findAll();
 
     // Iterates through and adds all the tram stops to a hashmap
     for (TramStopDTO currentTramStop : allTramStopDTO) {
@@ -84,7 +91,7 @@ public class TramStopRepo {
     return tramStopHashMap;
   }
 
-  private void firstRun(JSONArray allTramStopData) {
+  public void firstRun(JSONArray allTramStopData) {
     for (int i = 0; i < allTramStopData.length(); i++) {
       JSONObject currentStop = allTramStopData.getJSONObject(i);
 

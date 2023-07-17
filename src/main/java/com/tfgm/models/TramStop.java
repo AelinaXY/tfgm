@@ -1,6 +1,9 @@
 package com.tfgm.models;
 
+import com.tfgm.services.TramStopService;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main TramStop entity. This entity represents the combination of a tram stop and direction.
@@ -40,6 +43,8 @@ public class TramStop {
 
   private int lastUpdateCount = 0;
 
+  private static Logger logger = LoggerFactory.getLogger("analytics");
+
   /**
    * Constructor for class TramStop.
    *
@@ -49,7 +54,7 @@ public class TramStop {
    */
   public TramStop(String stopName, String direction, String line) {
 
-    if (!stopName.trim().equals("")) {
+      if (!stopName.trim().equals("")) {
       this.stopName = stopName;
     } else {
       throw new IllegalArgumentException("stopName is '" + stopName + "'");
@@ -99,15 +104,11 @@ public class TramStop {
         + lastUpdated
         + ", tramQueue="
         + tramQueue
-        + ", nextStops: ["
-        + (nextStops.length > 0
-            ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
-        + ", prevStops: ["
-        + (prevStops.length > 0
-            ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
-        + "], lastUpdateCount="
+        + ", nextStops: "
+        + (Arrays.stream(nextStops).toList().toString())
+        + ", prevStops: "
+        + (Arrays.stream(prevStops).toList().toString())
+        + ", lastUpdateCount="
         + lastUpdateCount
         + '}';
   }
@@ -146,13 +147,26 @@ public class TramStop {
     return lastUpdated.toString();
   }
 
-  public void addToLastUpdated(String updateCode, Long position) {
-    this.lastUpdated.add(new TramUpdate(updateCode, position));
+  public void addToLastUpdated(String station, String status, Long position) {
+    this.lastUpdated.add(new TramUpdate(station, status, position));
   }
 
-  public boolean isValidTram(String updateCode, Long position) {
+  public boolean isValidTram(String station, String status, Long position) {
     List<TramUpdate> correctUpdateCode =
-        lastUpdated.stream().filter(m -> m.getUpdateCode().equals(updateCode)).toList();
+        lastUpdated.stream().filter(m -> m.getStation().equals(station)).toList();
+
+    Long arrivalCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Arrived")).count();
+    Long departureCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Departing")).count();
+
+    if (departureCount > 0 && arrivalCount > departureCount && status.equals("Departing")) {
+      logger.warn("DEPARTMULTITRAM");
+      return true;
+    }
+
+    correctUpdateCode =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals(status)).toList();
 
     for (int i = 0; i < correctUpdateCode.size(); i++) {
       if (position <= correctUpdateCode.get(i).getUpdatePosition()) {
@@ -162,7 +176,45 @@ public class TramStop {
     return true;
   }
 
+  public void clearLastUdated() {
+    lastUpdated.clear();
+  }
+
   public void clearLastUpdated() {
+    List<TramUpdate> toClearList;
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired()) {
+        String departOrArrive = tramUpdate.getStatus().equals("Arrived") ? "Departing" : "Arrived";
+
+        TramUpdate pairedTramUpdate =
+            lastUpdated.stream()
+                .filter(
+                    m ->
+                        !m.isPaired()
+                            && m.getStation().equals(tramUpdate.getStation())
+                            && m.getStatus().equals(departOrArrive))
+                .findFirst()
+                .orElse(null);
+
+        if (pairedTramUpdate != null) {
+          pairedTramUpdate.setPaired(true);
+          tramUpdate.setPaired(true);
+        }
+      }
+    }
+
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired() && tramUpdate.getStatus().equals("Arrived")) {
+        for (Tram tram : tramQueue) {
+          if (tram.getEndOfLine().equals(tramUpdate.getStation())) {
+            logger.debug("REMOVED DUE TO ORPHANAGE: " + this + "\n | " + tram);
+            tramQueue.remove(tram);
+            break;
+          }
+        }
+      }
+    }
+
     lastUpdated.clear();
   }
 

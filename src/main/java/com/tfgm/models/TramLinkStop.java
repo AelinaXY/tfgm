@@ -33,4 +33,11 @@ public class TramLinkStop {
     }
     return null;
   }
+
+    @Override
+    public String toString() {
+        return "TramLinkStop{" +
+            "tramQueue=" + tramQueue +
+            '}';
+    }
 }
