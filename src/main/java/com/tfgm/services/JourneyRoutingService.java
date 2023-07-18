@@ -140,7 +140,7 @@ public class JourneyRoutingService {
 
   public void peoplePopulate() {
 
-    Long startingTime = 1688545542L;
+    Long startingTime = 1689610800L;
 
     List<Person> personList = new ArrayList<>();
 
@@ -231,7 +231,7 @@ public class JourneyRoutingService {
             "St Werburgh's Road",
             "Stretford",
             "The Trafford Centre",
-            "Timperly",
+            "Timperley",
             "Trafford Bar",
             "Velopark",
             "Victoria",
@@ -243,7 +243,8 @@ public class JourneyRoutingService {
             "Whitefield",
             "Withington",
             "Wythenshawe Park",
-            "Wythenshawe Town Centre");
+            "Wythenshawe Town Centre",
+            "Derker");
 
     int randomNum;
 
@@ -259,17 +260,17 @@ public class JourneyRoutingService {
 
       String endStop = tramStopList.get(randomNum);
 
+      Long startTimestamp = Long.valueOf(
+          ThreadLocalRandom.current()
+              .nextInt(startingTime.intValue(), startingTime.intValue() + 10800));
+
       personList.add(
           new Person(
               UUID.randomUUID(),
               String.valueOf(i),
-              Long.valueOf(
-                  ThreadLocalRandom.current()
-                      .nextInt(startingTime.intValue(), startingTime.intValue() + 7200)),
+              startTimestamp,
               startStop,
-              Long.valueOf(
-                  ThreadLocalRandom.current()
-                      .nextInt(startingTime.intValue(), startingTime.intValue() + 7200)),
+              startTimestamp+3600L,
               endStop));
     }
 

@@ -33,20 +33,25 @@ public class TramStopGraphService {
 
     List<TramStopContainer> nextStops = List.of(tramStop.getNextStops());
 
+    if (nextStops.stream().anyMatch(m -> m.getTramStop().getStopName().equals("Exchange Square"))
+        && endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
+      nextStops =
+          nextStops.stream()
+              .filter(m -> m.getTramStop().getStopName().equals("Exchange Square"))
+              .toList();
+    } else {
+      nextStops =
+          nextStops.stream()
+              .filter(m -> !m.getTramStop().getStopName().equals("Exchange Square"))
+              .toList();
+    }
+
     for (TramStopContainer tramStopContainer : nextStops) {
 
       // Checks if Exchange Square is in the list of next stops and if the end of line is correct
       // for a tram to be routed through exchange square.
       // If so it changes the next stop to be Exchange Square.
       // This should only ever run once even though it is contained within a loop.
-      if (nextStops.stream().anyMatch(m -> m.getTramStop().getStopName().equals("Exchange Square"))
-          && endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
-        tramStopContainer =
-            nextStops.stream()
-                .filter(m -> m.getTramStop().getStopName().equals("Exchange Square"))
-                .findFirst()
-                .orElse(null);
-      }
 
       // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
       // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
@@ -133,8 +138,10 @@ public class TramStopGraphService {
       TramStopContainer tramStopContainer,
       Tram arrivedTram) {
 
+    Long timestamp = Instant.now().getEpochSecond();
+
     arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
-    arrivedTram.setLastUpdated(Instant.now().getEpochSecond());
+    arrivedTram.setLastUpdated(timestamp);
 
     tramQueue.add(arrivedTram);
     assert tramQueue.peek() != null;
@@ -150,6 +157,8 @@ public class TramStopGraphService {
 
     if (getCorrectEndOfLine(arrivedTram).equals(tramStop.getStopName())) {
       System.out.println("END OF LINE | Setting toRemove True");
+
+      arrivedTram.addToTramHistory(tramStop.getStopName(), timestamp);
 
       arrivedTram.setToRemove(true);
     }

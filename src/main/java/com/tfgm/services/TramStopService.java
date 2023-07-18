@@ -34,7 +34,7 @@ public class TramStopService {
 
   private final Long timeToLive = 1800L;
 
-  private final Long timeToDest = 600L;
+  private final Long timeToDest = 300L;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
 
   @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
@@ -147,21 +147,21 @@ public class TramStopService {
         }
 
         // LOG HELP
-        if (currentStation.getString("StationLocation").equals("Piccadilly")
+        if (currentStation.getString("StationLocation").equals("Cornbrook")
             && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Piccadilly" + currentStation.getString("Direction"));
+          logger.warn("Cornbrook" + currentStation.getString("Direction"));
           logger.warn(currentStation.toString());
           logger.warn(
-              tramStopHashMap.get("Piccadilly" + currentStation.getString("Direction")).toString());
+              tramStopHashMap.get("Cornbrook" + currentStation.getString("Direction")).toString());
         }
 
-        if (currentStation.getString("StationLocation").equals("Piccadilly Gardens")
+        if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
             && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Piccadilly Gardens" + currentStation.getString("Direction"));
+          logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction"));
           logger.warn(currentStation.toString());
           logger.warn(
               tramStopHashMap
-                  .get("PiccadillyGardens" + currentStation.getString("Direction"))
+                  .get("DeansgateCastlefield" + currentStation.getString("Direction"))
                   .toString());
         }
       }
