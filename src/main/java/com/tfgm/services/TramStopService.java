@@ -1,8 +1,10 @@
 package com.tfgm.services;
 
+import com.tfgm.models.TFGMResponse;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
+import com.tfgm.persistence.TFGMResponseRepo;
 import com.tfgm.persistence.TramNetworkDTORepo;
 import com.tfgm.persistence.TramRepo;
 import com.tfgm.persistence.TramStopRepo;
@@ -42,19 +44,32 @@ public class TramStopService {
   @Autowired private TramRepo tramRepo;
 
   @Autowired private TramStopRepo tramStopRepo;
+    @Autowired private TFGMResponseRepo tfgmResponseRepo;
 
-  private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
+
+    private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
   private static Logger loggerMove = LoggerFactory.getLogger("moving");
 
   public TramStopService(
-      TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo)
+      TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo, TFGMResponseRepo tfgmResponseRepo)
       throws IOException {
     this.tramStopRepo = tramStopRepo;
     this.tramNetworkDTORepo = tramNetworkDTORepo;
     this.tramRepo = tramRepo;
+    this.tfgmResponseRepo = tfgmResponseRepo;
   }
 
-  public void update() throws URISyntaxException, IOException {
+  public void updateRecorded()
+  {
+      List<TFGMResponse> tfgmResponseList = tfgmResponseRepo.getAllResponse();
+
+      for(TFGMResponse response : tfgmResponseList)
+      {
+          runDataInstance(response.getResponse(), response.getTimestamp());
+      }
+  }
+
+  public void updateLive() throws URISyntaxException, IOException {
 
     tramStopHashMap = tramStopRepo.getTramStops();
     HttpClient httpclient = HttpClients.createDefault();
@@ -82,96 +97,106 @@ public class TramStopService {
     if (entity != null) {
       String jsonString = EntityUtils.toString(entity);
       JSONObject tfgmFullResponse = new JSONObject(jsonString);
-      JSONArray tfgmValueArray = new JSONArray(tfgmFullResponse.getJSONArray("value"));
+      runDataInstance(tfgmFullResponse, timestamp);
+      savetfgmResponse(tfgmFullResponse, timestamp);
+    }
+  }
 
-      for (int i = 0; i < tfgmValueArray.length(); i++) {
-        JSONObject currentStation = tfgmValueArray.getJSONObject(i);
+  private void savetfgmResponse(JSONObject tfgmFullResponse, Long timestamp)
+  {
+      tfgmResponseRepo.saveResponse(new TFGMResponse(timestamp, tfgmFullResponse));
+  }
 
-        for (int j = 0; j < 4; j++) {
-          String endOfLine = currentStation.getString("Dest" + j);
-          boolean nextDestinationNull = endOfLine.equals("");
+  private void runDataInstance(JSONObject tfgmFullResponse, Long timestamp) {
 
-          // Sometimes Deansgate - Castlefield ends up without it's dash causing issues
-          if (endOfLine.equals("Deansgate Castlefield")) {
-            endOfLine = "Deansgate - Castlefield";
-          }
+    JSONArray tfgmValueArray = new JSONArray(tfgmFullResponse.getJSONArray("value"));
 
-          if (endOfLine.equals("Ashton-under-Lyne")) {
-            endOfLine = "Ashton-Under-Lyne";
-          }
+    for (int i = 0; i < tfgmValueArray.length(); i++) {
+      JSONObject currentStation = tfgmValueArray.getJSONObject(i);
 
-          if (!nextDestinationNull) {
-            String nextStatus = currentStation.getString("Status" + j);
-            boolean isTramDeparting = nextStatus.equals("Departing");
-            boolean isTramArriving = nextStatus.equals("Arrived");
+      for (int j = 0; j < 4; j++) {
+        String endOfLine = currentStation.getString("Dest" + j);
+        boolean nextDestinationNull = endOfLine.equals("");
 
-            if (isTramDeparting || isTramArriving) {
+        // Sometimes Deansgate - Castlefield ends up without it's dash causing issues
+        if (endOfLine.equals("Deansgate Castlefield")) {
+          endOfLine = "Deansgate - Castlefield";
+        }
 
-              String rawStationName = currentStation.getString("StationLocation");
-              String cleanStationName = TramStopServiceUtilities.cleanStationName(rawStationName);
-              String stationDirection = currentStation.getString("Direction");
+        if (endOfLine.equals("Ashton-under-Lyne")) {
+          endOfLine = "Ashton-Under-Lyne";
+        }
 
-              // For some god forsaken reason, Barton Dock Road is the wrong way around in the API.
-              if (rawStationName.equals("Barton Dock Road")) {
-                stationDirection = stationDirection.equals("Incoming") ? "Outgoing" : "Incoming";
-              }
+        if (!nextDestinationNull) {
+          String nextStatus = currentStation.getString("Status" + j);
+          boolean isTramDeparting = nextStatus.equals("Departing");
+          boolean isTramArriving = nextStatus.equals("Arrived");
 
-              String compositeStationName = cleanStationName + stationDirection;
+          if (isTramDeparting || isTramArriving) {
 
-              TramStop foundTramStop = tramStopHashMap.get(compositeStationName);
+            String rawStationName = currentStation.getString("StationLocation");
+            String cleanStationName = TramStopServiceUtilities.cleanStationName(rawStationName);
+            String stationDirection = currentStation.getString("Direction");
 
-              if (foundTramStop != null) {
+            // For some god forsaken reason, Barton Dock Road is the wrong way around in the API.
+            if (rawStationName.equals("Barton Dock Road")) {
+              stationDirection = stationDirection.equals("Incoming") ? "Outgoing" : "Incoming";
+            }
 
-                foundTramStop.incrementLastUpdateCount();
+            String compositeStationName = cleanStationName + stationDirection;
 
-                String stopUpdateCode = TramStopServiceUtilities.getUpdateString(currentStation, j);
-                boolean uniqueTramDepartArrive =
-                    foundTramStop.isValidTram(endOfLine, nextStatus, (long) j);
+            TramStop foundTramStop = tramStopHashMap.get(compositeStationName);
 
-                if (uniqueTramDepartArrive
-                    && !endOfLine.equals("See Tram Front")
-                    && !endOfLine.equals("Not in Service")) {
+            if (foundTramStop != null) {
 
-                  foundTramStop.addToLastUpdated(endOfLine, nextStatus, (long) j);
+              foundTramStop.incrementLastUpdateCount();
 
-                  if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
-                    tramStopGraphService.tramDeparture(
-                        endOfLine, foundTramStop, timestamp, currentStation);
-                  } else {
-                    tramStopGraphService.tramArrival(endOfLine, foundTramStop, currentStation);
-                  }
+              String stopUpdateCode = TramStopServiceUtilities.getUpdateString(currentStation, j);
+              boolean uniqueTramDepartArrive =
+                  foundTramStop.isValidTram(endOfLine, nextStatus, (long) j);
+
+              if (uniqueTramDepartArrive
+                  && !endOfLine.equals("See Tram Front")
+                  && !endOfLine.equals("Not in Service")) {
+
+                foundTramStop.addToLastUpdated(endOfLine, nextStatus, (long) j);
+
+                if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
+                  tramStopGraphService.tramDeparture(
+                      endOfLine, foundTramStop, timestamp, currentStation);
+                } else {
+                  tramStopGraphService.tramArrival(
+                      endOfLine, foundTramStop, currentStation, timestamp);
                 }
               }
             }
           }
         }
-
-        // LOG HELP
-        if (currentStation.getString("StationLocation").equals("Victoria")
-            && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Victoria" + currentStation.getString("Direction"));
-          logger.warn(currentStation.toString());
-          logger.warn(
-              tramStopHashMap.get("Victoria" + currentStation.getString("Direction")).toString());
-        }
-
-        if (currentStation.getString("StationLocation").equals("Shudehill")
-            && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Shudehill" + currentStation.getString("Direction"));
-          logger.warn(currentStation.toString());
-          logger.warn(
-              tramStopHashMap
-                  .get("Shudehill" + currentStation.getString("Direction"))
-                  .toString());
-        }
       }
 
-      zeroAllStops(tramStopHashMap);
-      removeOldTrams(tramStopHashMap);
-      tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
-      tramRepo.saveTrams(tramStopHashMap);
-      removeCompletedTrams(tramStopHashMap);
+      // LOG HELP
+      if (currentStation.getString("StationLocation").equals("Victoria")
+          && currentStation.getString("Direction").equals("Outgoing")) {
+        logger.warn("Victoria" + currentStation.getString("Direction"));
+        logger.warn(currentStation.toString());
+        logger.warn(
+            tramStopHashMap.get("Victoria" + currentStation.getString("Direction")).toString());
+      }
+
+      if (currentStation.getString("StationLocation").equals("Shudehill")
+          && currentStation.getString("Direction").equals("Outgoing")) {
+        logger.warn("Shudehill" + currentStation.getString("Direction"));
+        logger.warn(currentStation.toString());
+        logger.warn(
+            tramStopHashMap.get("Shudehill" + currentStation.getString("Direction")).toString());
+      }
     }
+
+    zeroAllStops(tramStopHashMap);
+    removeOldTrams(tramStopHashMap, timestamp);
+    tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
+    tramRepo.saveTrams(tramStopHashMap);
+    removeCompletedTrams(tramStopHashMap);
   }
 
   private void removeCompletedTrams(Map<String, TramStop> tramStopHashMap) {
@@ -196,7 +221,6 @@ public class TramStopService {
     for (Tram tram : tramQueue) {
       if (tram.isToRemove()) {
         System.out.println("Removed " + tram);
-        System.out.println("AT END OF LINE");
         listToRemove.add(tram);
       }
     }
@@ -204,31 +228,30 @@ public class TramStopService {
     tramQueue.removeAll(listToRemove);
   }
 
-  private void removeOldTrams(Map<String, TramStop> tramStopHashMap) {
-    Long timeStamp = Instant.now().getEpochSecond();
+  private void removeOldTrams(Map<String, TramStop> tramStopHashMap, Long timestamp) {
 
     for (TramStop tramStop : tramStopHashMap.values()) {
       Queue<Tram> tramQueue = tramStop.getTramQueue();
 
-      removeOldTramsLoop(timeStamp, tramQueue);
+      removeOldTramsLoop(timestamp, tramQueue);
 
       if (tramStop.getNextStops() != null) {
         for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
           Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
           TramStop nextStop = tramStopContainer.getTramStop();
 
-          moveOldTramsLoop(timeStamp, containerTramQueue, nextStop);
-          removeOldTramsLoop(timeStamp, containerTramQueue);
+          moveOldTramsLoop(timestamp, containerTramQueue, nextStop);
+          removeOldTramsLoop(timestamp, containerTramQueue);
         }
       }
     }
   }
 
-  private void moveOldTramsLoop(Long timeStamp, Queue<Tram> tramQueue, TramStop nextStop) {
+  private void moveOldTramsLoop(Long timestamp, Queue<Tram> tramQueue, TramStop nextStop) {
     List<Tram> listToMove = new ArrayList<>();
 
     for (Tram tram : tramQueue) {
-      if (tram.getLastUpdated() + timeToDest < timeStamp
+      if (tram.getLastUpdated() + timeToDest < timestamp
           && TramStopGraphService.getCorrectEndOfLine(tram).equals(nextStop.getStopName())) {
         listToMove.add(tram);
       }
@@ -236,24 +259,20 @@ public class TramStopService {
 
     for (Tram tram : listToMove) {
       loggerMove.debug("Moved " + tram + " to EOL");
-      tramStopGraphService.tramArrival(tram.getEndOfLine(), nextStop, new JSONObject());
+      tramStopGraphService.tramArrival(tram.getEndOfLine(), nextStop, new JSONObject(), timestamp);
     }
   }
 
   private void removeOldTramsLoop(Long timeStamp, Queue<Tram> tramQueue) {
-    List<Tram> listToRemove = new ArrayList<>();
-
     for (Tram tram : tramQueue) {
       if (tram.getLastUpdated() + timeToLive < timeStamp) {
         System.out.println("Removed " + tram);
         System.out.println("TIME: " + timeStamp);
         System.out.println("LAST UPDATE: " + tram.getLastUpdated());
-        listToRemove.add(tram);
+        tram.setToRemove(true);
         //        tramRepo.delete(tram.getUuid());
       }
     }
-
-    tramQueue.removeAll(listToRemove);
   }
 
   private void zeroAllStops(Map<String, TramStop> tramStopHashMap) {

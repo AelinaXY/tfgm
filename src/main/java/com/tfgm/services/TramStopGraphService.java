@@ -19,7 +19,7 @@ public class TramStopGraphService {
     departingTram = getDepartingTram(endOfLine, null, tramQueue);
 
     if (departingTram == null) {
-      tramArrival(endOfLine, tramStop, currentStation);
+      tramArrival(endOfLine, tramStop, currentStation, timestamp);
       departingTram = getDepartingTram(endOfLine, null, tramQueue);
       if (departingTram == null) {
         System.out.println("Tram created at " + tramStop.getStopName() + ".");
@@ -110,7 +110,7 @@ public class TramStopGraphService {
   //    }
   //  }
 
-  public void tramArrival(String endOfLine, TramStop tramStop, JSONObject currentStation) {
+  public void tramArrival(String endOfLine, TramStop tramStop, JSONObject currentStation, Long timestamp) {
 
     TramStopContainer[] prevStops = tramStop.getPrevStops();
     Queue<Tram> tramQueue = tramStop.getTramQueue();
@@ -124,7 +124,7 @@ public class TramStopGraphService {
 
             Tram arrivedTram = tramStopContainer.getTramLinkStop().popTram(tram);
 
-            tramArrivalHelper(tramStop, tramQueue, tramStopContainer, arrivedTram);
+            tramArrivalHelper(tramStop, tramQueue, tramStopContainer, arrivedTram, timestamp);
             return;
           }
         }
@@ -136,9 +136,8 @@ public class TramStopGraphService {
       TramStop tramStop,
       Queue<Tram> tramQueue,
       TramStopContainer tramStopContainer,
-      Tram arrivedTram) {
-
-    Long timestamp = Instant.now().getEpochSecond();
+      Tram arrivedTram,
+      Long timestamp) {
 
     arrivedTram.setOrigin(rawNameToCompositeName(tramStop));
     arrivedTram.setLastUpdated(timestamp);
