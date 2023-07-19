@@ -76,7 +76,7 @@ public class TramStopGraphService {
     System.out.println("TRAM ISSUE: " + departingTram + " created but not left");
   }
 
-  private static String getCorrectEndOfLine(Tram departingTram) {
+  public static String getCorrectEndOfLine(Tram departingTram) {
     return departingTram.getEndOfLine().contains("MCUK")
             || departingTram.getEndOfLine().contains("MediaCityUK")
         ? "MediaCityUK"

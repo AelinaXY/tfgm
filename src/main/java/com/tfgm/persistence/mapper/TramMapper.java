@@ -13,9 +13,9 @@ import java.util.UUID;
 @Mapper
 public interface TramMapper {
   @Insert(
-      "INSERT INTO trams(uuid,destination,origin,endofline,tramhistory,lastupdated) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{destination}, #{origin}, #{endOfLine}, #{tramHistory, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{lastUpdated})"
+      "INSERT INTO trams(uuid,destination,origin,endofline,tramhistory,lastupdated,removed) VALUES (#{uuid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{destination}, #{origin}, #{endOfLine}, #{tramHistory, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{lastUpdated},#{toRemove})"
        + " ON CONFLICT (uuid) DO UPDATE SET destination = excluded.destination, origin = excluded.origin,"
-          + " endofline = excluded.endofline, tramhistory = excluded.tramhistory, lastupdated = excluded.lastupdated;")
+          + " endofline = excluded.endofline, tramhistory = excluded.tramhistory, lastupdated = excluded.lastupdated, removed=excluded.removed;")
   void create(Tram tram);
 
 

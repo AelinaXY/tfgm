@@ -147,21 +147,21 @@ public class TramStopService {
         }
 
         // LOG HELP
-        if (currentStation.getString("StationLocation").equals("Cornbrook")
+        if (currentStation.getString("StationLocation").equals("Victoria")
             && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Cornbrook" + currentStation.getString("Direction"));
+          logger.warn("Victoria" + currentStation.getString("Direction"));
           logger.warn(currentStation.toString());
           logger.warn(
-              tramStopHashMap.get("Cornbrook" + currentStation.getString("Direction")).toString());
+              tramStopHashMap.get("Victoria" + currentStation.getString("Direction")).toString());
         }
 
-        if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+        if (currentStation.getString("StationLocation").equals("Shudehill")
             && currentStation.getString("Direction").equals("Outgoing")) {
-          logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction"));
+          logger.warn("Shudehill" + currentStation.getString("Direction"));
           logger.warn(currentStation.toString());
           logger.warn(
               tramStopHashMap
-                  .get("DeansgateCastlefield" + currentStation.getString("Direction"))
+                  .get("Shudehill" + currentStation.getString("Direction"))
                   .toString());
         }
       }
@@ -217,9 +217,7 @@ public class TramStopService {
           Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
           TramStop nextStop = tramStopContainer.getTramStop();
 
-          if (nextStop.getNextStops().length == 0) {
-            moveOldTramsLoop(timeStamp, containerTramQueue, nextStop);
-          }
+          moveOldTramsLoop(timeStamp, containerTramQueue, nextStop);
           removeOldTramsLoop(timeStamp, containerTramQueue);
         }
       }
@@ -230,7 +228,8 @@ public class TramStopService {
     List<Tram> listToMove = new ArrayList<>();
 
     for (Tram tram : tramQueue) {
-      if (tram.getLastUpdated() + timeToDest < timeStamp) {
+      if (tram.getLastUpdated() + timeToDest < timeStamp
+          && TramStopGraphService.getCorrectEndOfLine(tram).equals(nextStop.getStopName())) {
         listToMove.add(tram);
       }
     }

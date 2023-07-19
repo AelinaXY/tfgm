@@ -33,7 +33,7 @@ public class TfgmApplication {
     SpringApplication.run(TfgmApplication.class, args);
   }
 
-//  @EventListener(value = ApplicationReadyEvent.class)
+  @EventListener(value = ApplicationReadyEvent.class)
   public void mainRunner() throws IOException, URISyntaxException, InterruptedException {
     while (true) {
       System.out.println("---------LOOOOP---------" + Instant.now());
