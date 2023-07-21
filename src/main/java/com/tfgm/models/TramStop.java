@@ -208,7 +208,7 @@ public class TramStop {
         for (Tram tram : tramQueue) {
           if (tram.getEndOfLine().equals(tramUpdate.getStation())) {
             logger.debug("REMOVED DUE TO ORPHANAGE: " + this + "\n | " + tram);
-            tramQueue.remove(tram);
+            tram.setToRemove(true);
             break;
           }
         }

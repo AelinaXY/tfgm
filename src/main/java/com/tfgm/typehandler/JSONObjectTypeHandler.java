@@ -50,18 +50,18 @@ public class JSONObjectTypeHandler extends BaseTypeHandler<JSONObject> {
     @Override
     public JSONObject getNullableResult(ResultSet rs, String columnName)
         throws SQLException {
-        return new JSONObject(rs.getObject(columnName));
+        return new JSONObject(rs.getObject(columnName).toString());
     }
 
     @Override
     public JSONObject getNullableResult(ResultSet rs, int columnIndex)
         throws SQLException {
-        return new JSONObject(rs.getObject(columnIndex));
+        return new JSONObject(rs.getObject(columnIndex).toString());
     }
 
     @Override
     public JSONObject getNullableResult(CallableStatement cs, int columnIndex)
         throws SQLException {
-        return new JSONObject(cs.getObject(columnIndex));
+        return new JSONObject(cs.getObject(columnIndex).toString());
     }
 }

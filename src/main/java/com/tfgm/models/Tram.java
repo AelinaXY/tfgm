@@ -173,19 +173,21 @@ public class Tram {
         + '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    Tram tram = (Tram) o;
+        Tram tram = (Tram) o;
 
-    if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
-    if (!Objects.equals(destination, tram.destination)) return false;
-    return Objects.equals(origin, tram.origin);
-  }
+        if (toRemove != tram.toRemove) return false;
+        if (!uuid.equals(tram.uuid)) return false;
+        if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
+        if (!Objects.equals(destination, tram.destination)) return false;
+        return Objects.equals(origin, tram.origin);
+    }
 
-  @Override
+    @Override
   public int hashCode() {
     int result = uuid != null ? uuid.hashCode() : 0;
     result = 31 * result + (endOfLine != null ? endOfLine.hashCode() : 0);

@@ -44,14 +44,17 @@ public class TramStopService {
   @Autowired private TramRepo tramRepo;
 
   @Autowired private TramStopRepo tramStopRepo;
-    @Autowired private TFGMResponseRepo tfgmResponseRepo;
+  @Autowired private TFGMResponseRepo tfgmResponseRepo;
 
-
-    private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
+  private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
   private static Logger loggerMove = LoggerFactory.getLogger("moving");
+  private static Logger loggerDelete = LoggerFactory.getLogger("analytics");
 
   public TramStopService(
-      TramStopRepo tramStopRepo, TramNetworkDTORepo tramNetworkDTORepo, TramRepo tramRepo, TFGMResponseRepo tfgmResponseRepo)
+      TramStopRepo tramStopRepo,
+      TramNetworkDTORepo tramNetworkDTORepo,
+      TramRepo tramRepo,
+      TFGMResponseRepo tfgmResponseRepo)
       throws IOException {
     this.tramStopRepo = tramStopRepo;
     this.tramNetworkDTORepo = tramNetworkDTORepo;
@@ -59,14 +62,14 @@ public class TramStopService {
     this.tfgmResponseRepo = tfgmResponseRepo;
   }
 
-  public void updateRecorded()
-  {
-      List<TFGMResponse> tfgmResponseList = tfgmResponseRepo.getAllResponse();
+  public void updateRecorded() throws IOException {
+    tramStopHashMap = tramStopRepo.getTramStops();
+    System.out.println("Acquiring TFGM Response data");
+    List<TFGMResponse> tfgmResponseList = tfgmResponseRepo.getAllResponse();
 
-      for(TFGMResponse response : tfgmResponseList)
-      {
-          runDataInstance(response.getResponse(), response.getTimestamp());
-      }
+    for (TFGMResponse response : tfgmResponseList) {
+      runDataInstance(response.getResponse(), response.getTimestamp());
+    }
   }
 
   public void updateLive() throws URISyntaxException, IOException {
@@ -102,9 +105,8 @@ public class TramStopService {
     }
   }
 
-  private void savetfgmResponse(JSONObject tfgmFullResponse, Long timestamp)
-  {
-      tfgmResponseRepo.saveResponse(new TFGMResponse(timestamp, tfgmFullResponse));
+  private void savetfgmResponse(JSONObject tfgmFullResponse, Long timestamp) {
+    tfgmResponseRepo.saveResponse(new TFGMResponse(timestamp, tfgmFullResponse));
   }
 
   private void runDataInstance(JSONObject tfgmFullResponse, Long timestamp) {
@@ -175,20 +177,20 @@ public class TramStopService {
       }
 
       // LOG HELP
-      if (currentStation.getString("StationLocation").equals("Victoria")
-          && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Victoria" + currentStation.getString("Direction"));
+      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+          && currentStation.getString("Direction").equals("Incoming")) {
+        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("Victoria" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
       }
 
-      if (currentStation.getString("StationLocation").equals("Shudehill")
+      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
           && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Shudehill" + currentStation.getString("Direction"));
+        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("Shudehill" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
       }
     }
 
@@ -196,26 +198,26 @@ public class TramStopService {
     removeOldTrams(tramStopHashMap, timestamp);
     tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
     tramRepo.saveTrams(tramStopHashMap);
-    removeCompletedTrams(tramStopHashMap);
+    removeFlaggedTrams(tramStopHashMap);
   }
 
-  private void removeCompletedTrams(Map<String, TramStop> tramStopHashMap) {
+  private void removeFlaggedTrams(Map<String, TramStop> tramStopHashMap) {
 
     for (TramStop tramStop : tramStopHashMap.values()) {
       Queue<Tram> tramQueue = tramStop.getTramQueue();
 
-      removeCompletedTramsLoop(tramQueue);
+      removeFlaggedTramsLoop(tramQueue);
 
       if (tramStop.getNextStops() != null) {
         for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
           Queue<Tram> containerTramQueue = tramStopContainer.getTramLinkStop().getTramQueue();
-          removeCompletedTramsLoop(containerTramQueue);
+          removeFlaggedTramsLoop(containerTramQueue);
         }
       }
     }
   }
 
-  private void removeCompletedTramsLoop(Queue<Tram> tramQueue) {
+  private void removeFlaggedTramsLoop(Queue<Tram> tramQueue) {
     List<Tram> listToRemove = new ArrayList<>();
 
     for (Tram tram : tramQueue) {
@@ -224,8 +226,10 @@ public class TramStopService {
         listToRemove.add(tram);
       }
     }
-
-    tramQueue.removeAll(listToRemove);
+    if (listToRemove.size() > 0) {
+      loggerDelete.warn("RemovingLoop: " + listToRemove.toString());
+      tramQueue.removeAll(listToRemove);
+    }
   }
 
   private void removeOldTrams(Map<String, TramStop> tramStopHashMap, Long timestamp) {

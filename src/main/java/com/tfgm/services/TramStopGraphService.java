@@ -13,7 +13,7 @@ public class TramStopGraphService {
 
   public void tramDeparture(
       String endOfLine, TramStop tramStop, Long timestamp, JSONObject currentStation) {
-    Tram departingTram = null;
+    Tram departingTram;
     Queue<Tram> tramQueue = tramStop.getTramQueue();
 
     departingTram = getDepartingTram(endOfLine, null, tramQueue);
