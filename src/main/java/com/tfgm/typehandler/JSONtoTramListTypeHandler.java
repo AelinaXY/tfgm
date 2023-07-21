@@ -93,6 +93,7 @@ public class JSONtoTramListTypeHandler extends BaseTypeHandler<List<Tram>> {
       throw new SQLException("Error reading UriLink.", ioe);
     }
 
+    System.out.println("returning tramlist");
     return tramList;
   }
 }

@@ -1,6 +1,9 @@
 package com.tfgm.models;
 
+import com.tfgm.services.TramStopService;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main TramStop entity. This entity represents the combination of a tram stop and direction.
@@ -21,11 +24,8 @@ public class TramStop {
   /** The overall line the stop is on. */
   private final String line;
 
-  /**
-   * An arraylist of the previous updates this TramStop has had. Generally in the format
-   * "YYYYMMDDHHMM{DestinationName}."
-   */
-  private final List<String> lastUpdated = new ArrayList<>();
+  /** An arraylist of the previous updates this TramStop has had." */
+  private final List<TramUpdate> lastUpdated = new ArrayList<>();
 
   /** A representation of Trams currently at this Station going in a direction. */
   private final Queue<Tram> tramQueue = new LinkedList<>();
@@ -41,6 +41,10 @@ public class TramStop {
    */
   private TramStopContainer[] prevStops;
 
+  private int lastUpdateCount = 0;
+
+  private static Logger logger = LoggerFactory.getLogger("analytics");
+
   /**
    * Constructor for class TramStop.
    *
@@ -50,7 +54,7 @@ public class TramStop {
    */
   public TramStop(String stopName, String direction, String line) {
 
-    if (!stopName.trim().equals("")) {
+      if (!stopName.trim().equals("")) {
       this.stopName = stopName;
     } else {
       throw new IllegalArgumentException("stopName is '" + stopName + "'");
@@ -86,21 +90,27 @@ public class TramStop {
    */
   @Override
   public String toString() {
-    return "NewTramStop [stopName="
+    return "TramStop{"
+        + "stopName='"
         + stopName
-        + ", direction="
+        + '\''
+        + ", direction='"
         + direction
-        + ", line="
+        + '\''
+        + ", line='"
         + line
+        + '\''
+        + ", lastUpdated="
+        + lastUpdated
+        + ", tramQueue="
+        + tramQueue
         + ", nextStops: "
-        + (nextStops.length > 0
-            ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
+        + (Arrays.stream(nextStops).toList().toString())
         + ", prevStops: "
-        + (prevStops.length > 0
-            ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
-        + "]";
+        + (Arrays.stream(prevStops).toList().toString())
+        + ", lastUpdateCount="
+        + lastUpdateCount
+        + '}';
   }
 
   /**
@@ -129,12 +139,83 @@ public class TramStop {
     return direction;
   }
 
-  public List<String> getLastUpdated() {
-    return lastUpdated;
+  public int getLastUpdatedSize() {
+    return lastUpdated.size();
   }
 
-  public void addToLastUpdated(String lastUpdated) {
-    this.lastUpdated.add(lastUpdated);
+  public String getLastUpdatedString() {
+    return lastUpdated.toString();
+  }
+
+  public void addToLastUpdated(String station, String status, Long position) {
+    this.lastUpdated.add(new TramUpdate(station, status, position));
+  }
+
+  public boolean isValidTram(String station, String status, Long position) {
+    List<TramUpdate> correctUpdateCode =
+        lastUpdated.stream().filter(m -> m.getStation().equals(station)).toList();
+
+    Long arrivalCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Arrived")).count();
+    Long departureCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Departing")).count();
+
+    if (departureCount > 0 && arrivalCount > departureCount && status.equals("Departing")) {
+      logger.warn("DEPARTMULTITRAM");
+      return true;
+    }
+
+    correctUpdateCode =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals(status)).toList();
+
+    for (int i = 0; i < correctUpdateCode.size(); i++) {
+      if (position <= correctUpdateCode.get(i).getUpdatePosition()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public void clearLastUdated() {
+    lastUpdated.clear();
+  }
+
+  public void clearLastUpdated() {
+    List<TramUpdate> toClearList;
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired()) {
+        String departOrArrive = tramUpdate.getStatus().equals("Arrived") ? "Departing" : "Arrived";
+
+        TramUpdate pairedTramUpdate =
+            lastUpdated.stream()
+                .filter(
+                    m ->
+                        !m.isPaired()
+                            && m.getStation().equals(tramUpdate.getStation())
+                            && m.getStatus().equals(departOrArrive))
+                .findFirst()
+                .orElse(null);
+
+        if (pairedTramUpdate != null) {
+          pairedTramUpdate.setPaired(true);
+          tramUpdate.setPaired(true);
+        }
+      }
+    }
+
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired() && tramUpdate.getStatus().equals("Arrived")) {
+        for (Tram tram : tramQueue) {
+          if (tram.getEndOfLine().equals(tramUpdate.getStation())) {
+            logger.debug("REMOVED DUE TO ORPHANAGE: " + this + "\n | " + tram);
+            tram.setToRemove(true);
+            break;
+          }
+        }
+      }
+    }
+
+    lastUpdated.clear();
   }
 
   public Queue<Tram> getTramQueue() {
@@ -162,5 +243,17 @@ public class TramStop {
 
     if (!stopName.equals(tramStop.stopName)) return false;
     return direction.equals(tramStop.direction);
+  }
+
+  public int getLastUpdateCount() {
+    return lastUpdateCount;
+  }
+
+  public void incrementLastUpdateCount() {
+    lastUpdateCount++;
+  }
+
+  public void zeroLastUpdateCount() {
+    lastUpdateCount = 0;
   }
 }

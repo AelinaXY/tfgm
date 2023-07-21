@@ -24,4 +24,12 @@ public class TramStopContainer {
   public void setTramLinkStop(TramLinkStop tramLinkStop) {
     this.tramLinkStop = tramLinkStop;
   }
+
+    @Override
+    public String toString() {
+        return "TramStopContainer{" +
+            "tramStop=" + tramStop.getStopName().toString() +
+            ", tramLinkStop=" + tramLinkStop +
+            '}';
+    }
 }

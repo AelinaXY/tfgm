@@ -13,10 +13,7 @@ public class TramStopServiceUtilities {
     }
 
     public static String getUpdateString(JSONObject currentStation, int j) {
-    return currentStation.getString("LastUpdated").substring(0, 15)
-        + currentStation.getString("Dest" + j)
-        + "Dest"
-        + j
+    return currentStation.getString("Dest" + j)
         + currentStation.getString("Status" + j);
   }
 

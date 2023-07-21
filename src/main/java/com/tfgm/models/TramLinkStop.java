@@ -26,4 +26,18 @@ public class TramLinkStop {
   public Queue<Tram> getTramQueue() {
     return tramQueue;
   }
+
+  public Tram popTram(Tram tram) {
+    if (tramQueue.remove(tram)) {
+      return tram;
+    }
+    return null;
+  }
+
+    @Override
+    public String toString() {
+        return "TramLinkStop{" +
+            "tramQueue=" + tramQueue +
+            '}';
+    }
 }

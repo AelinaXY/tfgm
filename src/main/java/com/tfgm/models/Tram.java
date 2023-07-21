@@ -1,6 +1,8 @@
 package com.tfgm.models;
 
 import jakarta.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,7 +17,13 @@ public class Tram {
 
   private Long lastUpdated;
 
+  private Long population;
+
+  private Map<String, Long> tramHistory = new HashMap<>();
+
   private TramNetworkDTO tramNetworkDTO;
+
+  private boolean toRemove = false;
 
   public Tram(String endOfLine) {
     this.endOfLine = endOfLine;
@@ -24,6 +32,44 @@ public class Tram {
   public Tram(String endOfLine, Long lastUpdated) {
     this.endOfLine = endOfLine;
     this.lastUpdated = lastUpdated;
+  }
+
+  public Tram(UUID uuid, String endOfLine, Long lastUpdated) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.lastUpdated = lastUpdated;
+  }
+
+  public Tram(
+      UUID uuid,
+      String endOfLine,
+      String destination,
+      String origin,
+      Long lastUpdated,
+      Map<String, Long> tramHistory) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.destination = destination;
+    this.origin = origin;
+    this.lastUpdated = lastUpdated;
+    this.tramHistory = tramHistory;
+  }
+
+  public Tram(
+      UUID uuid,
+      String endOfLine,
+      String destination,
+      String origin,
+      Long lastUpdated,
+      Long population,
+      Map<String, Long> tramHistory) {
+    this.uuid = uuid;
+    this.endOfLine = endOfLine;
+    this.destination = destination;
+    this.origin = origin;
+    this.lastUpdated = lastUpdated;
+    this.population = population;
+    this.tramHistory = tramHistory;
   }
 
   public Tram() {}
@@ -56,21 +102,62 @@ public class Tram {
     this.lastUpdated = lastUpdated;
   }
 
-    @Override
-    public String toString() {
-        return "Tram{" +
-            "uuid=" + uuid +
-            ", endOfLine='" + endOfLine + '\'' +
-            ", destination='" + destination + '\'' +
-            ", origin='" + origin + '\'' +
-            ", lastUpdated=" + lastUpdated +
-            '}';
+  public void addToTramHistory(String stop, Long timestamp) {
+    tramHistory.put(stop, timestamp);
+  }
+
+  public Map<String, Long> getTramHistory() {
+    return new HashMap<>(tramHistory);
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public Long getPopulation() {
+    return population;
+  }
+
+  public void setPopulation(Long population) {
+    this.population = population;
+  }
+
+    public boolean isToRemove() {
+        return toRemove;
     }
 
-    public String toJSONString() {
-    return "{"
-        + "\"uuid\":"
+    public void setToRemove(boolean toRemove) {
+        this.toRemove = toRemove;
+    }
+
+    @Override
+  public String toString() {
+    return "Tram{"
+        + "uuid="
         + uuid
+        + ", endOfLine='"
+        + endOfLine
+        + '\''
+        + ", destination='"
+        + destination
+        + '\''
+        + ", origin='"
+        + origin
+        + '\''
+        + ", lastUpdated="
+        + lastUpdated
+        + ", population="
+        + population
+        + ", tramHistory="
+        + tramHistory
+        + '}';
+  }
+
+  public String toJSONString() {
+    return "{"
+        + "\"uuid\":\""
+        + uuid
+        + "\""
         + ", \"endOfLine\":\""
         + endOfLine
         + '\"'
@@ -80,22 +167,27 @@ public class Tram {
         + ", \"origin\":\""
         + origin
         + '\"'
+        + ", \"population\":\""
+        + population
+        + '\"'
         + '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    Tram tram = (Tram) o;
+        Tram tram = (Tram) o;
 
-    if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
-    if (!Objects.equals(destination, tram.destination)) return false;
-    return Objects.equals(origin, tram.origin);
-  }
+        if (toRemove != tram.toRemove) return false;
+        if (!uuid.equals(tram.uuid)) return false;
+        if (!Objects.equals(endOfLine, tram.endOfLine)) return false;
+        if (!Objects.equals(destination, tram.destination)) return false;
+        return Objects.equals(origin, tram.origin);
+    }
 
-  @Override
+    @Override
   public int hashCode() {
     int result = uuid != null ? uuid.hashCode() : 0;
     result = 31 * result + (endOfLine != null ? endOfLine.hashCode() : 0);
