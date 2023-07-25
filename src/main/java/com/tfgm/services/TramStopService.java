@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 public class TramStopService {
   private Map<String, TramStop> tramStopHashMap;
 
-  private final Long timeToLive = 1800L;
+  private final Long timeToLive = 480L;
 
   private final Long timeToDest = 300L;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
