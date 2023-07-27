@@ -57,4 +57,9 @@ public class TramRepoImpl implements TramRepo {
     public List<Tram> getInNextTwoHours(Long timestamp, String stopName) {
         return tramMapper.getAfterTS(timestamp,stopName);
     }
+
+    @Override
+    public List<Tram> getAll() {
+        return tramMapper.getAll();
+    }
 }
