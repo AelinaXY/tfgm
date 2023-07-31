@@ -70,7 +70,7 @@ public class JourneyController {
     @GetMapping("/calculateNextTrams")
     public ResponseEntity<String> calculateNextTrams(@RequestBody Map<String,String> request) throws IOException {
         System.out.println("requestIn NextTrams:" + Instant.now());
-        JSONObject response = journeyRoutingService.calculateNextTrams(request.get("stopname"));
+        JSONObject response = journeyRoutingService.calculateNextTrams(request.get("stopname"), Long.valueOf(request.get("timestamp")));
         System.out.println("requestOut JourneyTimes:" + Instant.now());
 
         if(response == null)

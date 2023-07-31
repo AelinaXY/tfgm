@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -372,69 +371,107 @@ public class JourneyRoutingService {
   }
 
   @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-  public JSONObject calculateNextTrams(String stopName) throws IOException {
+  public JSONObject calculateNextTrams(String stopName, Long timestamp) throws IOException {
     JSONObject responseJSON = new JSONObject();
-    JSONArray incomingJSONArray = new JSONArray();
-    JSONArray outgoingJSONArray = new JSONArray();
+    List<JSONObject> incomingJSONList = new ArrayList<>();
+    List<JSONObject> outgoingJSONList = new ArrayList<>();
 
-    Long timestamp = Instant.now().getEpochSecond();
 
-    if (stopName != null) {
+    if (stopName != null && timestamp != null) {
+
+      stopName = TramStopServiceUtilities.cleanStationName(stopName);
+      Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
+
+      Long stopRecurseCount = 3L;
+
+      String incomingStopName = stopName + "Incoming";
+      String outgoingStopName = stopName + "Outgoing";
+      TramStop incomingTramStop = tramStopHashMap.get(incomingStopName);
+      TramStop outgoingTramStop = tramStopHashMap.get(outgoingStopName);
+
+      List<JourneyTime> journeyTimeList = journeyTimeRepo.getAll();
+
       List<Long> timestampList = tramNetworkDTORepo.getAllTimestamps();
-      Collections.sort(timestampList);
-      Collections.reverse(timestampList);
 
-      TramNetworkDTO tramNetworkDTO = tramNetworkDTORepo.findByTimestamp(timestampList.get(0));
+      if (incomingTramStop != null) {
 
-      List<Tram> tramList = tramNetworkDTO.getTramArrayList();
-
-      String cleanStopname = TramStopServiceUtilities.cleanStationName(stopName);
-
-      tramList =
-          tramList.stream()
-              .filter(
-                  tram ->
-                      tram.getDestination().equals(cleanStopname + "Outgoing")
-                          || tram.getDestination().equals(cleanStopname + "Incoming"))
-              .toList();
-
-      if (tramList.size() == 0) {
-        return responseJSON;
+        incomingJSONList =
+            recursiveTramTimeFinder(
+                stopRecurseCount, incomingTramStop, incomingJSONList, journeyTimeList, timestamp);
       }
 
-      List<JourneyTime> journeyTimeList = journeyTimeRepo.getDestination(stopName);
+      if (outgoingTramStop != null) {
 
-      for (Tram tram : tramList) {
-        for (JourneyTime journeyTime : journeyTimeList) {
-          if (tram.getOrigin()
-              .contains(TramStopServiceUtilities.cleanStationName(journeyTime.getOrigin()))) {
-            JSONObject tempJSONObject = new JSONObject();
-            tempJSONObject.put("endOfLine", tram.getEndOfLine());
-            tempJSONObject.put(
-                "timeToArrival", tram.getLastUpdated() - timestamp + journeyTime.getTime());
-            if (tram.getOrigin().contains("Outgoing")) {
-              outgoingJSONArray.put(tempJSONObject);
-            } else {
-              incomingJSONArray.put(tempJSONObject);
-            }
-          }
-        }
-
-        if (tram.getOrigin().equals(tram.getDestination())) {
-          JSONObject tempJSONObject = new JSONObject();
-          tempJSONObject.put("endOfLine", tram.getEndOfLine());
-          tempJSONObject.put("timeToArrival", 0L);
-          if (tram.getOrigin().contains("Outgoing")) {
-            outgoingJSONArray.put(tempJSONObject);
-          } else {
-            incomingJSONArray.put(tempJSONObject);
-          }
-        }
+        outgoingJSONList =
+            recursiveTramTimeFinder(
+                stopRecurseCount, outgoingTramStop, outgoingJSONList, journeyTimeList, timestamp);
       }
     }
-    responseJSON.put("Outgoing", outgoingJSONArray);
-    responseJSON.put("Incoming", incomingJSONArray);
+    responseJSON.put("Incoming", incomingJSONList);
+    responseJSON.put("Outgoing", outgoingJSONList);
     System.out.println(responseJSON);
     return responseJSON;
+  }
+
+  private List<JSONObject> recursiveTramTimeFinder(
+      Long count,
+      TramStop tramStop,
+      List<JSONObject> returnList,
+      List<JourneyTime> journeyTimeList,
+      Long timestamp) {
+    if (count == 0L || tramStop == null) {
+      return returnList;
+    }
+
+    count--;
+
+    // Loop through tramStop previous stops
+    for (TramStopContainer tramStopContainer : tramStop.getPrevStops()) {
+      Long expectedTime =
+          Objects.requireNonNull(
+                  journeyTimeList.stream()
+                      .filter(
+                          m ->
+                              m.getOrigin().equals(tramStopContainer.getTramStop().getStopName())
+                                  && m.getDestination().equals(tramStop.getStopName()))
+                      .findFirst()
+                      .orElse(null))
+              .getTime();
+      List<JSONObject> tempList = new ArrayList<>();
+      // Add all previous trams to currently working list
+      tempList.addAll(
+          recursiveTramTimeFinder(
+              count,
+              tramStopContainer.getTramStop(),
+              new ArrayList<>(),
+              journeyTimeList,
+              timestamp));
+
+      for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue()) {
+        addTramtoReturnList(tempList, timestamp, tram);
+      }
+
+      for (JSONObject jsonObject : tempList) {
+        Long timeToArrive = jsonObject.getLong("timeToArrival");
+
+        jsonObject.put("timeToArrival", timeToArrive + expectedTime);
+      }
+
+      returnList.addAll(tempList);
+    }
+
+    for (Tram tram : tramStop.getTramQueue()) {
+      addTramtoReturnList(returnList, timestamp, tram);
+    }
+
+    // Return returnList with the times updated
+    return returnList;
+  }
+
+  private static void addTramtoReturnList(List<JSONObject> returnList, Long timestamp, Tram tram) {
+    JSONObject tempObject = new JSONObject();
+    tempObject.put("timeToArrival", tram.getLastUpdated() - timestamp);
+    tempObject.put("endOfLine", tram.getEndOfLine());
+    returnList.add(tempObject);
   }
 }
