@@ -15,4 +15,6 @@ public interface TramRepo {
   int deleteAll();
 
   List<Tram> getInNextTwoHours(Long timestamp, String stopName);
+
+  List<Tram> getAll();
 }

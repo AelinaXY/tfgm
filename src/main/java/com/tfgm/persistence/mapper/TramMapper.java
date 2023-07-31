@@ -38,4 +38,8 @@ public interface TramMapper {
   @Select(
       "select * from trams where (tramhistory ->> #{stopName})::INTEGER > #{timestamp} and (tramhistory ->> #{stopName})::INTEGER < #{timestamp}+7200 ORDER BY (tramhistory ->> #{stopName})::INTEGER;")
   List<Tram> getAfterTS(@Param("timestamp") Long timestamp, @Param("stopName") String stopName);
+
+  @ResultMap("tramResult")
+  @Select("select * from trams")
+  List<Tram> getAll();
 }
