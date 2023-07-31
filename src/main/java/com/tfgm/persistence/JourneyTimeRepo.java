@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface JourneyTimeRepo {
   void saveJourneyTimes(List<JourneyTime> journeyTimeListList);
   List<JourneyTime> getAll();
+
+  List<JourneyTime> getDestination(String destination);
   }

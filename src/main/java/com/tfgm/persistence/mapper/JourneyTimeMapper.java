@@ -25,4 +25,9 @@ public interface JourneyTimeMapper {
     })
     @Select("SELECT * FROM journeytime")
     List<JourneyTime> getAll();
+
+
+    @ResultMap("journeyTimeResult")
+    @Select("SELECT * FROM journeytime where destination = #{destination}")
+    List<JourneyTime> getDestination(String destination);
 }
