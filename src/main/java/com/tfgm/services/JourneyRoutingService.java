@@ -474,4 +474,9 @@ public class JourneyRoutingService {
     tempObject.put("endOfLine", tram.getEndOfLine());
     returnList.add(tempObject);
   }
+
+  public Map<String,String> findChangeStop(String startStop, String endStop)
+  {
+      return null;
+  }
 }

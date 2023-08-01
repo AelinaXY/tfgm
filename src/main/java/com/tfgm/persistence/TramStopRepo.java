@@ -4,9 +4,13 @@ import com.tfgm.models.TramStop;
 import com.tfgm.models.TramStopContainer;
 import com.tfgm.models.TramStopDTO;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +23,7 @@ public class TramStopRepo {
 
   private final TramStopRepoUtilities utilities = new TramStopRepoUtilities();
 
-  //  private String tramDataPath = "src/main/resources/static/TramStopData.json";
+    private String tramDataPath = "src/main/resources/static/TramStopData.json";
 
   private TramStopDataRepository repository;
 
@@ -28,13 +32,13 @@ public class TramStopRepo {
     // Reads all of the TramStopData from the static JSON file.
     this.repository = tramStopDataRepository;
 
-    //    JSONArray allTramStopData =
-    //        new JSONArray(
-    //            Files.readAllLines(Paths.get(tramDataPath)).stream()
-    //                .map(String::valueOf)
-    //                .collect(Collectors.joining()));
-    //
-    //    firstRun(allTramStopData);
+//        JSONArray allTramStopData =
+//            new JSONArray(
+//                Files.readAllLines(Paths.get(tramDataPath)).stream()
+//                    .map(String::valueOf)
+//                    .collect(Collectors.joining()));
+//
+//        firstRun(allTramStopData);
 
     List<TramStopDTO> allTramStopDTO = repository.findAll();
 
@@ -97,12 +101,13 @@ public class TramStopRepo {
 
       String[] nextStops = utilities.jsonArrayToStringArray(currentStop.getJSONArray("nextStop"));
       String[] prevStops = utilities.jsonArrayToStringArray(currentStop.getJSONArray("prevStop"));
+      String[] line = utilities.jsonArrayToStringArray(currentStop.getJSONArray("line"));
 
       repository.save(
           new TramStopDTO(
               currentStop.getString("tramStopName"),
               currentStop.getString("direction"),
-              currentStop.getString("line"),
+              line,
               currentStop.getString("location"),
               nextStops,
               prevStops,

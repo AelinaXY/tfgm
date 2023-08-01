@@ -13,7 +13,7 @@ public class TramStopDTO {
 
     private String tramStopName;
     private String direction;
-  private String line;
+  private String[] line;
   private String location;
   private String[] nextStop;
   private String[] prevStop;
@@ -23,7 +23,7 @@ public class TramStopDTO {
   public TramStopDTO(
       String id,
       String direction,
-      String line,
+      String[] line,
       String location,
       String[] nextStop,
       String[] prevStop,
@@ -53,11 +53,11 @@ public class TramStopDTO {
     this.direction = direction;
   }
 
-  public String getLine() {
+  public String[] getLine() {
     return line;
   }
 
-  public void setLine(String line) {
+  public void setLine(String[] line) {
     this.line = line;
   }
 

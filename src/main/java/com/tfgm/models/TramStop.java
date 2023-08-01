@@ -22,7 +22,7 @@ public class TramStop {
   private final String direction;
 
   /** The overall line the stop is on. */
-  private final String line;
+  private final List<String> line;
 
   /** An arraylist of the previous updates this TramStop has had." */
   private final List<TramUpdate> lastUpdated = new ArrayList<>();
@@ -52,7 +52,7 @@ public class TramStop {
    * @param direction Direction of stop.
    * @param line Line of the stop.
    */
-  public TramStop(String stopName, String direction, String line) {
+  public TramStop(String stopName, String direction, String[] line) {
 
       if (!stopName.trim().equals("")) {
       this.stopName = stopName;
@@ -64,8 +64,8 @@ public class TramStop {
     } else {
       throw new IllegalArgumentException("direction is '" + direction + "'");
     }
-    if (!line.trim().equals("")) {
-      this.line = line;
+    if (!(line.length == 0)) {
+      this.line = List.of(line);
     } else {
       throw new IllegalArgumentException("line is '" + line + "'");
     }
@@ -97,17 +97,16 @@ public class TramStop {
         + ", direction='"
         + direction
         + '\''
-        + ", line='"
+        + ", line="
         + line
-        + '\''
         + ", lastUpdated="
         + lastUpdated
         + ", tramQueue="
         + tramQueue
         + ", nextStops: "
-        + (Arrays.stream(nextStops).toList().toString())
+        + (Arrays.stream(nextStops).toList())
         + ", prevStops: "
-        + (Arrays.stream(prevStops).toList().toString())
+        + (Arrays.stream(prevStops).toList())
         + ", lastUpdateCount="
         + lastUpdateCount
         + '}';
