@@ -3,7 +3,6 @@ package com.tfgm.services;
 import com.tfgm.models.*;
 import com.tfgm.persistence.*;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import org.json.JSONObject;
@@ -376,7 +375,6 @@ public class JourneyRoutingService {
     List<JSONObject> incomingJSONList = new ArrayList<>();
     List<JSONObject> outgoingJSONList = new ArrayList<>();
 
-
     if (stopName != null && timestamp != null) {
 
       stopName = TramStopServiceUtilities.cleanStationName(stopName);
@@ -475,8 +473,171 @@ public class JourneyRoutingService {
     returnList.add(tempObject);
   }
 
-  public Map<String,String> findChangeStop(String startStop, String endStop)
-  {
-      return null;
+  public Map<String, String> findChangeStop(String startStop, String endStop) throws IOException {
+
+    Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
+    Map<String, String> returnMap = new HashMap<>();
+
+    if (startStop != null && endStop != null) {
+      List<TramStop> startTramStops =
+          tramStopHashMap.values().stream()
+              .filter(tramStop -> tramStop.getStopName().equals(startStop))
+              .toList();
+
+      List<TramStop> endTramStops =
+          tramStopHashMap.values().stream()
+              .filter(tramStop -> tramStop.getStopName().equals(endStop))
+              .toList();
+
+      TramStop startTramStopFinal = null;
+      TramStop endTramStopFinal = null;
+
+      for (TramStop startTramStop : startTramStops) {
+        for (TramStop endTramStop : endTramStops) {
+          if (findEndOfLine(endTramStop, startTramStop)) {
+            startTramStopFinal = startTramStop;
+            endTramStopFinal = endTramStop;
+            break;
+          }
+        }
+        if (startTramStopFinal != null) {
+          break;
+        }
+      }
+
+      if (startTramStopFinal == null) {
+
+        for (TramStop startTramStop : startTramStops) {
+          for (TramStop endTramStop : endTramStops) {
+            List<String> startList = new ArrayList<>();
+            List<String> endList = new ArrayList<>();
+            listAllNextStop(startTramStop, startList);
+            listAllPrevStop(endTramStop, endList);
+
+            if (startList.stream()
+                .anyMatch(endList::contains)) {
+              startTramStopFinal = startTramStop;
+              endTramStopFinal = endTramStop;
+              break;
+            }
+          }
+          if (startTramStopFinal != null) {
+            break;
+          }
+        }
+      }
+
+      if (startTramStopFinal.getLine().stream().anyMatch(endTramStopFinal.getLine()::contains)) {
+        returnMap.put(
+            "start",
+            TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
+                + startTramStopFinal.getDirection());
+        returnMap.put(
+            "end",
+            TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
+                + endTramStopFinal.getDirection());
+        returnMap.put("getOff", "None");
+        returnMap.put("getOn", "None");
+
+        return returnMap;
+      }
+
+      TramStop changeStation = findChangeStation(endTramStopFinal, startTramStopFinal);
+
+      returnMap.put(
+          "start",
+          TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
+              + startTramStopFinal.getDirection());
+      returnMap.put(
+          "end",
+          TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
+              + endTramStopFinal.getDirection());
+      returnMap.put(
+          "getOff",
+          TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+              + changeStation.getDirection());
+
+      if (findEndOfLine(endTramStopFinal, changeStation)) {
+        returnMap.put(
+            "getOn",
+            TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+                + changeStation.getDirection());
+      } else {
+        String otherDirection =
+            changeStation.getDirection().equals("Incoming") ? "Outgoing" : "Incoming";
+        TramStop switchedDirection =
+            tramStopHashMap.get(
+                TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+                    + otherDirection);
+        returnMap.put(
+            "getOn",
+            TramStopServiceUtilities.cleanStationName(switchedDirection.getStopName())
+                + switchedDirection.getDirection());
+      }
+    }
+    return returnMap;
+  }
+
+  private List<String> listAllNextStop(TramStop tramStop, List<String> stopList) {
+    if (tramStop.getNextStops() == null) {
+      stopList.add(tramStop.getStopName());
+      return stopList;
+    }
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      List<String> tempList =
+          new ArrayList<>(listAllNextStop(tramStopContainer.getTramStop(), new ArrayList<>()));
+
+      tempList.add(tramStopContainer.getTramStop().getStopName());
+
+      stopList.addAll(tempList);
+    }
+
+    return stopList;
+  }
+
+  private List<String> listAllPrevStop(TramStop tramStop, List<String> stopList) {
+    if (tramStop.getPrevStops() == null) {
+      stopList.add(tramStop.getStopName());
+      return stopList;
+    }
+    for (TramStopContainer tramStopContainer : tramStop.getPrevStops()) {
+      List<String> tempList =
+          new ArrayList<>(listAllPrevStop(tramStopContainer.getTramStop(), new ArrayList<>()));
+
+      tempList.add(tramStopContainer.getTramStop().getStopName());
+
+      stopList.addAll(tempList);
+    }
+
+    return stopList;
+  }
+
+  private boolean findEndOfLine(TramStop endTramStop, TramStop tramStop) {
+    if (tramStop.equals(endTramStop)) {
+      return true;
+    }
+
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      boolean res = findEndOfLine(endTramStop, tramStopContainer.getTramStop());
+      if (res) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private TramStop findChangeStation(TramStop endTramStop, TramStop tramStop) {
+    if (tramStop.getLine().stream().anyMatch(endTramStop.getLine()::contains)) {
+      return tramStop;
+    }
+
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      TramStop res = findChangeStation(endTramStop, tramStopContainer.getTramStop());
+      if (res != null) {
+        return res;
+      }
+    }
+    return null;
   }
 }

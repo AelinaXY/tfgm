@@ -255,4 +255,8 @@ public class TramStop {
   public void zeroLastUpdateCount() {
     lastUpdateCount = 0;
   }
+
+    public List<String> getLine() {
+        return line;
+    }
 }
