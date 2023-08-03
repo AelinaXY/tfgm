@@ -30,4 +30,8 @@ public interface JourneyTimeMapper {
     @ResultMap("journeyTimeResult")
     @Select("SELECT * FROM journeytime where destination = #{destination}")
     List<JourneyTime> getDestination(String destination);
+
+    @ResultMap("journeyTimeResult")
+    @Select("SELECT * FROM journeytime where destination = #{destination} and origin = #{origin} LIMIT 1")
+    JourneyTime getDestinationAndOrigin(String destination, String origin);
 }

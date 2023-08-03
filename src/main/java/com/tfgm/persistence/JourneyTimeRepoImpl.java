@@ -31,4 +31,9 @@ public class JourneyTimeRepoImpl implements JourneyTimeRepo {
   public List<JourneyTime> getDestination(String destination) {
     return journeyTimeMapper.getDestination(destination);
   }
+
+    @Override
+    public JourneyTime getDestinationAndOrigin(String destination, String origin) {
+        return journeyTimeMapper.getDestinationAndOrigin(destination, origin);
+    }
 }

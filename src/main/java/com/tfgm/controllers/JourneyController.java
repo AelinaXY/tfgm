@@ -1,5 +1,6 @@
 package com.tfgm.controllers;
 
+import com.tfgm.models.TramJourneyResponse;
 import com.tfgm.services.JourneyRoutingService;
 import com.tfgm.services.TramNetworkService;
 import java.io.IOException;
@@ -82,4 +83,22 @@ public class JourneyController {
 
     return ResponseEntity.ok(response.toString());
   }
+
+  //1689799662
+
+    @CrossOrigin
+    @PostMapping("/calculateJourneyTest")
+    public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
+        throws IOException {
+        System.out.println("requestIn NextTrams:" + Instant.now());
+        TramJourneyResponse response =
+            journeyRoutingService.findJourneyPlan(request.get("startStop"),request.get("endStop"),"None",Long.valueOf(request.get("timestamp")));
+        System.out.println("requestOut JourneyTimes:" + Instant.now());
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stop Not Found");
+        }
+
+        return ResponseEntity.ok(response.toString());
+    }
 }
