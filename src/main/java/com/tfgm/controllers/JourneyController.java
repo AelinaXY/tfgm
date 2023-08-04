@@ -87,17 +87,17 @@ public class JourneyController {
   //1689799662
 
     @CrossOrigin
-    @PostMapping("/calculateJourneyTest")
+    @PostMapping("/calculateJourney")
     public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
         throws IOException {
-        System.out.println("requestIn NextTrams:" + Instant.now());
+        Map<String,String> journeyPlan = journeyRoutingService.findChangeStop(request.get("startStop"),request.get("endStop"));
         TramJourneyResponse response =
-            journeyRoutingService.findJourneyPlan(request.get("startStop"),request.get("endStop"),"None",Long.valueOf(request.get("timestamp")));
-        System.out.println("requestOut JourneyTimes:" + Instant.now());
+            journeyRoutingService.findJourneyPlan(journeyPlan.get("start"),journeyPlan.get("end"),journeyPlan.get("getOff"),journeyPlan.get("getOn"),Long.valueOf(request.get("timestamp")));
 
         if (response == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stop Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, request.toString());
         }
+        response.setChangeStop(journeyPlan.get("changeLegal"));
 
         return ResponseEntity.ok(response.toString());
     }

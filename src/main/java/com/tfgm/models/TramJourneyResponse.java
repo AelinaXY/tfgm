@@ -9,6 +9,8 @@ public class TramJourneyResponse {
     private Long secondTramArrivalTime;
     private Long journeyLength;
 
+    private String changeStop;
+
     public TramJourneyResponse() {
     }
 
@@ -52,6 +54,14 @@ public class TramJourneyResponse {
         this.journeyLength = journeyLength;
     }
 
+    public String getChangeStop() {
+        return changeStop;
+    }
+
+    public void setChangeStop(String changeStop) {
+        this.changeStop = changeStop;
+    }
+
     @Override
     public String toString() {
         return "TramJourneyResponse{" +
@@ -60,6 +70,7 @@ public class TramJourneyResponse {
             ", firstTramArrivalTime=" + firstTramArrivalTime +
             ", secondTramArrivalTime=" + secondTramArrivalTime +
             ", journeyLength=" + journeyLength +
+            ", changeStop='" + changeStop + '\'' +
             '}';
     }
 }
