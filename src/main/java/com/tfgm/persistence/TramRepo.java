@@ -17,4 +17,8 @@ public interface TramRepo {
   List<Tram> getInNextTwoHours(Long timestamp, String stopName);
 
   List<Tram> getAll();
+
+  Long getTimeBetweenTramsAvg(String startStop, String endStop);
+
+  Long getLastTimeAtStop(String startStop, String endStop);
 }

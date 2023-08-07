@@ -536,7 +536,7 @@ public class JourneyRoutingService {
                 + endTramStopFinal.getDirection());
         returnMap.put("getOff", "None");
         returnMap.put("getOn", "None");
-        returnMap.put("changeLegal","None");
+        returnMap.put("changeLegal", "None");
 
         return returnMap;
       }
@@ -667,7 +667,9 @@ public class JourneyRoutingService {
 
       TramJourneyResponse returnJourneyResponseSecond =
           getTramJourneyResponse(
-              timestamp,
+              timestamp
+                  + returnJourneyResponseFirst.getJourneyLength()
+                  + returnJourneyResponseFirst.getFirstTramArrivalTime(),
               journeyTimeList,
               tramStopHashMap,
               changeStopOnObject,
@@ -722,6 +724,7 @@ public class JourneyRoutingService {
 
     findAllStopsBetween(endStopObject, startStopObject, stopsBetween);
 
+    // Part One: Check tram data from the graph
     for (JSONObject jsonObject : startJSONList) {
       List<TramStop> stopsBetweenTemp = new ArrayList<>();
       System.out.println(
@@ -751,24 +754,7 @@ public class JourneyRoutingService {
       // Find all stops between end of line and current stop
       if (stopsBetweenTemp != null) {
         if (stopsBetweenTemp.contains(endStopObject)) {
-          Long count = 0L;
-          Collections.reverse(stopsBetween);
-
-          for (int i = 1; i < stopsBetween.size(); i++) {
-            int finalI = i;
-            count +=
-                Objects.requireNonNull(
-                        journeyTimeList.stream()
-                            .filter(
-                                m ->
-                                    m.getDestination()
-                                            .equals(stopsBetween.get(finalI).getStopName())
-                                        && m.getOrigin()
-                                            .equals(stopsBetween.get(finalI - 1).getStopName()))
-                            .findFirst()
-                            .orElse(null))
-                    .getTime();
-          }
+          Long count = getJourneyLength(journeyTimeList, stopsBetween);
 
           TramJourneyResponse returnJourneyResponse = new TramJourneyResponse();
 
@@ -778,15 +764,59 @@ public class JourneyRoutingService {
           return returnJourneyResponse;
         }
       }
-
-      // if end stop is contained then that's the correct tram to take
-
-      // calculate time with stops between list by adding time to dest with current time to
-      // arrival
-
-      // return the object
     }
+
+    // Part Two: Check past TFGM responses
+
+    // Part Three: Check past tram times
+
+    Long timeBetweenTramsAvg =
+        tramRepo.getTimeBetweenTramsAvg(startStopObject.getStopName(), endStopObject.getStopName());
+
+    if (timeBetweenTramsAvg != null) {
+
+      Long count = getJourneyLength(journeyTimeList, stopsBetween);
+
+      Long lastUpdate =
+          tramRepo.getLastTimeAtStop(startStopObject.getStopName(), endStopObject.getStopName());
+
+      Long timeTilTram = lastUpdate - timestamp + timeBetweenTramsAvg;
+
+      while (timeTilTram <= 0L) {
+        timeTilTram += timeBetweenTramsAvg;
+      }
+
+      TramJourneyResponse returnJourneyResponse = new TramJourneyResponse();
+
+      returnJourneyResponse.setJourneyLength(count);
+      returnJourneyResponse.setFirstTram(null);
+      returnJourneyResponse.setFirstTramArrivalTime(timeTilTram);
+      return returnJourneyResponse;
+    }
+
     return null;
+  }
+
+  private static Long getJourneyLength(
+      List<JourneyTime> journeyTimeList, List<TramStop> stopsBetween) {
+    Long count = 0L;
+    Collections.reverse(stopsBetween);
+
+    for (int i = 1; i < stopsBetween.size(); i++) {
+      int finalI = i;
+      count +=
+          Objects.requireNonNull(
+                  journeyTimeList.stream()
+                      .filter(
+                          m ->
+                              m.getDestination().equals(stopsBetween.get(finalI).getStopName())
+                                  && m.getOrigin()
+                                      .equals(stopsBetween.get(finalI - 1).getStopName()))
+                      .findFirst()
+                      .orElse(null))
+              .getTime();
+    }
+    return count;
   }
 
   private List<TramStop> findAllStopsBetween(
@@ -799,6 +829,9 @@ public class JourneyRoutingService {
 
     for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
       tempList = findAllStopsBetween(endTramStop, tramStopContainer.getTramStop(), stopBetweenList);
+      if (tempList != null) {
+        break;
+      }
     }
     if (tempList != null) {
       stopBetweenList.add(tramStop);
