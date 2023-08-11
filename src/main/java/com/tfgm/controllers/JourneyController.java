@@ -84,21 +84,27 @@ public class JourneyController {
     return ResponseEntity.ok(response.toString());
   }
 
-  //1689799662
+  // 1689799662
 
-    @CrossOrigin
-    @PostMapping("/calculateJourney")
-    public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
-        throws IOException {
-        Map<String,String> journeyPlan = journeyRoutingService.findChangeStop(request.get("startStop"),request.get("endStop"));
-        TramJourneyResponse response =
-            journeyRoutingService.findJourneyPlan(journeyPlan.get("start"),journeyPlan.get("end"),journeyPlan.get("getOff"),journeyPlan.get("getOn"),Long.valueOf(request.get("timestamp")));
+  @CrossOrigin
+  @PostMapping("/calculateJourney")
+  public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
+      throws IOException {
+    Map<String, String> journeyPlan =
+        journeyRoutingService.findChangeStop(request.get("startStop"), request.get("endStop"));
+    TramJourneyResponse response =
+        journeyRoutingService.findJourneyPlan(
+            journeyPlan.get("start"),
+            journeyPlan.get("end"),
+            journeyPlan.get("getOff"),
+            journeyPlan.get("getOn"),
+            Long.valueOf(request.get("timestamp")));
 
-        if (response == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, request.toString());
-        }
-        response.setChangeStop(journeyPlan.get("changeLegal"));
-
-        return ResponseEntity.ok(response.toString());
+    if (response == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, request.toString());
     }
+    response.setChangeStop(journeyPlan.get("changeLegal"));
+
+    return ResponseEntity.ok(new JSONObject(response).toString());
+  }
 }

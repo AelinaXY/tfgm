@@ -394,6 +394,11 @@ public class JourneyRoutingService {
         incomingJSONList =
             recursiveTramTimeFinder(
                 stopRecurseCount, incomingTramStop, incomingJSONList, journeyTimeList, timestamp);
+
+        List<JSONObject> removalList =
+            getRemovalList(incomingJSONList, tramStopHashMap, incomingTramStop);
+
+        incomingJSONList.removeAll(removalList);
       }
 
       if (outgoingTramStop != null) {
@@ -401,12 +406,63 @@ public class JourneyRoutingService {
         outgoingJSONList =
             recursiveTramTimeFinder(
                 stopRecurseCount, outgoingTramStop, outgoingJSONList, journeyTimeList, timestamp);
+
+        List<JSONObject> removalList =
+            getRemovalList(outgoingJSONList, tramStopHashMap, outgoingTramStop);
+
+        outgoingJSONList.removeAll(removalList);
       }
     }
     responseJSON.put("Incoming", incomingJSONList);
     responseJSON.put("Outgoing", outgoingJSONList);
     System.out.println(responseJSON);
     return responseJSON;
+  }
+
+  private List<JSONObject> getRemovalList(
+      List<JSONObject> incomingJSONList,
+      Map<String, TramStop> tramStopHashMap,
+      TramStop incomingTramStop) {
+    List<JSONObject> removalList = new ArrayList<>();
+
+    for (JSONObject jsonObject : incomingJSONList) {
+      Tram currentTram = (Tram) jsonObject.get("tramObject");
+      boolean avoidExchangeSquare;
+
+      avoidExchangeSquare =
+          !currentTram
+              .getEndOfLine()
+              .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre");
+
+      List<TramStop> stopsBetweenTemp = new ArrayList<>();
+
+      String endOfLineOutgoing =
+          TramStopServiceUtilities.cleanStationName(currentTram.getEndOfLine()) + "Outgoing";
+      String endOfLineIncoming =
+          TramStopServiceUtilities.cleanStationName(currentTram.getEndOfLine()) + "Incoming";
+
+      String startStopName = currentTram.getOrigin();
+
+      findAllStopsBetween(
+          tramStopHashMap.get(endOfLineOutgoing),
+          tramStopHashMap.get(startStopName),
+          stopsBetweenTemp,
+          avoidExchangeSquare);
+
+      if (stopsBetweenTemp.size() == 0) {
+        stopsBetweenTemp = new ArrayList<>();
+        findAllStopsBetween(
+            tramStopHashMap.get(endOfLineIncoming),
+            tramStopHashMap.get(startStopName),
+            stopsBetweenTemp,
+            avoidExchangeSquare);
+      }
+
+      if (!stopsBetweenTemp.contains(incomingTramStop)) {
+        removalList.add(jsonObject);
+      }
+    }
+    return removalList;
   }
 
   private List<JSONObject> recursiveTramTimeFinder(
@@ -444,6 +500,8 @@ public class JourneyRoutingService {
               timestamp));
 
       for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue()) {
+        // if prime tramstop is not between tramstop and endofline tramstop
+        // don't add to list
         addTramtoReturnList(tempList, timestamp, tram);
       }
 
@@ -541,7 +599,8 @@ public class JourneyRoutingService {
         return returnMap;
       }
 
-      TramStop changeStation = findChangeStation(endTramStopFinal, startTramStopFinal);
+      TramStop changeStation =
+          findChangeStation(endTramStopFinal, startTramStopFinal, startTramStopFinal);
 
       returnMap.put(
           "start",
@@ -628,13 +687,14 @@ public class JourneyRoutingService {
     return false;
   }
 
-  private TramStop findChangeStation(TramStop endTramStop, TramStop tramStop) {
-    if (tramStop.getLine().stream().anyMatch(endTramStop.getLine()::contains)) {
+  private TramStop findChangeStation(TramStop endTramStop, TramStop tramStop, TramStop startStop) {
+    if (tramStop.getLine().stream().anyMatch(endTramStop.getLine()::contains)
+        && tramStop.getLine().stream().anyMatch(startStop.getLine()::contains)) {
       return tramStop;
     }
 
     for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
-      TramStop res = findChangeStation(endTramStop, tramStopContainer.getTramStop());
+      TramStop res = findChangeStation(endTramStop, tramStopContainer.getTramStop(), startStop);
       if (res != null) {
         return res;
       }
@@ -722,7 +782,15 @@ public class JourneyRoutingService {
 
     List<TramStop> stopsBetween = new ArrayList<>();
 
-    findAllStopsBetween(endStopObject, startStopObject, stopsBetween);
+    boolean avoidExchangeSquare;
+
+    if (checkExchangeSquare(startStopObject) || checkExchangeSquare(endStopObject)) {
+      avoidExchangeSquare = false;
+    } else {
+      avoidExchangeSquare = true;
+    }
+
+    findAllStopsBetween(endStopObject, startStopObject, stopsBetween, avoidExchangeSquare);
 
     // Part One: Check tram data from the graph
     for (JSONObject jsonObject : startJSONList) {
@@ -732,13 +800,22 @@ public class JourneyRoutingService {
                   ((Tram) jsonObject.get("tramObject")).getEndOfLine())
               + "Outgoing");
 
+      if (((Tram) jsonObject.get("tramObject"))
+          .getEndOfLine()
+          .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
+        avoidExchangeSquare = false;
+      } else {
+        avoidExchangeSquare = true;
+      }
+
       findAllStopsBetween(
           tramStopHashMap.get(
               TramStopServiceUtilities.cleanStationName(
                       ((Tram) jsonObject.get("tramObject")).getEndOfLine())
                   + "Outgoing"),
           startStopObject,
-          stopsBetweenTemp);
+          stopsBetweenTemp,
+          avoidExchangeSquare);
 
       if (stopsBetweenTemp.size() == 0) {
         stopsBetweenTemp = new ArrayList<>();
@@ -748,7 +825,8 @@ public class JourneyRoutingService {
                         ((Tram) jsonObject.get("tramObject")).getEndOfLine())
                     + "Incoming"),
             startStopObject,
-            stopsBetweenTemp);
+            stopsBetweenTemp,
+            avoidExchangeSquare);
       }
 
       // Find all stops between end of line and current stop
@@ -819,8 +897,22 @@ public class JourneyRoutingService {
     return count;
   }
 
+  private boolean checkExchangeSquare(TramStop tramStop) {
+    List<String> lineList = tramStop.getLine();
+    boolean atEndOfLine = lineList.contains("Didsbury-Rochdale") && lineList.size() == 1;
+    boolean otherPlaces =
+        lineList.contains("Didsbury-Rochdale")
+            && lineList.contains("Didsbury-ShawAndCrompton")
+            && lineList.size() == 2;
+
+    return atEndOfLine || otherPlaces;
+  }
+
   private List<TramStop> findAllStopsBetween(
-      TramStop endTramStop, TramStop tramStop, List<TramStop> stopBetweenList) {
+      TramStop endTramStop,
+      TramStop tramStop,
+      List<TramStop> stopBetweenList,
+      Boolean avoidExchangeSquare) {
     if (tramStop.equals(endTramStop)) {
       stopBetweenList.add(tramStop);
       return stopBetweenList;
@@ -828,9 +920,15 @@ public class JourneyRoutingService {
     List<TramStop> tempList = null;
 
     for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
-      tempList = findAllStopsBetween(endTramStop, tramStopContainer.getTramStop(), stopBetweenList);
-      if (tempList != null) {
-        break;
+
+      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square")
+          && avoidExchangeSquare)) {
+        tempList =
+            findAllStopsBetween(
+                endTramStop, tramStopContainer.getTramStop(), stopBetweenList, avoidExchangeSquare);
+        if (tempList != null) {
+          break;
+        }
       }
     }
     if (tempList != null) {

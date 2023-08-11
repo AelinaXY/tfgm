@@ -177,21 +177,21 @@ public class TramStopService {
       }
 
       // LOG HELP
-      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+      if (currentStation.getString("StationLocation").equals("Northern Moor")
           && currentStation.getString("Direction").equals("Incoming")) {
-        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Northern Moor" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("NorthernMoor" + currentStation.getString("Direction")).toString());
       }
 
-      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
-          && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
-        logger.warn(currentStation.toString());
-        logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
-      }
+//      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+//          && currentStation.getString("Direction").equals("Outgoing")) {
+//        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
+//        logger.warn(currentStation.toString());
+//        logger.warn(
+//            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+//      }
     }
 
     zeroAllStops(tramStopHashMap);
