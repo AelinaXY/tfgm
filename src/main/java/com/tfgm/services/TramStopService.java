@@ -177,20 +177,20 @@ public class TramStopService {
       }
 
       // LOG HELP
-      if (currentStation.getString("StationLocation").equals("MediaCityUK")
+      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
           && currentStation.getString("Direction").equals("Incoming")) {
-        logger.warn("MediaCityUK" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Newton Heath and Moston" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("MediaCityUK" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
       }
 
-      if (currentStation.getString("StationLocation").equals("MediaCityUK")
+      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
           && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("MediaCityUK" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Newton Heath and Moston"+ currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("MediaCityUK" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
       }
     }
 

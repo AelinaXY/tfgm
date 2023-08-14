@@ -2426,7 +2426,7 @@
       "MonsallIncoming"
     ],
     "prevStop": [
-      "NewtonHeathandMossIncoming"
+      "NewtonHeathandMostonIncoming"
     ],
     "tramStopName": "CentralParkIncoming",
     "line": [
@@ -2438,7 +2438,7 @@
     "direction": "Outgoing",
     "location": "Central Park",
     "nextStop": [
-      "NewtonHeathandMossOutgoing"
+      "NewtonHeathandMostonOutgoing"
     ],
     "prevStop": [
       "MonsallOutgoing"
@@ -2451,14 +2451,14 @@
   },
   {
     "direction": "Incoming",
-    "location": "Newton Heath and Moss",
+    "location": "Newton Heath and Moston",
     "nextStop": [
       "CentralParkIncoming"
     ],
     "prevStop": [
       "FailsworthIncoming"
     ],
-    "tramStopName": "NewtonHeathandMossIncoming",
+    "tramStopName": "NewtonHeathandMostonIncoming",
     "line": [
       "Didsbury-Rochdale",
       "Didsbury-ShawAndCrompton"
@@ -2466,14 +2466,14 @@
   },
   {
     "direction": "Outgoing",
-    "location": "Newton Heath and Moss",
+    "location": "Newton Heath and Moston",
     "nextStop": [
       "FailsworthOutgoing"
     ],
     "prevStop": [
       "CentralParkOutgoing"
     ],
-    "tramStopName": "NewtonHeathandMossOutgoing",
+    "tramStopName": "NewtonHeathandMostonOutgoing",
     "line": [
       "Didsbury-Rochdale",
       "Didsbury-ShawAndCrompton"
@@ -2483,7 +2483,7 @@
     "direction": "Incoming",
     "location": "Failsworth",
     "nextStop": [
-      "NewtonHeathandMossIncoming"
+      "NewtonHeathandMostonIncoming"
     ],
     "prevStop": [
       "HollinwoodIncoming"
@@ -2501,7 +2501,7 @@
       "HollinwoodOutgoing"
     ],
     "prevStop": [
-      "NewtonHeathandMossOutgoing"
+      "NewtonHeathandMostonOutgoing"
     ],
     "tramStopName": "FailsworthOutgoing",
     "line": [
