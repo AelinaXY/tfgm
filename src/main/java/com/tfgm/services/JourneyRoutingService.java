@@ -430,16 +430,16 @@ public class JourneyRoutingService {
       boolean avoidExchangeSquare;
 
       avoidExchangeSquare =
-          !currentTram
-              .getEndOfLine()
+          !jsonObject
+              .getString("endOfLine")
               .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre");
 
       List<TramStop> stopsBetweenTemp = new ArrayList<>();
 
       String endOfLineOutgoing =
-          TramStopServiceUtilities.cleanStationName(currentTram.getEndOfLine()) + "Outgoing";
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine")) + "Outgoing";
       String endOfLineIncoming =
-          TramStopServiceUtilities.cleanStationName(currentTram.getEndOfLine()) + "Incoming";
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine")) + "Incoming";
 
       String startStopName = currentTram.getOrigin();
 
@@ -525,7 +525,9 @@ public class JourneyRoutingService {
   private static void addTramtoReturnList(List<JSONObject> returnList, Long timestamp, Tram tram) {
     JSONObject tempObject = new JSONObject();
     tempObject.put("timeToArrival", tram.getLastUpdated() - timestamp);
-    tempObject.put("endOfLine", tram.getEndOfLine());
+    tempObject.put("endOfLine", TramStopGraphService.getCorrectEndOfLine(tram));
+    tempObject.put("endOfLineDisplay", tram.getEndOfLine());
+
     tempObject.put("tramObject", tram);
     returnList.add(tempObject);
   }
@@ -725,26 +727,28 @@ public class JourneyRoutingService {
           getTramJourneyResponse(
               timestamp, journeyTimeList, tramStopHashMap, startStopObject, changeStopOffObject);
 
-      TramJourneyResponse returnJourneyResponseSecond =
-          getTramJourneyResponse(
-              timestamp
-                  + returnJourneyResponseFirst.getJourneyLength()
-                  + returnJourneyResponseFirst.getFirstTramArrivalTime(),
-              journeyTimeList,
-              tramStopHashMap,
-              changeStopOnObject,
-              endStopObject);
+      if (returnJourneyResponseFirst != null) {
+        TramJourneyResponse returnJourneyResponseSecond =
+            getTramJourneyResponse(
+                timestamp
+                    + returnJourneyResponseFirst.getJourneyLength()
+                    + returnJourneyResponseFirst.getFirstTramArrivalTime(),
+                journeyTimeList,
+                tramStopHashMap,
+                changeStopOnObject,
+                endStopObject);
 
-      if (returnJourneyResponseSecond != null && returnJourneyResponseFirst != null) {
+        if (returnJourneyResponseSecond != null) {
 
-        returnJourneyResponseFirst.setSecondTramArrivalTime(
-            returnJourneyResponseSecond.getFirstTramArrivalTime());
-        returnJourneyResponseFirst.setJourneyLength(
-            returnJourneyResponseFirst.getJourneyLength()
-                + returnJourneyResponseSecond.getJourneyLength());
-        returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
+          returnJourneyResponseFirst.setSecondTramArrivalTime(
+              returnJourneyResponseSecond.getFirstTramArrivalTime());
+          returnJourneyResponseFirst.setJourneyLength(
+              returnJourneyResponseFirst.getJourneyLength()
+                  + returnJourneyResponseSecond.getJourneyLength());
+          returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
 
-        return returnJourneyResponseFirst;
+          return returnJourneyResponseFirst;
+        }
       }
 
     } else {
@@ -796,12 +800,11 @@ public class JourneyRoutingService {
     for (JSONObject jsonObject : startJSONList) {
       List<TramStop> stopsBetweenTemp = new ArrayList<>();
       System.out.println(
-          TramStopServiceUtilities.cleanStationName(
-                  ((Tram) jsonObject.get("tramObject")).getEndOfLine())
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
               + "Outgoing");
 
-      if (((Tram) jsonObject.get("tramObject"))
-          .getEndOfLine()
+      if (jsonObject
+          .getString("endOfLine")
           .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
         avoidExchangeSquare = false;
       } else {
@@ -810,8 +813,7 @@ public class JourneyRoutingService {
 
       findAllStopsBetween(
           tramStopHashMap.get(
-              TramStopServiceUtilities.cleanStationName(
-                      ((Tram) jsonObject.get("tramObject")).getEndOfLine())
+              TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
                   + "Outgoing"),
           startStopObject,
           stopsBetweenTemp,
@@ -821,8 +823,7 @@ public class JourneyRoutingService {
         stopsBetweenTemp = new ArrayList<>();
         findAllStopsBetween(
             tramStopHashMap.get(
-                TramStopServiceUtilities.cleanStationName(
-                        ((Tram) jsonObject.get("tramObject")).getEndOfLine())
+                TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
                     + "Incoming"),
             startStopObject,
             stopsBetweenTemp,
@@ -845,6 +846,13 @@ public class JourneyRoutingService {
     }
 
     // Part Two: Check past TFGM responses
+
+    // Find closest tfgm response if it is within 30s of current timestamp
+
+    // Get Stop line
+    // Check if any of the trams due go to the destination
+    // If yes return that timestamp
+    // If no continue
 
     // Part Three: Check past tram times
 
