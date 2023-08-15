@@ -41,6 +41,10 @@
     <appender-ref ref="TRAM-MOVE"/>
   </logger>
 
+  <logger name="network" level="DEBUG" additivity="false">
+    <appender-ref ref="foutdean"/>
+  </logger>
+
 
 
 <!--  <root level="INFO">-->
