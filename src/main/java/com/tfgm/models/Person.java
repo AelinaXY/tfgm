@@ -27,7 +27,11 @@ public class Person {
     this.tapOutStop = tapOutStop;
   }
 
-  public UUID getUuid() {
+    public Person(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public UUID getUuid() {
     return uuid;
   }
 

@@ -52,6 +52,13 @@ public class JourneyController {
   }
 
   @CrossOrigin
+  @GetMapping("/updateNetwork")
+  public void updateFullNetwork() {
+    journeyRoutingService.populateJourneys();
+    journeyRoutingService.populateTramNumbers();
+  }
+
+  @CrossOrigin
   @GetMapping("/updateTramNetworkDTO")
   public void updateTramNetworkDTO() {
     System.out.println("requestIn TramNetwork:" + Instant.now());

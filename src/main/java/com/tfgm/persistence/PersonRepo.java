@@ -9,7 +9,10 @@ import java.util.UUID;
 public interface PersonRepo {
   void savePeople(List<Person> peopleList);
 
+
   Person getPerson(UUID uuid);
+
+  void savePerson(Person person);
 
   List<Person> getAll();
   }
