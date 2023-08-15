@@ -22,6 +22,7 @@ public class TramStopGraphService {
       tramArrival(endOfLine, tramStop, currentStation, timestamp);
       departingTram = getDepartingTram(endOfLine, null, tramQueue);
       if (departingTram == null) {
+
         System.out.println("Tram created at " + tramStop.getStopName() + ".");
         departingTram = new Tram(UUID.randomUUID(), endOfLine, timestamp);
         System.out.println("DEPARTTRAM: " + departingTram);

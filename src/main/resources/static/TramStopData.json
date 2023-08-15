@@ -1,27 +1,32 @@
 [
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Altrincham",
     "nextStop": [
       "NavigationRoadIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "AltrinchamIncoming"
+    "tramStopName": "AltrinchamIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Altrincham",
     "nextStop": [],
     "prevStop": [
       "NavigationRoadOutgoing"
     ],
-    "tramStopName": "AltrinchamOutgoing"
+    "tramStopName": "AltrinchamOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Navigation Road",
     "nextStop": [
       "TimperleyIncoming"
@@ -29,11 +34,14 @@
     "prevStop": [
       "AltrinchamIncoming"
     ],
-    "tramStopName": "NavigationRoadIncoming"
+    "tramStopName": "NavigationRoadIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Navigation Road",
     "nextStop": [
       "AltrinchamOutgoing"
@@ -41,11 +49,14 @@
     "prevStop": [
       "TimperleyOutgoing"
     ],
-    "tramStopName": "NavigationRoadOutgoing"
+    "tramStopName": "NavigationRoadOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Timperley",
     "nextStop": [
       "BrooklandsIncoming"
@@ -53,11 +64,14 @@
     "prevStop": [
       "NavigationRoadIncoming"
     ],
-    "tramStopName": "TimperleyIncoming"
+    "tramStopName": "TimperleyIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Timperley",
     "nextStop": [
       "NavigationRoadOutgoing"
@@ -65,11 +79,14 @@
     "prevStop": [
       "BrooklandsOutgoing"
     ],
-    "tramStopName": "TimperleyOutgoing"
+    "tramStopName": "TimperleyOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Brooklands",
     "nextStop": [
       "SaleIncoming"
@@ -77,11 +94,14 @@
     "prevStop": [
       "TimperleyIncoming"
     ],
-    "tramStopName": "BrooklandsIncoming"
+    "tramStopName": "BrooklandsIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Brooklands",
     "nextStop": [
       "TimperleyOutgoing"
@@ -89,11 +109,14 @@
     "prevStop": [
       "SaleOutgoing"
     ],
-    "tramStopName": "BrooklandsOutgoing"
+    "tramStopName": "BrooklandsOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Sale",
     "nextStop": [
       "DaneRoadIncoming"
@@ -101,11 +124,14 @@
     "prevStop": [
       "BrooklandsIncoming"
     ],
-    "tramStopName": "SaleIncoming"
+    "tramStopName": "SaleIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Sale",
     "nextStop": [
       "BrooklandsOutgoing"
@@ -113,11 +139,14 @@
     "prevStop": [
       "DaneRoadOutgoing"
     ],
-    "tramStopName": "SaleOutgoing"
+    "tramStopName": "SaleOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Dane Road",
     "nextStop": [
       "StretfordIncoming"
@@ -125,11 +154,14 @@
     "prevStop": [
       "SaleIncoming"
     ],
-    "tramStopName": "DaneRoadIncoming"
+    "tramStopName": "DaneRoadIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Dane Road",
     "nextStop": [
       "SaleOutgoing"
@@ -137,11 +169,14 @@
     "prevStop": [
       "StretfordOutgoing"
     ],
-    "tramStopName": "DaneRoadOutgoing"
+    "tramStopName": "DaneRoadOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Stretford",
     "nextStop": [
       "OldTraffordIncoming"
@@ -149,11 +184,14 @@
     "prevStop": [
       "DaneRoadIncoming"
     ],
-    "tramStopName": "StretfordIncoming"
+    "tramStopName": "StretfordIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Stretford",
     "nextStop": [
       "DaneRoadOutgoing"
@@ -161,11 +199,14 @@
     "prevStop": [
       "OldTraffordOutgoing"
     ],
-    "tramStopName": "StretfordOutgoing"
+    "tramStopName": "StretfordOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Old Trafford",
     "nextStop": [
       "TraffordBarIncoming"
@@ -173,11 +214,14 @@
     "prevStop": [
       "StretfordIncoming"
     ],
-    "tramStopName": "OldTraffordIncoming"
+    "tramStopName": "OldTraffordIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Old Trafford",
     "nextStop": [
       "StretfordOutgoing"
@@ -185,11 +229,14 @@
     "prevStop": [
       "TraffordBarOutgoing"
     ],
-    "tramStopName": "OldTraffordOutgoing"
+    "tramStopName": "OldTraffordOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Trafford Bar",
     "nextStop": [
       "CornbrookIncoming"
@@ -198,11 +245,17 @@
       "OldTraffordIncoming",
       "FirswoodIncoming"
     ],
-    "tramStopName": "TraffordBarIncoming"
+    "tramStopName": "TraffordBarIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Trafford Bar",
     "nextStop": [
       "OldTraffordOutgoing",
@@ -211,11 +264,17 @@
     "prevStop": [
       "CornbrookOutgoing"
     ],
-    "tramStopName": "TraffordBarOutgoing"
+    "tramStopName": "TraffordBarOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Cornbrook",
     "nextStop": [
       "DeansgateCastlefieldIncoming"
@@ -224,11 +283,19 @@
       "TraffordBarIncoming",
       "PomonaIncoming"
     ],
-    "tramStopName": "CornbrookIncoming"
+    "tramStopName": "CornbrookIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Cornbrook",
     "nextStop": [
       "PomonaOutgoing",
@@ -237,11 +304,19 @@
     "prevStop": [
       "DeansgateCastlefieldOutgoing"
     ],
-    "tramStopName": "CornbrookOutgoing"
+    "tramStopName": "CornbrookOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Deansgate - Castlefield",
     "nextStop": [
       "StPetersSquareIncoming"
@@ -249,11 +324,19 @@
     "prevStop": [
       "CornbrookIncoming"
     ],
-    "tramStopName": "DeansgateCastlefieldIncoming"
+    "tramStopName": "DeansgateCastlefieldIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Deansgate - Castlefield",
     "nextStop": [
       "CornbrookOutgoing"
@@ -261,11 +344,19 @@
     "prevStop": [
       "StPetersSquareOutgoing"
     ],
-    "tramStopName": "DeansgateCastlefieldOutgoing"
+    "tramStopName": "DeansgateCastlefieldOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "St Peter's Square",
     "nextStop": [
       "ExchangeSquareOutgoing",
@@ -275,11 +366,18 @@
     "prevStop": [
       "DeansgateCastlefieldIncoming"
     ],
-    "tramStopName": "StPetersSquareIncoming"
+    "tramStopName": "StPetersSquareIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "St Peter's Square",
     "nextStop": [
       "DeansgateCastlefieldOutgoing"
@@ -289,11 +387,18 @@
       "MarketStreetIncoming",
       "PiccadillyGardensIncoming"
     ],
-    "tramStopName": "StPetersSquareOutgoing"
+    "tramStopName": "StPetersSquareOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Altrincham-Piccadilly",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "Firswood",
     "nextStop": [
       "TraffordBarIncoming"
@@ -301,11 +406,15 @@
     "prevStop": [
       "ChorltonIncoming"
     ],
-    "tramStopName": "FirswoodIncoming"
+    "tramStopName": "FirswoodIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "Firswood",
     "nextStop": [
       "ChorltonOutgoing"
@@ -313,11 +422,15 @@
     "prevStop": [
       "TraffordBarOutgoing"
     ],
-    "tramStopName": "FirswoodOutgoing"
+    "tramStopName": "FirswoodOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "Chorlton",
     "nextStop": [
       "FirswoodIncoming"
@@ -325,11 +438,15 @@
     "prevStop": [
       "StWerburghsRoadIncoming"
     ],
-    "tramStopName": "ChorltonIncoming"
+    "tramStopName": "ChorltonIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "Chorlton",
     "nextStop": [
       "StWerburghsRoadOutgoing"
@@ -337,11 +454,15 @@
     "prevStop": [
       "FirswoodOutgoing"
     ],
-    "tramStopName": "ChorltonOutgoing"
+    "tramStopName": "ChorltonOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "St Werburgh's Road",
     "nextStop": [
       "ChorltonIncoming"
@@ -350,11 +471,15 @@
       "WithingtonIncoming",
       "BarlowMoorRoadIncoming"
     ],
-    "tramStopName": "StWerburghsRoadIncoming"
+    "tramStopName": "StWerburghsRoadIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "St Werburgh's Road",
     "nextStop": [
       "WithingtonOutgoing",
@@ -363,11 +488,15 @@
     "prevStop": [
       "ChorltonOutgoing"
     ],
-    "tramStopName": "StWerburghsRoadOutgoing"
+    "tramStopName": "StWerburghsRoadOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton",
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "Withington",
     "nextStop": [
       "StWerburghsRoadIncoming"
@@ -375,11 +504,14 @@
     "prevStop": [
       "BurtonRoadIncoming"
     ],
-    "tramStopName": "WithingtonIncoming"
+    "tramStopName": "WithingtonIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "Withington",
     "nextStop": [
       "BurtonRoadOutgoing"
@@ -387,11 +519,14 @@
     "prevStop": [
       "StWerburghsRoadOutgoing"
     ],
-    "tramStopName": "WithingtonOutgoing"
+    "tramStopName": "WithingtonOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "Burton Road",
     "nextStop": [
       "WithingtonIncoming"
@@ -399,11 +534,14 @@
     "prevStop": [
       "WestDidsburyIncoming"
     ],
-    "tramStopName": "BurtonRoadIncoming"
+    "tramStopName": "BurtonRoadIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "Burton Road",
     "nextStop": [
       "WestDidsburyOutgoing"
@@ -411,11 +549,14 @@
     "prevStop": [
       "WithingtonOutgoing"
     ],
-    "tramStopName": "BurtonRoadOutgoing"
+    "tramStopName": "BurtonRoadOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "West Didsbury",
     "nextStop": [
       "BurtonRoadIncoming"
@@ -423,11 +564,14 @@
     "prevStop": [
       "DidsburyVillageIncoming"
     ],
-    "tramStopName": "WestDidsburyIncoming"
+    "tramStopName": "WestDidsburyIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "West Didsbury",
     "nextStop": [
       "DidsburyVillageOutgoing"
@@ -435,11 +579,14 @@
     "prevStop": [
       "BurtonRoadOutgoing"
     ],
-    "tramStopName": "WestDidsburyOutgoing"
+    "tramStopName": "WestDidsburyOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "Didsbury Village",
     "nextStop": [
       "WestDidsburyIncoming"
@@ -447,11 +594,14 @@
     "prevStop": [
       "EastDidsburyIncoming"
     ],
-    "tramStopName": "DidsburyVillageIncoming"
+    "tramStopName": "DidsburyVillageIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "Didsbury Village",
     "nextStop": [
       "EastDidsburyOutgoing"
@@ -459,31 +609,40 @@
     "prevStop": [
       "WestDidsburyOutgoing"
     ],
-    "tramStopName": "DidsburyVillageOutgoing"
+    "tramStopName": "DidsburyVillageOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "South Manchester",
     "location": "East Didsbury",
     "nextStop": [
       "DidsburyVillageIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "EastDidsburyIncoming"
+    "tramStopName": "EastDidsburyIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "South Manchester",
     "location": "East Didsbury",
     "nextStop": [],
     "prevStop": [
       "DidsburyVillageOutgoing"
     ],
-    "tramStopName": "EastDidsburyOutgoing"
+    "tramStopName": "EastDidsburyOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Barlow Moor Road",
     "nextStop": [
       "StWerburghsRoadIncoming"
@@ -491,11 +650,13 @@
     "prevStop": [
       "SaleWaterParkIncoming"
     ],
-    "tramStopName": "BarlowMoorRoadIncoming"
+    "tramStopName": "BarlowMoorRoadIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Barlow Moor Road",
     "nextStop": [
       "SaleWaterParkOutgoing"
@@ -503,11 +664,13 @@
     "prevStop": [
       "StWerburghsRoadOutgoing"
     ],
-    "tramStopName": "BarlowMoorRoadOutgoing"
+    "tramStopName": "BarlowMoorRoadOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Sale Water Park",
     "nextStop": [
       "BarlowMoorRoadIncoming"
@@ -515,11 +678,13 @@
     "prevStop": [
       "NorthernMoorIncoming"
     ],
-    "tramStopName": "SaleWaterParkIncoming"
+    "tramStopName": "SaleWaterParkIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Sale Water Park",
     "nextStop": [
       "NorthernMoorOutgoing"
@@ -527,11 +692,13 @@
     "prevStop": [
       "BarlowMoorRoadOutgoing"
     ],
-    "tramStopName": "SaleWaterParkOutgoing"
+    "tramStopName": "SaleWaterParkOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Northern Moor",
     "nextStop": [
       "SaleWaterParkIncoming"
@@ -539,11 +706,13 @@
     "prevStop": [
       "WythenshaweParkIncoming"
     ],
-    "tramStopName": "NorthernMoorIncoming"
+    "tramStopName": "NorthernMoorIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Northern Moor",
     "nextStop": [
       "WythenshaweParkOutgoing"
@@ -551,11 +720,13 @@
     "prevStop": [
       "SaleWaterParkOutgoing"
     ],
-    "tramStopName": "NorthernMoorOutgoing"
+    "tramStopName": "NorthernMoorOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Wythenshawe Park",
     "nextStop": [
       "NorthernMoorIncoming"
@@ -563,11 +734,13 @@
     "prevStop": [
       "MoorRoadIncoming"
     ],
-    "tramStopName": "WythenshaweParkIncoming"
+    "tramStopName": "WythenshaweParkIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Wythenshawe Park",
     "nextStop": [
       "MoorRoadOutgoing"
@@ -575,11 +748,13 @@
     "prevStop": [
       "NorthernMoorOutgoing"
     ],
-    "tramStopName": "WythenshaweParkOutgoing"
+    "tramStopName": "WythenshaweParkOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Moor Road",
     "nextStop": [
       "WythenshaweParkIncoming"
@@ -587,11 +762,13 @@
     "prevStop": [
       "BaguleyIncoming"
     ],
-    "tramStopName": "MoorRoadIncoming"
+    "tramStopName": "MoorRoadIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Moor Road",
     "nextStop": [
       "BaguleyOutgoing"
@@ -599,11 +776,13 @@
     "prevStop": [
       "WythenshaweParkOutgoing"
     ],
-    "tramStopName": "MoorRoadOutgoing"
+    "tramStopName": "MoorRoadOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Baguley",
     "nextStop": [
       "MoorRoadIncoming"
@@ -611,11 +790,13 @@
     "prevStop": [
       "RoundthornIncoming"
     ],
-    "tramStopName": "BaguleyIncoming"
+    "tramStopName": "BaguleyIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Baguley",
     "nextStop": [
       "RoundthornOutgoing"
@@ -623,11 +804,13 @@
     "prevStop": [
       "MoorRoadOutgoing"
     ],
-    "tramStopName": "BaguleyOutgoing"
+    "tramStopName": "BaguleyOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Roundthorn",
     "nextStop": [
       "BaguleyIncoming"
@@ -635,11 +818,13 @@
     "prevStop": [
       "MartinscroftIncoming"
     ],
-    "tramStopName": "RoundthornIncoming"
+    "tramStopName": "RoundthornIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Roundthorn",
     "nextStop": [
       "MartinscroftOutgoing"
@@ -647,11 +832,13 @@
     "prevStop": [
       "BaguleyOutgoing"
     ],
-    "tramStopName": "RoundthornOutgoing"
+    "tramStopName": "RoundthornOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Martinscroft",
     "nextStop": [
       "RoundthornIncoming"
@@ -659,11 +846,13 @@
     "prevStop": [
       "BenchillIncoming"
     ],
-    "tramStopName": "MartinscroftIncoming"
+    "tramStopName": "MartinscroftIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Martinscroft",
     "nextStop": [
       "BenchillOutgoing"
@@ -671,11 +860,13 @@
     "prevStop": [
       "RoundthornOutgoing"
     ],
-    "tramStopName": "MartinscroftOutgoing"
+    "tramStopName": "MartinscroftOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Benchill",
     "nextStop": [
       "MartinscroftIncoming"
@@ -683,11 +874,13 @@
     "prevStop": [
       "CrossacresIncoming"
     ],
-    "tramStopName": "BenchillIncoming"
+    "tramStopName": "BenchillIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Benchill",
     "nextStop": [
       "CrossacresOutgoing"
@@ -695,11 +888,13 @@
     "prevStop": [
       "MartinscroftOutgoing"
     ],
-    "tramStopName": "BenchillOutgoing"
+    "tramStopName": "BenchillOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Crossacres",
     "nextStop": [
       "BenchillIncoming"
@@ -707,11 +902,13 @@
     "prevStop": [
       "WythenshaweTownCentreIncoming"
     ],
-    "tramStopName": "CrossacresIncoming"
+    "tramStopName": "CrossacresIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Crossacres",
     "nextStop": [
       "WythenshaweTownCentreOutgoing"
@@ -719,11 +916,13 @@
     "prevStop": [
       "BenchillOutgoing"
     ],
-    "tramStopName": "CrossacresOutgoing"
+    "tramStopName": "CrossacresOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Wythenshawe Town Centre",
     "nextStop": [
       "CrossacresIncoming"
@@ -731,11 +930,13 @@
     "prevStop": [
       "RobinswoodRoadIncoming"
     ],
-    "tramStopName": "WythenshaweTownCentreIncoming"
+    "tramStopName": "WythenshaweTownCentreIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Wythenshawe Town Centre",
     "nextStop": [
       "RobinswoodRoadOutgoing"
@@ -743,11 +944,13 @@
     "prevStop": [
       "CrossacresOutgoing"
     ],
-    "tramStopName": "WythenshaweTownCentreOutgoing"
+    "tramStopName": "WythenshaweTownCentreOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Robinswood Road",
     "nextStop": [
       "WythenshaweTownCentreIncoming"
@@ -755,11 +958,13 @@
     "prevStop": [
       "PeelHallIncoming"
     ],
-    "tramStopName": "RobinswoodRoadIncoming"
+    "tramStopName": "RobinswoodRoadIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Robinswood Road",
     "nextStop": [
       "PeelHallOutgoing"
@@ -767,11 +972,13 @@
     "prevStop": [
       "WythenshaweTownCentreOutgoing"
     ],
-    "tramStopName": "RobinswoodRoadOutgoing"
+    "tramStopName": "RobinswoodRoadOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Peel Hall",
     "nextStop": [
       "RobinswoodRoadIncoming"
@@ -779,11 +986,13 @@
     "prevStop": [
       "ShadowmossIncoming"
     ],
-    "tramStopName": "PeelHallIncoming"
+    "tramStopName": "PeelHallIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Peel Hall",
     "nextStop": [
       "ShadowmossOutgoing"
@@ -791,11 +1000,13 @@
     "prevStop": [
       "RobinswoodRoadOutgoing"
     ],
-    "tramStopName": "PeelHallOutgoing"
+    "tramStopName": "PeelHallOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Shadowmoss",
     "nextStop": [
       "PeelHallIncoming"
@@ -803,11 +1014,13 @@
     "prevStop": [
       "ManchesterAirportIncoming"
     ],
-    "tramStopName": "ShadowmossIncoming"
+    "tramStopName": "ShadowmossIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Shadowmoss",
     "nextStop": [
       "ManchesterAirportOutgoing"
@@ -815,31 +1028,37 @@
     "prevStop": [
       "PeelHallOutgoing"
     ],
-    "tramStopName": "ShadowmossOutgoing"
+    "tramStopName": "ShadowmossOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Airport",
     "location": "Manchester Airport",
     "nextStop": [
       "ShadowmossIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "ManchesterAirportIncoming"
+    "tramStopName": "ManchesterAirportIncoming",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Airport",
     "location": "Manchester Airport",
     "nextStop": [],
     "prevStop": [
       "ShadowmossOutgoing"
     ],
-    "tramStopName": "ManchesterAirportOutgoing"
+    "tramStopName": "ManchesterAirportOutgoing",
+    "line": [
+      "Airport-Victoria"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Pomona",
     "nextStop": [
       "CornbrookIncoming"
@@ -848,11 +1067,14 @@
       "WharfsideIncoming",
       "ExchangeQuayIncoming"
     ],
-    "tramStopName": "PomonaIncoming"
+    "tramStopName": "PomonaIncoming",
+    "line": [
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Pomona",
     "nextStop": [
       "WharfsideOutgoing",
@@ -861,11 +1083,14 @@
     "prevStop": [
       "CornbrookOutgoing"
     ],
-    "tramStopName": "PomonaOutgoing"
+    "tramStopName": "PomonaOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate",
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "Wharfside",
     "nextStop": [
       "PomonaIncoming"
@@ -873,11 +1098,13 @@
     "prevStop": [
       "ImperialWarMuseumIncoming"
     ],
-    "tramStopName": "WharfsideIncoming"
+    "tramStopName": "WharfsideIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "Wharfside",
     "nextStop": [
       "ImperialWarMuseumOutgoing"
@@ -885,11 +1112,13 @@
     "prevStop": [
       "PomonaOutgoing"
     ],
-    "tramStopName": "WharfsideOutgoing"
+    "tramStopName": "WharfsideOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "Imperial War Museum",
     "nextStop": [
       "WharfsideIncoming"
@@ -897,11 +1126,13 @@
     "prevStop": [
       "VillageIncoming"
     ],
-    "tramStopName": "ImperialWarMuseumIncoming"
+    "tramStopName": "ImperialWarMuseumIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "Imperial War Museum",
     "nextStop": [
       "VillageOutgoing"
@@ -909,11 +1140,13 @@
     "prevStop": [
       "WharfsideOutgoing"
     ],
-    "tramStopName": "ImperialWarMuseumOutgoing"
+    "tramStopName": "ImperialWarMuseumOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "Village",
     "nextStop": [
       "ImperialWarMuseumIncoming"
@@ -921,11 +1154,13 @@
     "prevStop": [
       "ParkwayIncoming"
     ],
-    "tramStopName": "VillageIncoming"
+    "tramStopName": "VillageIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "Village",
     "nextStop": [
       "ParkwayOutgoing"
@@ -933,11 +1168,13 @@
     "prevStop": [
       "ImperialWarMuseumOutgoing"
     ],
-    "tramStopName": "VillageOutgoing"
+    "tramStopName": "VillageOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "Parkway",
     "nextStop": [
       "VillageIncoming"
@@ -945,11 +1182,13 @@
     "prevStop": [
       "BartonDockRoadIncoming"
     ],
-    "tramStopName": "ParkwayIncoming"
+    "tramStopName": "ParkwayIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "Parkway",
     "nextStop": [
       "BartonDockRoadOutgoing"
@@ -957,11 +1196,13 @@
     "prevStop": [
       "VillageOutgoing"
     ],
-    "tramStopName": "ParkwayOutgoing"
+    "tramStopName": "ParkwayOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "Barton Dock Road",
     "nextStop": [
       "ParkwayIncoming"
@@ -969,11 +1210,13 @@
     "prevStop": [
       "TheTraffordCentreIncoming"
     ],
-    "tramStopName": "BartonDockRoadIncoming"
+    "tramStopName": "BartonDockRoadIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "Barton Dock Road",
     "nextStop": [
       "TheTraffordCentreOutgoing"
@@ -981,31 +1224,37 @@
     "prevStop": [
       "ParkwayOutgoing"
     ],
-    "tramStopName": "BartonDockRoadOutgoing"
+    "tramStopName": "BartonDockRoadOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Trafford Park",
     "location": "The Trafford Centre",
     "nextStop": [
       "BartonDockRoadIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "TheTraffordCentreIncoming"
+    "tramStopName": "TheTraffordCentreIncoming",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Trafford Park",
     "location": "The Trafford Centre",
     "nextStop": [],
     "prevStop": [
       "BartonDockRoadOutgoing"
     ],
-    "tramStopName": "TheTraffordCentreOutgoing"
+    "tramStopName": "TheTraffordCentreOutgoing",
+    "line": [
+      "TraffordCentre-Deansgate"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Exchange Quay",
     "nextStop": [
       "PomonaIncoming"
@@ -1013,11 +1262,13 @@
     "prevStop": [
       "SalfordQuaysIncoming"
     ],
-    "tramStopName": "ExchangeQuayIncoming"
+    "tramStopName": "ExchangeQuayIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Exchange Quay",
     "nextStop": [
       "SalfordQuaysOutgoing"
@@ -1025,11 +1276,13 @@
     "prevStop": [
       "PomonaOutgoing"
     ],
-    "tramStopName": "ExchangeQuayOutgoing"
+    "tramStopName": "ExchangeQuayOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Salford Quays",
     "nextStop": [
       "ExchangeQuayIncoming"
@@ -1037,11 +1290,13 @@
     "prevStop": [
       "AnchorageIncoming"
     ],
-    "tramStopName": "SalfordQuaysIncoming"
+    "tramStopName": "SalfordQuaysIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Salford Quays",
     "nextStop": [
       "AnchorageOutgoing"
@@ -1049,11 +1304,13 @@
     "prevStop": [
       "ExchangeQuayOutgoing"
     ],
-    "tramStopName": "SalfordQuaysOutgoing"
+    "tramStopName": "SalfordQuaysOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Anchorage",
     "nextStop": [
       "SalfordQuaysIncoming"
@@ -1061,11 +1318,13 @@
     "prevStop": [
       "HarbourCityIncoming"
     ],
-    "tramStopName": "AnchorageIncoming"
+    "tramStopName": "AnchorageIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Salford Quays",
     "nextStop": [
       "HarbourCityOutgoing"
@@ -1073,11 +1332,13 @@
     "prevStop": [
       "SalfordQuaysOutgoing"
     ],
-    "tramStopName": "AnchorageOutgoing"
+    "tramStopName": "AnchorageOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Anchorage",
     "nextStop": [
       "SalfordQuaysIncoming"
@@ -1085,11 +1346,13 @@
     "prevStop": [
       "HarbourCityIncoming"
     ],
-    "tramStopName": "AnchorageIncoming"
+    "tramStopName": "AnchorageIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Anchorage",
     "nextStop": [
       "HarbourCityOutgoing"
@@ -1097,11 +1360,13 @@
     "prevStop": [
       "SalfordQuaysOutgoing"
     ],
-    "tramStopName": "AnchorageOutgoing"
+    "tramStopName": "AnchorageOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Harbour City",
     "nextStop": [
       "AnchorageIncoming"
@@ -1110,11 +1375,13 @@
       "BroadwayIncoming",
       "MediaCityUKIncoming"
     ],
-    "tramStopName": "HarbourCityIncoming"
+    "tramStopName": "HarbourCityIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Harbour City",
     "nextStop": [
       "BroadwayOutgoing",
@@ -1123,33 +1390,39 @@
     "prevStop": [
       "AnchorageOutgoing"
     ],
-    "tramStopName": "HarbourCityOutgoing"
+    "tramStopName": "HarbourCityOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "MediaCityUK",
     "nextStop": [
       "BroadwayOutgoing",
       "HarbourCityIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "MediaCityUKIncoming"
+    "tramStopName": "MediaCityUKIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "MediaCityUK",
     "nextStop": [],
     "prevStop": [
       "BroadwayIncoming",
       "HarbourCityOutgoing"
     ],
-    "tramStopName": "MediaCityUKOutgoing"
+    "tramStopName": "MediaCityUKOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Broadway",
     "nextStop": [
       "MediaCityUKOutgoing",
@@ -1158,11 +1431,13 @@
     "prevStop": [
       "LangworthyIncoming"
     ],
-    "tramStopName": "BroadwayIncoming"
+    "tramStopName": "BroadwayIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Broadway",
     "nextStop": [
       "LangworthyOutgoing"
@@ -1171,11 +1446,13 @@
       "MediaCityUKIncoming",
       "HarbourCityOutgoing"
     ],
-    "tramStopName": "BroadwayOutgoing"
+    "tramStopName": "BroadwayOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Langworthy",
     "nextStop": [
       "BroadwayIncoming"
@@ -1183,11 +1460,13 @@
     "prevStop": [
       "WeasteIncoming"
     ],
-    "tramStopName": "LangworthyIncoming"
+    "tramStopName": "LangworthyIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Langworthy",
     "nextStop": [
       "WeasteOutgoing"
@@ -1195,11 +1474,13 @@
     "prevStop": [
       "BroadwayOutgoing"
     ],
-    "tramStopName": "LangworthyOutgoing"
+    "tramStopName": "LangworthyOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Weaste",
     "nextStop": [
       "LangworthyIncoming"
@@ -1207,11 +1488,13 @@
     "prevStop": [
       "LadywellIncoming"
     ],
-    "tramStopName": "WeasteIncoming"
+    "tramStopName": "WeasteIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Weaste",
     "nextStop": [
       "LadywellOutgoing"
@@ -1219,11 +1502,13 @@
     "prevStop": [
       "LangworthyOutgoing"
     ],
-    "tramStopName": "WeasteOutgoing"
+    "tramStopName": "WeasteOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Ladywell",
     "nextStop": [
       "WeasteIncoming"
@@ -1231,11 +1516,13 @@
     "prevStop": [
       "EcclesIncoming"
     ],
-    "tramStopName": "LadywellIncoming"
+    "tramStopName": "LadywellIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Ladywell",
     "nextStop": [
       "EcclesOutgoing"
@@ -1243,31 +1530,37 @@
     "prevStop": [
       "WeasteOutgoing"
     ],
-    "tramStopName": "LadywellOutgoing"
+    "tramStopName": "LadywellOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Eccles",
     "nextStop": [
       "LadywellIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "EcclesIncoming"
+    "tramStopName": "EcclesIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Eccles",
     "nextStop": [],
     "prevStop": [
       "LadywellOutgoing"
     ],
-    "tramStopName": "EcclesOutgoing"
+    "tramStopName": "EcclesOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Eccles",
     "location": "Exchange Square",
     "nextStop": [
       "StPetersSquareOutgoing"
@@ -1275,11 +1568,14 @@
     "prevStop": [
       "VictoriaIncoming"
     ],
-    "tramStopName": "ExchangeSquareIncoming"
+    "tramStopName": "ExchangeSquareIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Eccles",
     "location": "Exchange Square",
     "nextStop": [
       "VictoriaOutgoing"
@@ -1287,11 +1583,14 @@
     "prevStop": [
       "StPetersSquareIncoming"
     ],
-    "tramStopName": "ExchangeSquareOutgoing"
+    "tramStopName": "ExchangeSquareOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Market Street",
     "nextStop": [
       "StPetersSquareOutgoing",
@@ -1300,11 +1599,15 @@
     "prevStop": [
       "ShudehillIncoming"
     ],
-    "tramStopName": "MarketStreetIncoming"
+    "tramStopName": "MarketStreetIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Market Street",
     "nextStop": [
       "ShudehillOutgoing"
@@ -1313,11 +1616,15 @@
       "StPetersSquareIncoming",
       "PiccadillyGardensIncoming"
     ],
-    "tramStopName": "MarketStreetOutgoing"
+    "tramStopName": "MarketStreetOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Shudehill",
     "nextStop": [
       "MarketStreetIncoming"
@@ -1325,11 +1632,15 @@
     "prevStop": [
       "VictoriaIncoming"
     ],
-    "tramStopName": "ShudehillIncoming"
+    "tramStopName": "ShudehillIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Shudehill",
     "nextStop": [
       "VictoriaOutgoing"
@@ -1337,11 +1648,15 @@
     "prevStop": [
       "MarketStreetOutgoing"
     ],
-    "tramStopName": "ShudehillOutgoing"
+    "tramStopName": "ShudehillOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Altrincham",
     "location": "Victoria",
     "nextStop": [
       "ShudehillIncoming",
@@ -1351,11 +1666,17 @@
       "QueensRoadIncoming",
       "MonsallIncoming"
     ],
-    "tramStopName": "VictoriaIncoming"
+    "tramStopName": "VictoriaIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Altrincham",
     "location": "Victoria",
     "nextStop": [
       "QueensRoadOutgoing",
@@ -1365,11 +1686,17 @@
       "ShudehillOutgoing",
       "ExchangeSquareOutgoing"
     ],
-    "tramStopName": "VictoriaOutgoing"
+    "tramStopName": "VictoriaOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Airport-Victoria",
+      "Piccadilly-Bury",
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Piccadilly Gardens",
     "nextStop": [
       "MarketStreetOutgoing",
@@ -1378,11 +1705,15 @@
     "prevStop": [
       "PiccadillyIncoming"
     ],
-    "tramStopName": "PiccadillyGardensIncoming"
+    "tramStopName": "PiccadillyGardensIncoming",
+    "line": [
+      "Altrincham-Piccadilly",
+      "Eccles-Ashton",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Piccadilly Gardens",
     "nextStop": [
       "PiccadillyOutgoing"
@@ -1391,11 +1722,15 @@
       "MarketStreetIncoming",
       "StPetersSquareIncoming"
     ],
-    "tramStopName": "PiccadillyGardensOutgoing"
+    "tramStopName": "PiccadillyGardensOutgoing",
+    "line": [
+      "Altrincham-Piccadilly",
+      "Eccles-Ashton",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Piccadilly",
     "nextStop": [
       "PiccadillyGardensIncoming"
@@ -1403,11 +1738,15 @@
     "prevStop": [
       "NewIslingtonIncoming"
     ],
-    "tramStopName": "PiccadillyIncoming"
+    "tramStopName": "PiccadillyIncoming",
+    "line": [
+      "Altrincham-Piccadilly",
+      "Eccles-Ashton",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Piccadilly",
     "nextStop": [
       "NewIslingtonOutgoing"
@@ -1415,11 +1754,15 @@
     "prevStop": [
       "PiccadillyGardensOutgoing"
     ],
-    "tramStopName": "PiccadillyOutgoing"
+    "tramStopName": "PiccadillyOutgoing",
+    "line": [
+      "Altrincham-Piccadilly",
+      "Eccles-Ashton",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "New Islington",
     "nextStop": [
       "PiccadillyIncoming"
@@ -1427,11 +1770,13 @@
     "prevStop": [
       "HoltTownIncoming"
     ],
-    "tramStopName": "NewIslingtonIncoming"
+    "tramStopName": "NewIslingtonIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "New Islington",
     "nextStop": [
       "HoltTownOutgoing"
@@ -1439,11 +1784,13 @@
     "prevStop": [
       "PiccadillyOutgoing"
     ],
-    "tramStopName": "NewIslingtonOutgoing"
+    "tramStopName": "NewIslingtonOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Holt Town",
     "nextStop": [
       "NewIslingtonIncoming"
@@ -1451,11 +1798,13 @@
     "prevStop": [
       "EtihadCampusIncoming"
     ],
-    "tramStopName": "HoltTownIncoming"
+    "tramStopName": "HoltTownIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Holt Town",
     "nextStop": [
       "EtihadCampusOutgoing"
@@ -1463,11 +1812,13 @@
     "prevStop": [
       "NewIslingtonOutgoing"
     ],
-    "tramStopName": "HoltTownOutgoing"
+    "tramStopName": "HoltTownOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Etihad Campus",
     "nextStop": [
       "HoltTownIncoming"
@@ -1475,11 +1826,13 @@
     "prevStop": [
       "VeloparkIncoming"
     ],
-    "tramStopName": "EtihadCampusIncoming"
+    "tramStopName": "EtihadCampusIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Etihad Campus",
     "nextStop": [
       "VeloparkOutgoing"
@@ -1487,11 +1840,13 @@
     "prevStop": [
       "HoltTownOutgoing"
     ],
-    "tramStopName": "EtihadCampusOutgoing"
+    "tramStopName": "EtihadCampusOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Velopark",
     "nextStop": [
       "EtihadCampusIncoming"
@@ -1499,11 +1854,13 @@
     "prevStop": [
       "ClaytonHallIncoming"
     ],
-    "tramStopName": "VeloparkIncoming"
+    "tramStopName": "VeloparkIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Velopark",
     "nextStop": [
       "ClaytonHallOutgoing"
@@ -1511,11 +1868,13 @@
     "prevStop": [
       "EtihadCampusOutgoing"
     ],
-    "tramStopName": "VeloparkOutgoing"
+    "tramStopName": "VeloparkOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Clayton Hall",
     "nextStop": [
       "VeloparkIncoming"
@@ -1523,11 +1882,13 @@
     "prevStop": [
       "EdgeLaneIncoming"
     ],
-    "tramStopName": "ClaytonHallIncoming"
+    "tramStopName": "ClaytonHallIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Clayton Hall",
     "nextStop": [
       "EdgeLaneOutgoing"
@@ -1535,11 +1896,13 @@
     "prevStop": [
       "VeloparkOutgoing"
     ],
-    "tramStopName": "ClaytonHallOutgoing"
+    "tramStopName": "ClaytonHallOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Edge Lane",
     "nextStop": [
       "ClaytonHallIncoming"
@@ -1547,11 +1910,13 @@
     "prevStop": [
       "CemeteryRoadIncoming"
     ],
-    "tramStopName": "EdgeLaneIncoming"
+    "tramStopName": "EdgeLaneIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Edge Lane",
     "nextStop": [
       "CemeteryRoadOutgoing"
@@ -1559,11 +1924,13 @@
     "prevStop": [
       "ClaytonHallOutgoing"
     ],
-    "tramStopName": "EdgeLaneOutgoing"
+    "tramStopName": "EdgeLaneOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Cemetery Road",
     "nextStop": [
       "EdgeLaneIncoming"
@@ -1571,11 +1938,13 @@
     "prevStop": [
       "DroylsdenIncoming"
     ],
-    "tramStopName": "CemeteryRoadIncoming"
+    "tramStopName": "CemeteryRoadIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Cemetery Road",
     "nextStop": [
       "DroylsdenOutgoing"
@@ -1583,11 +1952,13 @@
     "prevStop": [
       "EdgeLaneOutgoing"
     ],
-    "tramStopName": "CemeteryRoadOutgoing"
+    "tramStopName": "CemeteryRoadOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Droylsden",
     "nextStop": [
       "CemeteryRoadIncoming"
@@ -1595,11 +1966,13 @@
     "prevStop": [
       "AudenshawIncoming"
     ],
-    "tramStopName": "DroylsdenIncoming"
+    "tramStopName": "DroylsdenIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Droylsden",
     "nextStop": [
       "AudenshawOutgoing"
@@ -1607,11 +1980,13 @@
     "prevStop": [
       "CemeteryRoadOutgoing"
     ],
-    "tramStopName": "DroylsdenOutgoing"
+    "tramStopName": "DroylsdenOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Audenshaw",
     "nextStop": [
       "DroylsdenIncoming"
@@ -1619,11 +1994,13 @@
     "prevStop": [
       "AshtonMossIncoming"
     ],
-    "tramStopName": "AudenshawIncoming"
+    "tramStopName": "AudenshawIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Audenshaw",
     "nextStop": [
       "AshtonMossOutgoing"
@@ -1631,11 +2008,13 @@
     "prevStop": [
       "DroylsdenOutgoing"
     ],
-    "tramStopName": "AudenshawOutgoing"
+    "tramStopName": "AudenshawOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Ashton Moss",
     "nextStop": [
       "AudenshawIncoming"
@@ -1643,11 +2022,13 @@
     "prevStop": [
       "AshtonWestIncoming"
     ],
-    "tramStopName": "AshtonMossIncoming"
+    "tramStopName": "AshtonMossIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Ashton Moss",
     "nextStop": [
       "AshtonWestOutgoing"
@@ -1655,11 +2036,13 @@
     "prevStop": [
       "AudenshawOutgoing"
     ],
-    "tramStopName": "AshtonMossOutgoing"
+    "tramStopName": "AshtonMossOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Ashton West",
     "nextStop": [
       "AshtonMossIncoming"
@@ -1667,11 +2050,13 @@
     "prevStop": [
       "AshtonUnderLyneIncoming"
     ],
-    "tramStopName": "AshtonWestIncoming"
+    "tramStopName": "AshtonWestIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Ashton West",
     "nextStop": [
       "AshtonUnderLyneOutgoing"
@@ -1679,31 +2064,37 @@
     "prevStop": [
       "AshtonMossOutgoing"
     ],
-    "tramStopName": "AshtonWestOutgoing"
+    "tramStopName": "AshtonWestOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "East Manchester",
     "location": "Ashton-Under-Lyne",
     "nextStop": [
       "AshtonWestIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "AshtonUnderLyneIncoming"
+    "tramStopName": "AshtonUnderLyneIncoming",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "East Manchester",
     "location": "Ashton-Under-Lyne",
     "nextStop": [],
     "prevStop": [
       "AshtonWestOutgoing"
     ],
-    "tramStopName": "AshtonUnderLyneOutgoing"
+    "tramStopName": "AshtonUnderLyneOutgoing",
+    "line": [
+      "Eccles-Ashton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Queens Road",
     "nextStop": [
       "VictoriaIncoming"
@@ -1711,11 +2102,14 @@
     "prevStop": [
       "AbrahamMossIncoming"
     ],
-    "tramStopName": "QueensRoadIncoming"
+    "tramStopName": "QueensRoadIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Queens Road",
     "nextStop": [
       "AbrahamMossOutgoing"
@@ -1723,11 +2117,14 @@
     "prevStop": [
       "VictoriaOutgoing"
     ],
-    "tramStopName": "QueensRoadOutgoing"
+    "tramStopName": "QueensRoadOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Abraham Moss",
     "nextStop": [
       "QueensRoadIncoming"
@@ -1735,11 +2132,14 @@
     "prevStop": [
       "CrumpsallIncoming"
     ],
-    "tramStopName": "AbrahamMossIncoming"
+    "tramStopName": "AbrahamMossIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Abraham Moss",
     "nextStop": [
       "CrumpsallOutgoing"
@@ -1747,11 +2147,14 @@
     "prevStop": [
       "QueensRoadOutgoing"
     ],
-    "tramStopName": "AbrahamMossOutgoing"
+    "tramStopName": "AbrahamMossOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Crumpsall",
     "nextStop": [
       "AbrahamMossIncoming"
@@ -1759,11 +2162,14 @@
     "prevStop": [
       "BowkerValeIncoming"
     ],
-    "tramStopName": "CrumpsallIncoming"
+    "tramStopName": "CrumpsallIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Crumpsall",
     "nextStop": [
       "BowkerValeOutgoing"
@@ -1771,11 +2177,14 @@
     "prevStop": [
       "AbrahamMossOutgoing"
     ],
-    "tramStopName": "CrumpsallOutgoing"
+    "tramStopName": "CrumpsallOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Bowker Vale",
     "nextStop": [
       "CrumpsallIncoming"
@@ -1783,11 +2192,14 @@
     "prevStop": [
       "HeatonParkIncoming"
     ],
-    "tramStopName": "BowkerValeIncoming"
+    "tramStopName": "BowkerValeIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Bowker Vale",
     "nextStop": [
       "HeatonParkOutgoing"
@@ -1795,11 +2207,14 @@
     "prevStop": [
       "CrumpsallOutgoing"
     ],
-    "tramStopName": "BowkerValeOutgoing"
+    "tramStopName": "BowkerValeOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Heaton Park",
     "nextStop": [
       "BowkerValeIncoming"
@@ -1807,11 +2222,14 @@
     "prevStop": [
       "PrestwichIncoming"
     ],
-    "tramStopName": "HeatonParkIncoming"
+    "tramStopName": "HeatonParkIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Heaton Park",
     "nextStop": [
       "PrestwichOutgoing"
@@ -1819,11 +2237,14 @@
     "prevStop": [
       "BowkerValeOutgoing"
     ],
-    "tramStopName": "HeatonParkOutgoing"
+    "tramStopName": "HeatonParkOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Prestwich",
     "nextStop": [
       "HeatonParkIncoming"
@@ -1831,11 +2252,14 @@
     "prevStop": [
       "BessesOThBarnIncoming"
     ],
-    "tramStopName": "PrestwichIncoming"
+    "tramStopName": "PrestwichIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Prestwich",
     "nextStop": [
       "BessesOThBarnOutgoing"
@@ -1843,11 +2267,14 @@
     "prevStop": [
       "HeatonParkOutgoing"
     ],
-    "tramStopName": "PrestwichOutgoing"
+    "tramStopName": "PrestwichOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Besses O' Th' Barn",
     "nextStop": [
       "PrestwichIncoming"
@@ -1855,11 +2282,14 @@
     "prevStop": [
       "WhitefieldIncoming"
     ],
-    "tramStopName": "BessesOThBarnIncoming"
+    "tramStopName": "BessesOThBarnIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Besses O' Th' Barn",
     "nextStop": [
       "WhitefieldOutgoing"
@@ -1867,11 +2297,14 @@
     "prevStop": [
       "PrestwichOutgoing"
     ],
-    "tramStopName": "BessesOThBarnOutgoing"
+    "tramStopName": "BessesOThBarnOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Whitefield",
     "nextStop": [
       "BessesOThBarnIncoming"
@@ -1879,11 +2312,14 @@
     "prevStop": [
       "RadcliffeIncoming"
     ],
-    "tramStopName": "WhitefieldIncoming"
+    "tramStopName": "WhitefieldIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Whitefield",
     "nextStop": [
       "RadcliffeOutgoing"
@@ -1891,11 +2327,14 @@
     "prevStop": [
       "BessesOThBarnOutgoing"
     ],
-    "tramStopName": "WhitefieldOutgoing"
+    "tramStopName": "WhitefieldOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Radcliffe",
     "nextStop": [
       "WhitefieldIncoming"
@@ -1903,11 +2342,14 @@
     "prevStop": [
       "BuryIncoming"
     ],
-    "tramStopName": "RadcliffeIncoming"
+    "tramStopName": "RadcliffeIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Radcliffe",
     "nextStop": [
       "BuryOutgoing"
@@ -1915,31 +2357,40 @@
     "prevStop": [
       "WhitefieldOutgoing"
     ],
-    "tramStopName": "RadcliffeOutgoing"
+    "tramStopName": "RadcliffeOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Bury",
     "location": "Bury",
     "nextStop": [
       "RadcliffeIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "BuryIncoming"
+    "tramStopName": "BuryIncoming",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Bury",
     "location": "Bury",
     "nextStop": [],
     "prevStop": [
       "RadcliffeOutgoing"
     ],
-    "tramStopName": "BuryOutgoing"
+    "tramStopName": "BuryOutgoing",
+    "line": [
+      "Altrincham-Bury",
+      "Piccadilly-Bury"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Monsall",
     "nextStop": [
       "VictoriaIncoming"
@@ -1947,11 +2398,14 @@
     "prevStop": [
       "CentralParkIncoming"
     ],
-    "tramStopName": "MonsallIncoming"
+    "tramStopName": "MonsallIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Monsall",
     "nextStop": [
       "CentralParkOutgoing"
@@ -1959,11 +2413,14 @@
     "prevStop": [
       "VictoriaOutgoing"
     ],
-    "tramStopName": "MonsallOutgoing"
+    "tramStopName": "MonsallOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Central Park",
     "nextStop": [
       "MonsallIncoming"
@@ -1971,11 +2428,14 @@
     "prevStop": [
       "NewtonHeathandMostonIncoming"
     ],
-    "tramStopName": "CentralParkIncoming"
+    "tramStopName": "CentralParkIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Central Park",
     "nextStop": [
       "NewtonHeathandMostonOutgoing"
@@ -1983,35 +2443,44 @@
     "prevStop": [
       "MonsallOutgoing"
     ],
-    "tramStopName": "CentralParkOutgoing"
+    "tramStopName": "CentralParkOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
-    "location": "Newton Heath and Moss",
+    "location": "Newton Heath and Moston",
     "nextStop": [
       "CentralParkIncoming"
     ],
     "prevStop": [
       "FailsworthIncoming"
     ],
-    "tramStopName": "NewtonHeathandMostonIncoming"
+    "tramStopName": "NewtonHeathandMostonIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
-    "location": "Newton Heath and Moss",
+    "location": "Newton Heath and Moston",
     "nextStop": [
       "FailsworthOutgoing"
     ],
     "prevStop": [
       "CentralParkOutgoing"
     ],
-    "tramStopName": "NewtonHeathandMostonOutgoing"
+    "tramStopName": "NewtonHeathandMostonOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Failsworth",
     "nextStop": [
       "NewtonHeathandMostonIncoming"
@@ -2019,11 +2488,14 @@
     "prevStop": [
       "HollinwoodIncoming"
     ],
-    "tramStopName": "FailsworthIncoming"
+    "tramStopName": "FailsworthIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Failsworth",
     "nextStop": [
       "HollinwoodOutgoing"
@@ -2031,11 +2503,14 @@
     "prevStop": [
       "NewtonHeathandMostonOutgoing"
     ],
-    "tramStopName": "FailsworthOutgoing"
+    "tramStopName": "FailsworthOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Hollinwood",
     "nextStop": [
       "FailsworthIncoming"
@@ -2043,11 +2518,14 @@
     "prevStop": [
       "SouthChaddertonIncoming"
     ],
-    "tramStopName": "HollinwoodIncoming"
+    "tramStopName": "HollinwoodIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Hollinwood",
     "nextStop": [
       "SouthChaddertonOutgoing"
@@ -2055,11 +2533,14 @@
     "prevStop": [
       "FailsworthOutgoing"
     ],
-    "tramStopName": "HollinwoodOutgoing"
+    "tramStopName": "HollinwoodOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "South Chadderton",
     "nextStop": [
       "HollinwoodIncoming"
@@ -2067,11 +2548,14 @@
     "prevStop": [
       "FreeholdIncoming"
     ],
-    "tramStopName": "SouthChaddertonIncoming"
+    "tramStopName": "SouthChaddertonIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "South Chadderton",
     "nextStop": [
       "FreeholdOutgoing"
@@ -2079,11 +2563,14 @@
     "prevStop": [
       "HollinwoodOutgoing"
     ],
-    "tramStopName": "SouthChaddertonOutgoing"
+    "tramStopName": "SouthChaddertonOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Freehold",
     "nextStop": [
       "SouthChaddertonIncoming"
@@ -2091,11 +2578,14 @@
     "prevStop": [
       "WestwoodIncoming"
     ],
-    "tramStopName": "FreeholdIncoming"
+    "tramStopName": "FreeholdIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Freehold",
     "nextStop": [
       "WestwoodOutgoing"
@@ -2103,11 +2593,14 @@
     "prevStop": [
       "SouthChaddertonOutgoing"
     ],
-    "tramStopName": "FreeholdOutgoing"
+    "tramStopName": "FreeholdOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Westwood",
     "nextStop": [
       "FreeholdIncoming"
@@ -2115,11 +2608,14 @@
     "prevStop": [
       "OldhamKingStreetIncoming"
     ],
-    "tramStopName": "WestwoodIncoming"
+    "tramStopName": "WestwoodIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Westwood",
     "nextStop": [
       "OldhamKingStreetOutgoing"
@@ -2127,11 +2623,14 @@
     "prevStop": [
       "FreeholdOutgoing"
     ],
-    "tramStopName": "WestwoodOutgoing"
+    "tramStopName": "WestwoodOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Oldham King Street",
     "nextStop": [
       "WestwoodIncoming"
@@ -2139,11 +2638,14 @@
     "prevStop": [
       "OldhamCentralIncoming"
     ],
-    "tramStopName": "OldhamKingStreetIncoming"
+    "tramStopName": "OldhamKingStreetIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Oldham King Street",
     "nextStop": [
       "OldhamCentralOutgoing"
@@ -2151,11 +2653,14 @@
     "prevStop": [
       "WestwoodOutgoing"
     ],
-    "tramStopName": "OldhamKingStreetOutgoing"
+    "tramStopName": "OldhamKingStreetOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Oldham Central",
     "nextStop": [
       "OldhamKingStreetIncoming"
@@ -2163,11 +2668,14 @@
     "prevStop": [
       "OldhamMumpsIncoming"
     ],
-    "tramStopName": "OldhamCentralIncoming"
+    "tramStopName": "OldhamCentralIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Oldham Central",
     "nextStop": [
       "OldhamMumpsOutgoing"
@@ -2175,11 +2683,14 @@
     "prevStop": [
       "OldhamKingStreetOutgoing"
     ],
-    "tramStopName": "OldhamCentralOutgoing"
+    "tramStopName": "OldhamCentralOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Oldham Mumps",
     "nextStop": [
       "OldhamCentralIncoming"
@@ -2187,11 +2698,14 @@
     "prevStop": [
       "DerkerIncoming"
     ],
-    "tramStopName": "OldhamMumpsIncoming"
+    "tramStopName": "OldhamMumpsIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Oldham Mumps",
     "nextStop": [
       "DerkerOutgoing"
@@ -2199,11 +2713,14 @@
     "prevStop": [
       "OldhamCentralOutgoing"
     ],
-    "tramStopName": "OldhamMumpsOutgoing"
+    "tramStopName": "OldhamMumpsOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Derker",
     "nextStop": [
       "OldhamMumpsIncoming"
@@ -2211,11 +2728,14 @@
     "prevStop": [
       "ShawandCromptonIncoming"
     ],
-    "tramStopName": "DerkerIncoming"
+    "tramStopName": "DerkerIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Derker",
     "nextStop": [
       "ShawandCromptonOutgoing"
@@ -2223,11 +2743,14 @@
     "prevStop": [
       "OldhamMumpsOutgoing"
     ],
-    "tramStopName": "DerkerOutgoing"
+    "tramStopName": "DerkerOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Shaw and Crompton",
     "nextStop": [
       "DerkerIncoming"
@@ -2235,11 +2758,14 @@
     "prevStop": [
       "NewheyIncoming"
     ],
-    "tramStopName": "ShawandCromptonIncoming"
+    "tramStopName": "ShawandCromptonIncoming",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Shaw and Crompton",
     "nextStop": [
       "NewheyOutgoing"
@@ -2247,11 +2773,14 @@
     "prevStop": [
       "DerkerOutgoing"
     ],
-    "tramStopName": "ShawandCromptonOutgoing"
+    "tramStopName": "ShawandCromptonOutgoing",
+    "line": [
+      "Didsbury-Rochdale",
+      "Didsbury-ShawAndCrompton"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Newhey",
     "nextStop": [
       "ShawandCromptonIncoming"
@@ -2259,11 +2788,13 @@
     "prevStop": [
       "MilnrowIncoming"
     ],
-    "tramStopName": "NewheyIncoming"
+    "tramStopName": "NewheyIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Newhey",
     "nextStop": [
       "MilnrowOutgoing"
@@ -2271,11 +2802,13 @@
     "prevStop": [
       "ShawandCromptonOutgoing"
     ],
-    "tramStopName": "NewheyOutgoing"
+    "tramStopName": "NewheyOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Milnrow",
     "nextStop": [
       "NewheyIncoming"
@@ -2283,11 +2816,13 @@
     "prevStop": [
       "KingswayBusinessParkIncoming"
     ],
-    "tramStopName": "MilnrowIncoming"
+    "tramStopName": "MilnrowIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Milnrow",
     "nextStop": [
       "KingswayBusinessParkOutgoing"
@@ -2295,11 +2830,13 @@
     "prevStop": [
       "NewheyOutgoing"
     ],
-    "tramStopName": "MilnrowOutgoing"
+    "tramStopName": "MilnrowOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Kingsway Business Park",
     "nextStop": [
       "MilnrowIncoming"
@@ -2307,11 +2844,13 @@
     "prevStop": [
       "NewboldIncoming"
     ],
-    "tramStopName": "KingswayBusinessParkIncoming"
+    "tramStopName": "KingswayBusinessParkIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Kingsway Business Park",
     "nextStop": [
       "NewboldOutgoing"
@@ -2319,11 +2858,13 @@
     "prevStop": [
       "MilnrowOutgoing"
     ],
-    "tramStopName": "KingswayBusinessParkOutgoing"
+    "tramStopName": "KingswayBusinessParkOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Newbold",
     "nextStop": [
       "KingswayBusinessParkIncoming"
@@ -2331,11 +2872,13 @@
     "prevStop": [
       "RochdaleRailwayStationIncoming"
     ],
-    "tramStopName": "NewboldIncoming"
+    "tramStopName": "NewboldIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Newbold",
     "nextStop": [
       "RochdaleRailwayStationOutgoing"
@@ -2343,11 +2886,13 @@
     "prevStop": [
       "KingswayBusinessParkOutgoing"
     ],
-    "tramStopName": "NewboldOutgoing"
+    "tramStopName": "NewboldOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Rochdale Railway Station",
     "nextStop": [
       "NewboldIncoming"
@@ -2355,11 +2900,13 @@
     "prevStop": [
       "RochdaleTownCentreIncoming"
     ],
-    "tramStopName": "RochdaleRailwayStationIncoming"
+    "tramStopName": "RochdaleRailwayStationIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Rochdale Railway Station",
     "nextStop": [
       "RochdaleTownCentreOutgoing"
@@ -2367,26 +2914,33 @@
     "prevStop": [
       "NewboldOutgoing"
     ],
-    "tramStopName": "RochdaleRailwayStationOutgoing"
+    "tramStopName": "RochdaleRailwayStationOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Incoming",
-    "line": "Oldham & Rochdale",
     "location": "Rochdale Town Centre",
     "nextStop": [
       "RochdaleRailwayStationIncoming"
     ],
     "prevStop": [],
-    "tramStopName": "RochdaleTownCentreIncoming"
+    "tramStopName": "RochdaleTownCentreIncoming",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   },
   {
     "direction": "Outgoing",
-    "line": "Oldham & Rochdale",
     "location": "Rochdale Town Centre",
     "nextStop": [],
     "prevStop": [
       "RochdaleRailwayStationOutgoing"
     ],
-    "tramStopName": "RochdaleTownCentreOutgoing"
+    "tramStopName": "RochdaleTownCentreOutgoing",
+    "line": [
+      "Didsbury-Rochdale"
+    ]
   }
 ]

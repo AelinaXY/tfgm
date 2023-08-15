@@ -46,7 +46,7 @@ public class TramStopService {
   @Autowired private TramStopRepo tramStopRepo;
   @Autowired private TFGMResponseRepo tfgmResponseRepo;
 
-  private static Logger logger = LoggerFactory.getLogger(TramStopService.class);
+  private static Logger logger = LoggerFactory.getLogger("network");
   private static Logger loggerMove = LoggerFactory.getLogger("moving");
   private static Logger loggerDelete = LoggerFactory.getLogger("analytics");
 
@@ -177,20 +177,20 @@ public class TramStopService {
       }
 
       // LOG HELP
-      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
           && currentStation.getString("Direction").equals("Incoming")) {
-        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Newton Heath and Moston" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
       }
 
-      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
+      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
           && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Newton Heath and Moston"+ currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
       }
     }
 

@@ -3,10 +3,8 @@ package com.tfgm.services;
 import com.tfgm.models.*;
 import com.tfgm.persistence.*;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -372,69 +370,587 @@ public class JourneyRoutingService {
   }
 
   @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-  public JSONObject calculateNextTrams(String stopName) throws IOException {
+  public JSONObject calculateNextTrams(String stopName, Long timestamp) throws IOException {
     JSONObject responseJSON = new JSONObject();
-    JSONArray incomingJSONArray = new JSONArray();
-    JSONArray outgoingJSONArray = new JSONArray();
+    List<JSONObject> incomingJSONList = new ArrayList<>();
+    List<JSONObject> outgoingJSONList = new ArrayList<>();
 
-    Long timestamp = Instant.now().getEpochSecond();
+    if (stopName != null && timestamp != null) {
 
-    if (stopName != null) {
-      List<Long> timestampList = tramNetworkDTORepo.getAllTimestamps();
-      Collections.sort(timestampList);
-      Collections.reverse(timestampList);
+      stopName = TramStopServiceUtilities.cleanStationName(stopName);
+      Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
 
-      TramNetworkDTO tramNetworkDTO = tramNetworkDTORepo.findByTimestamp(timestampList.get(0));
+      Long stopRecurseCount = 3L;
 
-      List<Tram> tramList = tramNetworkDTO.getTramArrayList();
+      String incomingStopName = stopName + "Incoming";
+      String outgoingStopName = stopName + "Outgoing";
+      TramStop incomingTramStop = tramStopHashMap.get(incomingStopName);
+      TramStop outgoingTramStop = tramStopHashMap.get(outgoingStopName);
 
-      String cleanStopname = TramStopServiceUtilities.cleanStationName(stopName);
+      List<JourneyTime> journeyTimeList = journeyTimeRepo.getAll();
 
-      tramList =
-          tramList.stream()
-              .filter(
-                  tram ->
-                      tram.getDestination().equals(cleanStopname + "Outgoing")
-                          || tram.getDestination().equals(cleanStopname + "Incoming"))
-              .toList();
+      if (incomingTramStop != null) {
 
-      if (tramList.size() == 0) {
-        return responseJSON;
+        incomingJSONList =
+            recursiveTramTimeFinder(
+                stopRecurseCount, incomingTramStop, incomingJSONList, journeyTimeList, timestamp);
+
+        List<JSONObject> removalList =
+            getRemovalList(incomingJSONList, tramStopHashMap, incomingTramStop);
+
+        incomingJSONList.removeAll(removalList);
       }
 
-      List<JourneyTime> journeyTimeList = journeyTimeRepo.getDestination(stopName);
+      if (outgoingTramStop != null) {
 
-      for (Tram tram : tramList) {
-        for (JourneyTime journeyTime : journeyTimeList) {
-          if (tram.getOrigin()
-              .contains(TramStopServiceUtilities.cleanStationName(journeyTime.getOrigin()))) {
-            JSONObject tempJSONObject = new JSONObject();
-            tempJSONObject.put("endOfLine", tram.getEndOfLine());
-            tempJSONObject.put(
-                "timeToArrival", tram.getLastUpdated() - timestamp + journeyTime.getTime());
-            if (tram.getOrigin().contains("Outgoing")) {
-              outgoingJSONArray.put(tempJSONObject);
-            } else {
-              incomingJSONArray.put(tempJSONObject);
-            }
+        outgoingJSONList =
+            recursiveTramTimeFinder(
+                stopRecurseCount, outgoingTramStop, outgoingJSONList, journeyTimeList, timestamp);
+
+        List<JSONObject> removalList =
+            getRemovalList(outgoingJSONList, tramStopHashMap, outgoingTramStop);
+
+        outgoingJSONList.removeAll(removalList);
+      }
+    }
+    responseJSON.put("Incoming", incomingJSONList);
+    responseJSON.put("Outgoing", outgoingJSONList);
+    System.out.println(responseJSON);
+    return responseJSON;
+  }
+
+  private List<JSONObject> getRemovalList(
+      List<JSONObject> incomingJSONList,
+      Map<String, TramStop> tramStopHashMap,
+      TramStop incomingTramStop) {
+    List<JSONObject> removalList = new ArrayList<>();
+
+    for (JSONObject jsonObject : incomingJSONList) {
+      Tram currentTram = (Tram) jsonObject.get("tramObject");
+      boolean avoidExchangeSquare;
+
+      avoidExchangeSquare =
+          !jsonObject
+              .getString("endOfLine")
+              .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre");
+
+      List<TramStop> stopsBetweenTemp = new ArrayList<>();
+
+      String endOfLineOutgoing =
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine")) + "Outgoing";
+      String endOfLineIncoming =
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine")) + "Incoming";
+
+      String startStopName = currentTram.getOrigin();
+
+      findAllStopsBetween(
+          tramStopHashMap.get(endOfLineOutgoing),
+          tramStopHashMap.get(startStopName),
+          stopsBetweenTemp,
+          avoidExchangeSquare);
+
+      if (stopsBetweenTemp.size() == 0) {
+        stopsBetweenTemp = new ArrayList<>();
+        findAllStopsBetween(
+            tramStopHashMap.get(endOfLineIncoming),
+            tramStopHashMap.get(startStopName),
+            stopsBetweenTemp,
+            avoidExchangeSquare);
+      }
+
+      if (!stopsBetweenTemp.contains(incomingTramStop)) {
+        removalList.add(jsonObject);
+      }
+    }
+    return removalList;
+  }
+
+  private List<JSONObject> recursiveTramTimeFinder(
+      Long count,
+      TramStop tramStop,
+      List<JSONObject> returnList,
+      List<JourneyTime> journeyTimeList,
+      Long timestamp) {
+    if (count == 0L || tramStop == null) {
+      return returnList;
+    }
+
+    count--;
+
+    // Loop through tramStop previous stops
+    for (TramStopContainer tramStopContainer : tramStop.getPrevStops()) {
+      Long expectedTime =
+          Objects.requireNonNull(
+                  journeyTimeList.stream()
+                      .filter(
+                          m ->
+                              m.getOrigin().equals(tramStopContainer.getTramStop().getStopName())
+                                  && m.getDestination().equals(tramStop.getStopName()))
+                      .findFirst()
+                      .orElse(null))
+              .getTime();
+      List<JSONObject> tempList = new ArrayList<>();
+      // Add all previous trams to currently working list
+      tempList.addAll(
+          recursiveTramTimeFinder(
+              count,
+              tramStopContainer.getTramStop(),
+              new ArrayList<>(),
+              journeyTimeList,
+              timestamp));
+
+      for (Tram tram : tramStopContainer.getTramLinkStop().getTramQueue()) {
+        // if prime tramstop is not between tramstop and endofline tramstop
+        // don't add to list
+        addTramtoReturnList(tempList, timestamp, tram);
+      }
+
+      for (JSONObject jsonObject : tempList) {
+        Long timeToArrive = jsonObject.getLong("timeToArrival");
+
+        jsonObject.put("timeToArrival", timeToArrive + expectedTime);
+      }
+
+      returnList.addAll(tempList);
+    }
+
+    for (Tram tram : tramStop.getTramQueue()) {
+      addTramtoReturnList(returnList, timestamp, tram);
+    }
+
+    // Return returnList with the times updated
+    return returnList;
+  }
+
+  private static void addTramtoReturnList(List<JSONObject> returnList, Long timestamp, Tram tram) {
+    JSONObject tempObject = new JSONObject();
+    tempObject.put("timeToArrival", tram.getLastUpdated() - timestamp);
+    tempObject.put("endOfLine", TramStopGraphService.getCorrectEndOfLine(tram));
+    tempObject.put("endOfLineDisplay", tram.getEndOfLine());
+
+    tempObject.put("tramObject", tram);
+    returnList.add(tempObject);
+  }
+
+  public Map<String, String> findChangeStop(String startStop, String endStop) throws IOException {
+
+    Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
+    Map<String, String> returnMap = new HashMap<>();
+
+    if (startStop != null && endStop != null) {
+      List<TramStop> startTramStops =
+          tramStopHashMap.values().stream()
+              .filter(tramStop -> tramStop.getStopName().equals(startStop))
+              .toList();
+
+      List<TramStop> endTramStops =
+          tramStopHashMap.values().stream()
+              .filter(tramStop -> tramStop.getStopName().equals(endStop))
+              .toList();
+
+      TramStop startTramStopFinal = null;
+      TramStop endTramStopFinal = null;
+
+      for (TramStop startTramStop : startTramStops) {
+        for (TramStop endTramStop : endTramStops) {
+          if (findEndOfLine(endTramStop, startTramStop)) {
+            startTramStopFinal = startTramStop;
+            endTramStopFinal = endTramStop;
+            break;
           }
         }
+        if (startTramStopFinal != null) {
+          break;
+        }
+      }
 
-        if (tram.getOrigin().equals(tram.getDestination())) {
-          JSONObject tempJSONObject = new JSONObject();
-          tempJSONObject.put("endOfLine", tram.getEndOfLine());
-          tempJSONObject.put("timeToArrival", 0L);
-          if (tram.getOrigin().contains("Outgoing")) {
-            outgoingJSONArray.put(tempJSONObject);
-          } else {
-            incomingJSONArray.put(tempJSONObject);
+      if (startTramStopFinal == null) {
+
+        for (TramStop startTramStop : startTramStops) {
+          for (TramStop endTramStop : endTramStops) {
+            List<String> startList = new ArrayList<>();
+            List<String> endList = new ArrayList<>();
+            listAllNextStop(startTramStop, startList);
+            listAllPrevStop(endTramStop, endList);
+
+            if (startList.stream().anyMatch(endList::contains)) {
+              startTramStopFinal = startTramStop;
+              endTramStopFinal = endTramStop;
+              break;
+            }
           }
+          if (startTramStopFinal != null) {
+            break;
+          }
+        }
+      }
+
+      if (startTramStopFinal.getLine().stream().anyMatch(endTramStopFinal.getLine()::contains)) {
+        returnMap.put(
+            "start",
+            TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
+                + startTramStopFinal.getDirection());
+        returnMap.put(
+            "end",
+            TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
+                + endTramStopFinal.getDirection());
+        returnMap.put("getOff", "None");
+        returnMap.put("getOn", "None");
+        returnMap.put("changeLegal", "None");
+
+        return returnMap;
+      }
+
+      TramStop changeStation =
+          findChangeStation(endTramStopFinal, startTramStopFinal, startTramStopFinal);
+
+      returnMap.put(
+          "start",
+          TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
+              + startTramStopFinal.getDirection());
+      returnMap.put(
+          "end",
+          TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
+              + endTramStopFinal.getDirection());
+      returnMap.put(
+          "getOff",
+          TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+              + changeStation.getDirection());
+
+      returnMap.put("changeLegal", changeStation.getStopName());
+
+      if (findEndOfLine(endTramStopFinal, changeStation)) {
+        returnMap.put(
+            "getOn",
+            TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+                + changeStation.getDirection());
+      } else {
+        String otherDirection =
+            changeStation.getDirection().equals("Incoming") ? "Outgoing" : "Incoming";
+        TramStop switchedDirection =
+            tramStopHashMap.get(
+                TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
+                    + otherDirection);
+        returnMap.put(
+            "getOn",
+            TramStopServiceUtilities.cleanStationName(switchedDirection.getStopName())
+                + switchedDirection.getDirection());
+      }
+    }
+    return returnMap;
+  }
+
+  private List<String> listAllNextStop(TramStop tramStop, List<String> stopList) {
+    if (tramStop.getNextStops() == null) {
+      stopList.add(tramStop.getStopName());
+      return stopList;
+    }
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      List<String> tempList =
+          new ArrayList<>(listAllNextStop(tramStopContainer.getTramStop(), new ArrayList<>()));
+
+      tempList.add(tramStopContainer.getTramStop().getStopName());
+
+      stopList.addAll(tempList);
+    }
+
+    return stopList;
+  }
+
+  private List<String> listAllPrevStop(TramStop tramStop, List<String> stopList) {
+    if (tramStop.getPrevStops() == null) {
+      stopList.add(tramStop.getStopName());
+      return stopList;
+    }
+    for (TramStopContainer tramStopContainer : tramStop.getPrevStops()) {
+      List<String> tempList =
+          new ArrayList<>(listAllPrevStop(tramStopContainer.getTramStop(), new ArrayList<>()));
+
+      tempList.add(tramStopContainer.getTramStop().getStopName());
+
+      stopList.addAll(tempList);
+    }
+
+    return stopList;
+  }
+
+  private boolean findEndOfLine(TramStop endTramStop, TramStop tramStop) {
+    if (tramStop.equals(endTramStop)) {
+      return true;
+    }
+
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      boolean res = findEndOfLine(endTramStop, tramStopContainer.getTramStop());
+      if (res) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private TramStop findChangeStation(TramStop endTramStop, TramStop tramStop, TramStop startStop) {
+    if (tramStop.getLine().stream().anyMatch(endTramStop.getLine()::contains)
+        && tramStop.getLine().stream().anyMatch(startStop.getLine()::contains)) {
+      return tramStop;
+    }
+
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+      TramStop res = findChangeStation(endTramStop, tramStopContainer.getTramStop(), startStop);
+      if (res != null) {
+        return res;
+      }
+    }
+    return null;
+  }
+
+  public TramJourneyResponse findJourneyPlan(
+      String startStop, String endStop, String changeStopOff, String changeStopOn, Long timestamp)
+      throws IOException {
+
+    List<JourneyTime> journeyTimeList = journeyTimeRepo.getAll();
+
+    Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
+
+    Long stopRecurseCount = 8L;
+
+    TramStop startStopObject = tramStopHashMap.get(startStop);
+    TramStop endStopObject = tramStopHashMap.get(endStop);
+
+    // Get list of all trams arriving at start stop
+
+    if (!changeStopOff.equals("None")) {
+      TramStop changeStopOffObject = tramStopHashMap.get(changeStopOff);
+      TramStop changeStopOnObject = tramStopHashMap.get(changeStopOn);
+
+      TramJourneyResponse returnJourneyResponseFirst =
+          getTramJourneyResponse(
+              timestamp, journeyTimeList, tramStopHashMap, startStopObject, changeStopOffObject);
+
+      if (returnJourneyResponseFirst != null) {
+        TramJourneyResponse returnJourneyResponseSecond =
+            getTramJourneyResponse(
+                timestamp
+                    + returnJourneyResponseFirst.getJourneyLength()
+                    + returnJourneyResponseFirst.getFirstTramArrivalTime(),
+                journeyTimeList,
+                tramStopHashMap,
+                changeStopOnObject,
+                endStopObject);
+
+        if (returnJourneyResponseSecond != null) {
+
+          returnJourneyResponseFirst.setSecondTramArrivalTime(
+              returnJourneyResponseSecond.getFirstTramArrivalTime());
+          returnJourneyResponseFirst.setJourneyLength(
+              returnJourneyResponseFirst.getJourneyLength()
+                  + returnJourneyResponseSecond.getJourneyLength());
+          returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
+
+          return returnJourneyResponseFirst;
+        }
+      }
+
+    } else {
+
+      TramJourneyResponse returnJourneyResponse =
+          getTramJourneyResponse(
+              timestamp, journeyTimeList, tramStopHashMap, startStopObject, endStopObject);
+      if (returnJourneyResponse != null) return returnJourneyResponse;
+    }
+
+    // Get list of all trams arriving at change stop
+    //
+    return null;
+  }
+
+  private TramJourneyResponse getTramJourneyResponse(
+      Long timestamp,
+      List<JourneyTime> journeyTimeList,
+      Map<String, TramStop> tramStopHashMap,
+      TramStop startStopObject,
+      TramStop endStopObject) {
+    List<JSONObject> startJSONList = new ArrayList<>();
+
+    Long stopRecurseCount = 8L;
+
+    startJSONList =
+        recursiveTramTimeFinder(
+            stopRecurseCount, startStopObject, startJSONList, journeyTimeList, timestamp);
+
+    startJSONList.sort(new TramArrivalListComparator());
+
+    startJSONList = startJSONList.stream().filter(m -> (Long) m.get("timeToArrival") > 0).toList();
+
+    System.out.println(startJSONList.stream().map(m -> m.get("endOfLine")).toList());
+
+    List<TramStop> stopsBetween = new ArrayList<>();
+
+    boolean avoidExchangeSquare;
+
+    if (checkExchangeSquare(startStopObject) || checkExchangeSquare(endStopObject)) {
+      avoidExchangeSquare = false;
+    } else {
+      avoidExchangeSquare = true;
+    }
+
+    findAllStopsBetween(endStopObject, startStopObject, stopsBetween, avoidExchangeSquare);
+
+    // Part One: Check tram data from the graph
+    for (JSONObject jsonObject : startJSONList) {
+      List<TramStop> stopsBetweenTemp = new ArrayList<>();
+      System.out.println(
+          TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
+              + "Outgoing");
+
+      if (jsonObject
+          .getString("endOfLine")
+          .matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
+        avoidExchangeSquare = false;
+      } else {
+        avoidExchangeSquare = true;
+      }
+
+      findAllStopsBetween(
+          tramStopHashMap.get(
+              TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
+                  + "Outgoing"),
+          startStopObject,
+          stopsBetweenTemp,
+          avoidExchangeSquare);
+
+      if (stopsBetweenTemp.size() == 0) {
+        stopsBetweenTemp = new ArrayList<>();
+        findAllStopsBetween(
+            tramStopHashMap.get(
+                TramStopServiceUtilities.cleanStationName(jsonObject.getString("endOfLine"))
+                    + "Incoming"),
+            startStopObject,
+            stopsBetweenTemp,
+            avoidExchangeSquare);
+      }
+
+      // Find all stops between end of line and current stop
+      if (stopsBetweenTemp != null) {
+        if (stopsBetweenTemp.contains(endStopObject)) {
+          Long count = getJourneyLength(journeyTimeList, stopsBetween);
+
+          TramJourneyResponse returnJourneyResponse = new TramJourneyResponse();
+
+          returnJourneyResponse.setJourneyLength(count);
+          returnJourneyResponse.setFirstTram((Tram) jsonObject.get("tramObject"));
+          returnJourneyResponse.setFirstTramArrivalTime(jsonObject.getLong("timeToArrival"));
+          return returnJourneyResponse;
         }
       }
     }
-    responseJSON.put("Outgoing", outgoingJSONArray);
-    responseJSON.put("Incoming", incomingJSONArray);
-    System.out.println(responseJSON);
-    return responseJSON;
+
+    // Part Two: Check past TFGM responses
+
+    // Find closest tfgm response if it is within 30s of current timestamp
+
+    // Get Stop line
+    // Check if any of the trams due go to the destination
+    // If yes return that timestamp
+    // If no continue
+
+    // Part Three: Check past tram times
+
+    Long timeBetweenTramsAvg =
+        tramRepo.getTimeBetweenTramsAvg(startStopObject.getStopName(), endStopObject.getStopName());
+
+    if (timeBetweenTramsAvg != null) {
+
+      Long count = getJourneyLength(journeyTimeList, stopsBetween);
+
+      Long lastUpdate =
+          tramRepo.getLastTimeAtStop(startStopObject.getStopName(), endStopObject.getStopName());
+
+      Long timeTilTram = lastUpdate - timestamp + timeBetweenTramsAvg;
+
+      while (timeTilTram <= 0L) {
+        timeTilTram += timeBetweenTramsAvg;
+      }
+
+      TramJourneyResponse returnJourneyResponse = new TramJourneyResponse();
+
+      returnJourneyResponse.setJourneyLength(count);
+      returnJourneyResponse.setFirstTram(null);
+      returnJourneyResponse.setFirstTramArrivalTime(timeTilTram);
+      return returnJourneyResponse;
+    }
+
+    return null;
+  }
+
+  private static Long getJourneyLength(
+      List<JourneyTime> journeyTimeList, List<TramStop> stopsBetween) {
+    Long count = 0L;
+    Collections.reverse(stopsBetween);
+
+    for (int i = 1; i < stopsBetween.size(); i++) {
+      int finalI = i;
+      count +=
+          Objects.requireNonNull(
+                  journeyTimeList.stream()
+                      .filter(
+                          m ->
+                              m.getDestination().equals(stopsBetween.get(finalI).getStopName())
+                                  && m.getOrigin()
+                                      .equals(stopsBetween.get(finalI - 1).getStopName()))
+                      .findFirst()
+                      .orElse(null))
+              .getTime();
+    }
+    return count;
+  }
+
+  private boolean checkExchangeSquare(TramStop tramStop) {
+    List<String> lineList = tramStop.getLine();
+    boolean atEndOfLine = lineList.contains("Didsbury-Rochdale") && lineList.size() == 1;
+    boolean otherPlaces =
+        lineList.contains("Didsbury-Rochdale")
+            && lineList.contains("Didsbury-ShawAndCrompton")
+            && lineList.size() == 2;
+
+    return atEndOfLine || otherPlaces;
+  }
+
+  private List<TramStop> findAllStopsBetween(
+      TramStop endTramStop,
+      TramStop tramStop,
+      List<TramStop> stopBetweenList,
+      Boolean avoidExchangeSquare) {
+    if (tramStop.equals(endTramStop)) {
+      stopBetweenList.add(tramStop);
+      return stopBetweenList;
+    }
+    List<TramStop> tempList = null;
+
+    for (TramStopContainer tramStopContainer : tramStop.getNextStops()) {
+
+      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square")
+          && avoidExchangeSquare)) {
+        tempList =
+            findAllStopsBetween(
+                endTramStop, tramStopContainer.getTramStop(), stopBetweenList, avoidExchangeSquare);
+        if (tempList != null) {
+          break;
+        }
+      }
+    }
+    if (tempList != null) {
+      stopBetweenList.add(tramStop);
+      return stopBetweenList;
+    } else {
+      return null;
+    }
+  }
+
+  static class TramArrivalListComparator implements Comparator<JSONObject> {
+    @Override
+    public int compare(JSONObject o1, JSONObject o2) {
+      return Math.toIntExact((Long) o1.get("timeToArrival") - (Long) o2.get("timeToArrival"));
+    }
   }
 }

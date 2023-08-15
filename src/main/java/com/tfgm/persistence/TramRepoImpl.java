@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -42,24 +41,33 @@ public class TramRepoImpl implements TramRepo {
     System.out.println("DONE SAVING TRAMS: " + Instant.now());
   }
 
-    @Override
-    public Tram delete(UUID uuid) {
-        return tramMapper.delete(uuid);
-    }
+  @Override
+  public Tram delete(UUID uuid) {
+    return tramMapper.delete(uuid);
+  }
+
+  @Override
+  public int deleteAll() {
+    return tramMapper.deleteAll();
+  }
+
+  @Override
+  public List<Tram> getInNextTwoHours(Long timestamp, String stopName) {
+    return tramMapper.getAfterTS(timestamp, stopName);
+  }
+
+  @Override
+  public List<Tram> getAll() {
+    return tramMapper.getAll();
+  }
+
+  @Override
+  public Long getTimeBetweenTramsAvg(String startStop, String endStop) {
+    return tramMapper.getTimeBetweenTramsAvg(startStop, endStop);
+  }
 
     @Override
-    public int deleteAll() {
-      return tramMapper.deleteAll();
-
-    }
-
-    @Override
-    public List<Tram> getInNextTwoHours(Long timestamp, String stopName) {
-        return tramMapper.getAfterTS(timestamp,stopName);
-    }
-
-    @Override
-    public List<Tram> getAll() {
-        return tramMapper.getAll();
+    public Long getLastTimeAtStop(String startStop, String endStop) {
+        return tramMapper.getLastTimeAtStop(startStop,endStop);
     }
 }
