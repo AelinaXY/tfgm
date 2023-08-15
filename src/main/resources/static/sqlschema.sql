@@ -1,82 +1,92 @@
--- Table: public.trams
-
--- DROP TABLE IF EXISTS public.trams;
-
-CREATE TABLE IF NOT EXISTS public.trams
+create table if not exists trams
 (
-  uuid        uuid NOT NULL,
-  destination character varying(255) COLLATE pg_catalog."default",
-  origin      character varying(255) COLLATE pg_catalog."default",
-  endofline   character varying(255) COLLATE pg_catalog."default",
+  uuid        uuid not null
+    primary key,
+  destination varchar(255),
+  origin      varchar(255),
+  endofline   varchar(255),
   tramhistory jsonb,
   lastupdated bigint,
-  CONSTRAINT trams_pkey PRIMARY KEY (uuid)
-)
-  TABLESPACE pg_default;
+  removed     boolean
+);
 
-ALTER TABLE IF EXISTS public.trams
-  OWNER to postgres;
+alter table trams
+  owner to postgres;
 
--- Table: public.tramnetwork
-
--- DROP TABLE IF EXISTS public.tramnetwork;
-
-CREATE TABLE IF NOT EXISTS public.tramnetwork
+create table if not exists tramnetwork
 (
-  uuid        uuid NOT NULL,
-  "timestamp" bigint,
-  tramjson    jsonb[],
-  CONSTRAINT tramnetwork_pkey PRIMARY KEY (uuid)
-)
-  TABLESPACE pg_default;
+  uuid      uuid not null
+    primary key,
+  timestamp bigint,
+  tramjson  jsonb[]
+);
 
-ALTER TABLE IF EXISTS public.tramnetwork
-  OWNER to postgres;
+alter table tramnetwork
+  owner to postgres;
 
--- Table: public.people
-
--- DROP TABLE IF EXISTS public.people;
-
-CREATE TABLE IF NOT EXISTS public.people
+create table if not exists people
 (
-  uuid       uuid NOT NULL,
-  name       character varying(255) COLLATE pg_catalog."default",
+  uuid       uuid not null
+    constraint peopl_pkey
+      primary key,
+  name       varchar(255),
   tapintime  bigint,
-  tapinstop  character varying(255) COLLATE pg_catalog."default",
+  tapinstop  varchar(255),
   tapouttime bigint,
-  tapoutstop character varying(255) COLLATE pg_catalog."default",
-  CONSTRAINT peopl_pkey PRIMARY KEY (uuid)
-)
-  TABLESPACE pg_default;
+  tapoutstop varchar(255)
+);
 
-ALTER TABLE IF EXISTS public.people
-  OWNER to postgres;
+alter table people
+  owner to postgres;
 
--- Table: public.journeys
-
--- DROP TABLE IF EXISTS public.journeys;
-
-CREATE TABLE IF NOT EXISTS public.journeys
+create table if not exists journeys
 (
-  uuid       uuid NOT NULL,
+  uuid       uuid not null
+    constraint journey_pkey
+      primary key,
   getontime  bigint,
   getofftime bigint,
-  tramuuid   uuid,
-  getonstop  character varying(255) COLLATE pg_catalog."default",
-  getoffstop character varying(255) COLLATE pg_catalog."default",
-  personuuid uuid,
-  CONSTRAINT journey_pkey PRIMARY KEY (uuid),
-  CONSTRAINT journey_tramuuid_fkey FOREIGN KEY (tramuuid)
-    REFERENCES public.trams (uuid) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION,
-  CONSTRAINT journeys_personuuid_fkey FOREIGN KEY (personuuid)
-    REFERENCES public.people (uuid) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID
-)
-  TABLESPACE pg_default;
+  tramuuid   uuid
+    constraint journey_tramuuid_fkey
+      references trams,
+  getonstop  varchar(255),
+  getoffstop varchar(255),
+  personuuid uuid
+    references people
+);
 
-ALTER TABLE IF EXISTS public.journeys
-  OWNER to postgres;
+alter table journeys
+  owner to postgres;
+
+create table if not exists tramdata
+(
+  timestamp bigint not null
+    primary key,
+  response  jsonb
+);
+
+alter table tramdata
+  owner to postgres;
+
+create table if not exists journeytime
+(
+  origin       varchar(255),
+  destination  varchar(255),
+  time         bigint,
+  averagecount bigint,
+  uuid         uuid not null
+    primary key
+);
+
+alter table journeytime
+  owner to postgres;
+
+create table if not exists tramdata_test
+(
+  timestamp bigint not null
+    primary key,
+  response  jsonb
+);
+
+alter table tramdata_test
+  owner to postgres;
