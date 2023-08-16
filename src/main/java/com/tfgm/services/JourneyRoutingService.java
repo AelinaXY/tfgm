@@ -532,12 +532,14 @@ public class JourneyRoutingService {
     returnList.add(tempObject);
   }
 
-  public Map<String, String> findChangeStop(String startStop, String endStop) throws IOException {
+  public JourneyPlan findChangeStop(String startStop, String endStop) throws IOException {
 
     Map<String, TramStop> tramStopHashMap = tramStopRepo.getTramStops();
-    Map<String, String> returnMap = new HashMap<>();
+
+    JourneyPlan returnPlan = new JourneyPlan();
 
     if (startStop != null && endStop != null) {
+
       List<TramStop> startTramStops =
           tramStopHashMap.values().stream()
               .filter(tramStop -> tramStop.getStopName().equals(startStop))
@@ -585,43 +587,46 @@ public class JourneyRoutingService {
         }
       }
 
+      if (startTramStopFinal == null) {
+
+          JourneyPlan newResultPlan = getEcclesJourneyPlan(startStop, endStop);
+          if (newResultPlan != null) return newResultPlan;
+      }
+
       if (startTramStopFinal.getLine().stream().anyMatch(endTramStopFinal.getLine()::contains)) {
-        returnMap.put(
-            "start",
+        returnPlan.setStart(
             TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
                 + startTramStopFinal.getDirection());
-        returnMap.put(
-            "end",
+        returnPlan.setEnd(
             TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
                 + endTramStopFinal.getDirection());
-        returnMap.put("getOff", "None");
-        returnMap.put("getOn", "None");
-        returnMap.put("changeLegal", "None");
 
-        return returnMap;
+        return returnPlan;
       }
 
       TramStop changeStation =
           findChangeStation(endTramStopFinal, startTramStopFinal, startTramStopFinal);
 
-      returnMap.put(
-          "start",
+      if(changeStation == null)
+      {
+          JourneyPlan newResultPlan = getEcclesJourneyPlan(startStop, endStop);
+          if (newResultPlan != null) return newResultPlan;
+      }
+
+      returnPlan.setStart(
           TramStopServiceUtilities.cleanStationName(startTramStopFinal.getStopName())
               + startTramStopFinal.getDirection());
-      returnMap.put(
-          "end",
+      returnPlan.setEnd(
           TramStopServiceUtilities.cleanStationName(endTramStopFinal.getStopName())
               + endTramStopFinal.getDirection());
-      returnMap.put(
-          "getOff",
+      returnPlan.setFirstGetOff(
           TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
               + changeStation.getDirection());
 
-      returnMap.put("changeLegal", changeStation.getStopName());
+      returnPlan.setFirstChangeLegal(changeStation.getStopName());
 
       if (findEndOfLine(endTramStopFinal, changeStation)) {
-        returnMap.put(
-            "getOn",
+        returnPlan.setFirstGetOn(
             TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
                 + changeStation.getDirection());
       } else {
@@ -631,16 +636,43 @@ public class JourneyRoutingService {
             tramStopHashMap.get(
                 TramStopServiceUtilities.cleanStationName(changeStation.getStopName())
                     + otherDirection);
-        returnMap.put(
-            "getOn",
+        returnPlan.setFirstGetOn(
             TramStopServiceUtilities.cleanStationName(switchedDirection.getStopName())
                 + switchedDirection.getDirection());
       }
     }
-    return returnMap;
+    return returnPlan;
   }
 
-  private List<String> listAllNextStop(TramStop tramStop, List<String> stopList) {
+    private JourneyPlan getEcclesJourneyPlan(String startStop, String endStop) throws IOException {
+        String ecclesSpurStops = "Eccles|Ladywell|Weaste|Langworthy|Broadway";
+
+        if (startStop.matches(ecclesSpurStops)) {
+          JourneyPlan newResultPlan = findChangeStop("MediaCityUK", endStop);
+          newResultPlan.setSecondChangeLegal(newResultPlan.getFirstChangeLegal());
+          newResultPlan.setSecondGetOn(newResultPlan.getFirstGetOn());
+          newResultPlan.setSecondGetOff(newResultPlan.getFirstGetOff());
+          newResultPlan.setFirstGetOff("MediaCityUKOutgoing");
+          newResultPlan.setFirstGetOn(newResultPlan.getStart());
+          newResultPlan.setFirstChangeLegal("MediaCityUK");
+          newResultPlan.setStart(startStop + "Incoming");
+
+            return newResultPlan;
+        }
+
+        if (endStop.matches(ecclesSpurStops)) {
+          JourneyPlan newResultPlan = findChangeStop(startStop, "MediaCityUK");
+
+          newResultPlan.setSecondGetOff(newResultPlan.getEnd());
+          newResultPlan.setSecondGetOn("MediaCityUKIncoming");
+          newResultPlan.setSecondChangeLegal("MediaCityUK");
+          newResultPlan.setEnd(endStop + "Outgoing");
+            return newResultPlan;
+        }
+        return null;
+    }
+
+    private List<String> listAllNextStop(TramStop tramStop, List<String> stopList) {
     if (tramStop.getNextStops() == null) {
       stopList.add(tramStop.getStopName());
       return stopList;
@@ -705,7 +737,13 @@ public class JourneyRoutingService {
   }
 
   public TramJourneyResponse findJourneyPlan(
-      String startStop, String endStop, String changeStopOff, String changeStopOn, Long timestamp)
+      String startStop,
+      String endStop,
+      String firstChangeStopOff,
+      String firstChangeStopOn,
+      String secondChangeStopOff,
+      String secondChangeStopOn,
+      Long timestamp)
       throws IOException {
 
     List<JourneyTime> journeyTimeList = journeyTimeRepo.getAll();
@@ -718,14 +756,19 @@ public class JourneyRoutingService {
     TramStop endStopObject = tramStopHashMap.get(endStop);
 
     // Get list of all trams arriving at start stop
-
-    if (!changeStopOff.equals("None")) {
-      TramStop changeStopOffObject = tramStopHashMap.get(changeStopOff);
-      TramStop changeStopOnObject = tramStopHashMap.get(changeStopOn);
+    if (!secondChangeStopOff.equals("None")) {
+      TramStop firstChangeStopOffObject = tramStopHashMap.get(firstChangeStopOff);
+      TramStop firstChangeStopOnObject = tramStopHashMap.get(firstChangeStopOn);
+      TramStop secondChangeStopOffObject = tramStopHashMap.get(secondChangeStopOff);
+      TramStop secondChangeStopOnObject = tramStopHashMap.get(secondChangeStopOn);
 
       TramJourneyResponse returnJourneyResponseFirst =
           getTramJourneyResponse(
-              timestamp, journeyTimeList, tramStopHashMap, startStopObject, changeStopOffObject);
+              timestamp,
+              journeyTimeList,
+              tramStopHashMap,
+              startStopObject,
+              firstChangeStopOffObject);
 
       if (returnJourneyResponseFirst != null) {
         TramJourneyResponse returnJourneyResponseSecond =
@@ -735,28 +778,97 @@ public class JourneyRoutingService {
                     + returnJourneyResponseFirst.getFirstTramArrivalTime(),
                 journeyTimeList,
                 tramStopHashMap,
-                changeStopOnObject,
-                endStopObject);
+                firstChangeStopOnObject,
+                secondChangeStopOffObject);
 
         if (returnJourneyResponseSecond != null) {
 
-          returnJourneyResponseFirst.setSecondTramArrivalTime(
-              returnJourneyResponseSecond.getFirstTramArrivalTime());
-          returnJourneyResponseFirst.setJourneyLength(
-              returnJourneyResponseFirst.getJourneyLength()
-                  + returnJourneyResponseSecond.getJourneyLength());
-          returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
+          TramJourneyResponse returnJourneyResponseThird =
+              getTramJourneyResponse(
+                  timestamp
+                      + returnJourneyResponseFirst.getJourneyLength()
+                      + returnJourneyResponseFirst.getFirstTramArrivalTime()
+                      + returnJourneyResponseSecond.getJourneyLength()
+                      + returnJourneyResponseSecond.getFirstTramArrivalTime(),
+                  journeyTimeList,
+                  tramStopHashMap,
+                  secondChangeStopOnObject,
+                  endStopObject);
 
-          return returnJourneyResponseFirst;
+          if (returnJourneyResponseThird != null) {
+
+            returnJourneyResponseFirst.setSecondTramArrivalTime(
+                returnJourneyResponseSecond.getFirstTramArrivalTime());
+
+            returnJourneyResponseFirst.setThirdTramArrivalTime(
+                returnJourneyResponseThird.getFirstTramArrivalTime());
+
+            returnJourneyResponseFirst.setJourneyLength(
+                returnJourneyResponseFirst.getJourneyLength()
+                    + returnJourneyResponseSecond.getJourneyLength()
+                    + returnJourneyResponseThird.getJourneyLength()
+                    + returnJourneyResponseFirst.getFirstTramArrivalTime()
+                    + returnJourneyResponseFirst.getSecondTramArrivalTime()
+                    + returnJourneyResponseFirst.getThirdTramArrivalTime());
+
+            returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
+
+            returnJourneyResponseFirst.setThirdTram(returnJourneyResponseThird.getFirstTram());
+
+            return returnJourneyResponseFirst;
+          }
         }
       }
 
     } else {
+      if (!firstChangeStopOff.equals("None")) {
+        TramStop changeStopOffObject = tramStopHashMap.get(firstChangeStopOff);
+        TramStop changeStopOnObject = tramStopHashMap.get(firstChangeStopOn);
 
-      TramJourneyResponse returnJourneyResponse =
-          getTramJourneyResponse(
-              timestamp, journeyTimeList, tramStopHashMap, startStopObject, endStopObject);
-      if (returnJourneyResponse != null) return returnJourneyResponse;
+        TramJourneyResponse returnJourneyResponseFirst =
+            getTramJourneyResponse(
+                timestamp, journeyTimeList, tramStopHashMap, startStopObject, changeStopOffObject);
+
+        if (returnJourneyResponseFirst != null) {
+          TramJourneyResponse returnJourneyResponseSecond =
+              getTramJourneyResponse(
+                  timestamp
+                      + returnJourneyResponseFirst.getJourneyLength()
+                      + returnJourneyResponseFirst.getFirstTramArrivalTime(),
+                  journeyTimeList,
+                  tramStopHashMap,
+                  changeStopOnObject,
+                  endStopObject);
+
+          if (returnJourneyResponseSecond != null) {
+
+            returnJourneyResponseFirst.setSecondTramArrivalTime(
+                returnJourneyResponseSecond.getFirstTramArrivalTime());
+
+            returnJourneyResponseFirst.setJourneyLength(
+                returnJourneyResponseFirst.getJourneyLength()
+                    + returnJourneyResponseSecond.getJourneyLength()
+                    + returnJourneyResponseFirst.getFirstTramArrivalTime()
+                    + returnJourneyResponseFirst.getSecondTramArrivalTime());
+
+            returnJourneyResponseFirst.setSecondTram(returnJourneyResponseSecond.getFirstTram());
+
+            return returnJourneyResponseFirst;
+          }
+        }
+
+      } else {
+
+        TramJourneyResponse returnJourneyResponse =
+            getTramJourneyResponse(
+                timestamp, journeyTimeList, tramStopHashMap, startStopObject, endStopObject);
+        if (returnJourneyResponse != null) {
+          returnJourneyResponse.setJourneyLength(
+              returnJourneyResponse.getJourneyLength()
+                  + returnJourneyResponse.getFirstTramArrivalTime());
+          return returnJourneyResponse;
+        }
+      }
     }
 
     // Get list of all trams arriving at change stop
