@@ -1,5 +1,6 @@
 package com.tfgm.controllers;
 
+import com.tfgm.models.JourneyPlan;
 import com.tfgm.models.TramJourneyResponse;
 import com.tfgm.services.JourneyRoutingService;
 import com.tfgm.services.TramNetworkService;
@@ -97,20 +98,23 @@ public class JourneyController {
   @PostMapping("/calculateJourney")
   public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
       throws IOException {
-    Map<String, String> journeyPlan =
+    JourneyPlan journeyPlan =
         journeyRoutingService.findChangeStop(request.get("startStop"), request.get("endStop"));
     TramJourneyResponse response =
         journeyRoutingService.findJourneyPlan(
-            journeyPlan.get("start"),
-            journeyPlan.get("end"),
-            journeyPlan.get("getOff"),
-            journeyPlan.get("getOn"),
+            journeyPlan.getStart(),
+            journeyPlan.getEnd(),
+            journeyPlan.getFirstGetOff(),
+            journeyPlan.getFirstGetOn(),
+            journeyPlan.getSecondGetOff(),
+            journeyPlan.getSecondGetOn(),
             Long.valueOf(request.get("timestamp")));
 
     if (response == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, request.toString());
     }
-    response.setChangeStop(journeyPlan.get("changeLegal"));
+    response.setFirstChangeStop(journeyPlan.getFirstChangeLegal());
+    response.setSecondChangeStop(journeyPlan.getSecondChangeLegal());
 
     return ResponseEntity.ok(new JSONObject(response).toString());
   }
