@@ -1372,7 +1372,6 @@
       "AnchorageIncoming"
     ],
     "prevStop": [
-      "BroadwayIncoming",
       "MediaCityUKIncoming"
     ],
     "tramStopName": "HarbourCityIncoming",
@@ -1384,7 +1383,6 @@
     "direction": "Outgoing",
     "location": "Harbour City",
     "nextStop": [
-      "BroadwayOutgoing",
       "MediaCityUKOutgoing"
     ],
     "prevStop": [
@@ -1428,7 +1426,6 @@
     "location": "Broadway",
     "nextStop": [
       "MediaCityUKOutgoing",
-      "HarbourCityIncoming"
     ],
     "prevStop": [
       "LangworthyIncoming"
@@ -1445,8 +1442,7 @@
       "LangworthyOutgoing"
     ],
     "prevStop": [
-      "MediaCityUKIncoming",
-      "HarbourCityOutgoing"
+      "MediaCityUKIncoming"
     ],
     "tramStopName": "BroadwayOutgoing",
     "line": [

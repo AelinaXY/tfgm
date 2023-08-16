@@ -177,20 +177,20 @@ public class TramStopService {
       }
 
       // LOG HELP
-      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
+      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
           && currentStation.getString("Direction").equals("Incoming")) {
-        logger.warn("Newton Heath and Moston" + currentStation.getString("Direction") + timestamp);
+        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
       }
 
-      if (currentStation.getString("StationLocation").equals("Newton Heath and Moston")
+      if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
           && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Newton Heath and Moston"+ currentStation.getString("Direction") + timestamp);
+        logger.warn("Deansgate - Castlefield"+ currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("NewtonHeathandMoston" + currentStation.getString("Direction")).toString());
+            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
       }
     }
 
@@ -227,7 +227,7 @@ public class TramStopService {
       }
     }
     if (listToRemove.size() > 0) {
-      loggerDelete.warn("RemovingLoop: " + listToRemove.toString());
+      loggerDelete.warn("RemovingLoop: " + listToRemove);
       tramQueue.removeAll(listToRemove);
     }
   }
