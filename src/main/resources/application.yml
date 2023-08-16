@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tfgm
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: tfgm
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
+
+tram:
+  data:
+    url: src/main/resources/static/TramStopData.json
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.tfgm.typehandler

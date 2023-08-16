@@ -1,0 +1,59 @@
+<configuration>
+  # Console appender
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      # Pattern of log message for console appender
+      <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+    </layout>
+  </appender>
+
+
+  <appender name="foutdean" class="ch.qos.logback.core.FileAppender">
+    <file>tramnetwork.log</file>
+    <append>false</append>
+    <encoder>
+      # Pattern of log message for file appender
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="TRAM-DELETE" class="ch.qos.logback.core.FileAppender">
+    <file>tramdelete.log</file>
+    <append>false</append>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="TRAM-MOVE" class="ch.qos.logback.core.FileAppender">
+    <file>trammove.log</file>
+    <append>false</append>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="analytics" level="DEBUG" additivity="false">
+    <appender-ref ref="TRAM-DELETE"/>
+  </logger>
+
+  <logger name="moving" level="DEBUG" additivity="false">
+    <appender-ref ref="TRAM-MOVE"/>
+  </logger>
+
+  <logger name="network" level="DEBUG" additivity="false">
+    <appender-ref ref="foutdean"/>
+  </logger>
+
+
+
+<!--  <root level="INFO">-->
+<!--    <appender-ref ref="stdout" />-->
+<!--    <appender-ref ref="foutcorn" />-->
+<!--  </root>-->
+
+  <root level="WARN">
+    <appender-ref ref="stdout" />
+    <appender-ref ref="foutdean" />
+  </root>
+</configuration>

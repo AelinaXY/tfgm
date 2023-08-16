@@ -1,9 +1,9 @@
 package com.tfgm.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import com.tfgm.services.TramStopService;
+import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main TramStop entity. This entity represents the combination of a tram stop and direction.
@@ -12,7 +12,7 @@ import java.util.Queue;
  */
 public class TramStop {
 
-  /** The offical name of the tram stop. */
+  /** The official name of the tram stop. */
   private final String stopName;
 
   /**
@@ -22,13 +22,10 @@ public class TramStop {
   private final String direction;
 
   /** The overall line the stop is on. */
-  private final String line;
+  private final List<String> line;
 
-  /**
-   * An arraylist of the previous updates this TramStop has had. Generally in the format
-   * "YYYYMMDDHHMM{DestinationName}."
-   */
-  private final ArrayList<String> lastUpdated = new ArrayList<>();
+  /** An arraylist of the previous updates this TramStop has had." */
+  private final List<TramUpdate> lastUpdated = new ArrayList<>();
 
   /** A representation of Trams currently at this Station going in a direction. */
   private final Queue<Tram> tramQueue = new LinkedList<>();
@@ -44,6 +41,10 @@ public class TramStop {
    */
   private TramStopContainer[] prevStops;
 
+  private int lastUpdateCount = 0;
+
+  private static Logger logger = LoggerFactory.getLogger("analytics");
+
   /**
    * Constructor for class TramStop.
    *
@@ -51,10 +52,23 @@ public class TramStop {
    * @param direction Direction of stop.
    * @param line Line of the stop.
    */
-  public TramStop(String stopName, String direction, String line) {
-    this.stopName = stopName;
-    this.direction = direction;
-    this.line = line;
+  public TramStop(String stopName, String direction, String[] line) {
+
+      if (!stopName.trim().equals("")) {
+      this.stopName = stopName;
+    } else {
+      throw new IllegalArgumentException("stopName is '" + stopName + "'");
+    }
+    if (!direction.trim().equals("")) {
+      this.direction = direction;
+    } else {
+      throw new IllegalArgumentException("direction is '" + direction + "'");
+    }
+    if (!(line.length == 0)) {
+      this.line = List.of(line);
+    } else {
+      throw new IllegalArgumentException("line is '" + line + "'");
+    }
   }
 
   /**
@@ -76,21 +90,26 @@ public class TramStop {
    */
   @Override
   public String toString() {
-    return "NewTramStop [stopName="
+    return "TramStop{"
+        + "stopName='"
         + stopName
-        + ", direction="
+        + '\''
+        + ", direction='"
         + direction
+        + '\''
         + ", line="
         + line
+        + ", lastUpdated="
+        + lastUpdated
+        + ", tramQueue="
+        + tramQueue
         + ", nextStops: "
-        + (nextStops.length > 0
-            ? Arrays.stream(nextStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
+        + (Arrays.stream(nextStops).toList())
         + ", prevStops: "
-        + (prevStops.length > 0
-            ? Arrays.stream(prevStops).map(n -> n.getTramStop().getStopName()).toList()
-            : "none")
-        + "]";
+        + (Arrays.stream(prevStops).toList())
+        + ", lastUpdateCount="
+        + lastUpdateCount
+        + '}';
   }
 
   /**
@@ -111,7 +130,6 @@ public class TramStop {
     return prevStops;
   }
 
-
   public String getStopName() {
     return stopName;
   }
@@ -120,82 +138,87 @@ public class TramStop {
     return direction;
   }
 
-  public ArrayList<String> getLastUpdated() {
-    return lastUpdated;
+  public int getLastUpdatedSize() {
+    return lastUpdated.size();
   }
 
-  public void addToLastUpdated(String lastUpdated) {
-    this.lastUpdated.add(lastUpdated);
+  public String getLastUpdatedString() {
+    return lastUpdated.toString();
   }
 
-  public void tramDeparture(String endOfLine) {
-    Tram departingTram;
-    if (tramQueue.size() > 0) {
-      departingTram = tramQueue.remove();
-    } else {
-      departingTram = new Tram(endOfLine.length() * stopName.length(), endOfLine);
-    }
-
-    for (TramStopContainer tramStopContainer : nextStops) {
-
-      if (!(tramStopContainer.getTramStop().getStopName().equals("Exchange Square"))
-          || endOfLine.matches("East Didsbury|Shaw and Crompton|Rochdale Town Centre")) {
-
-        // NB: Due to the nature of the recursive algorithim the final destination of Eccles via
-        // MediaCityUK and Ashton via MCUK needs to be changed to MediaCityUK so the tramstop can be
-        // found.
-        if (findEndOfLine(
-            Arrays.stream(departingTram.getDestination().split(" "))
-                    .reduce((first, second) -> second)
-                    .get()
-                    .matches("MCUK|MediaCityUK")
-                ? "MediaCityUK"
-                : departingTram.getDestination(),
-            tramStopContainer.getTramStop())) {
-          tramStopContainer.getTramLinkStop().addTram(departingTram);
-          System.out.println(
-              "Tram left from "
-                  + stopName
-                  + " to "
-                  + tramStopContainer.getTramStop().getStopName()
-                  + ". Final Destination: "
-                  + departingTram.getDestination());
-          return;
-        }
-      }
-    }
+  public void addToLastUpdated(String station, String status, Long position) {
+    this.lastUpdated.add(new TramUpdate(station, status, position));
   }
 
-  public void tramArrival() {
-    for (TramStopContainer tramStopContainer : prevStops) {
-      if (tramStopContainer.getTramLinkStop().queueLength() > 0) {
-        tramQueue.add(tramStopContainer.getTramLinkStop().popTram());
-        assert tramQueue.peek() != null;
-        System.out.println(
-            "Tram arrived at "
-                + stopName
-                + " from "
-                + tramStopContainer.getTramStop().getStopName()
-                + ". Final Destination: "
-                + tramQueue.peek().getDestination());
-        return;
-      }
-    }
-  }
+  public boolean isValidTram(String station, String status, Long position) {
+    List<TramUpdate> correctUpdateCode =
+        lastUpdated.stream().filter(m -> m.getStation().equals(station)).toList();
 
-  private boolean findEndOfLine(String endOfLine, TramStop tramStop) {
-    //    if (tramStop == null) return false;
-    if (tramStop.getStopName().equals(endOfLine)) {
+    Long arrivalCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Arrived")).count();
+    Long departureCount =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals("Departing")).count();
+
+    if (departureCount > 0 && arrivalCount > departureCount && status.equals("Departing")) {
+      logger.warn("DEPARTMULTITRAM");
       return true;
     }
 
-    for (TramStopContainer tramStopContainer : tramStop.nextStops) {
-      boolean res = findEndOfLine(endOfLine, tramStopContainer.getTramStop());
-      if (res) {
-        return true;
+    correctUpdateCode =
+        correctUpdateCode.stream().filter(m -> m.getStatus().equals(status)).toList();
+
+    for (int i = 0; i < correctUpdateCode.size(); i++) {
+      if (position <= correctUpdateCode.get(i).getUpdatePosition()) {
+        return false;
       }
     }
-    return false;
+    return true;
+  }
+
+  public void clearLastUdated() {
+    lastUpdated.clear();
+  }
+
+  public void clearLastUpdated() {
+    List<TramUpdate> toClearList;
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired()) {
+        String departOrArrive = tramUpdate.getStatus().equals("Arrived") ? "Departing" : "Arrived";
+
+        TramUpdate pairedTramUpdate =
+            lastUpdated.stream()
+                .filter(
+                    m ->
+                        !m.isPaired()
+                            && m.getStation().equals(tramUpdate.getStation())
+                            && m.getStatus().equals(departOrArrive))
+                .findFirst()
+                .orElse(null);
+
+        if (pairedTramUpdate != null) {
+          pairedTramUpdate.setPaired(true);
+          tramUpdate.setPaired(true);
+        }
+      }
+    }
+
+    for (TramUpdate tramUpdate : lastUpdated) {
+      if (!tramUpdate.isPaired() && tramUpdate.getStatus().equals("Arrived")) {
+        for (Tram tram : tramQueue) {
+          if (tram.getEndOfLine().equals(tramUpdate.getStation())) {
+            logger.debug("REMOVED DUE TO ORPHANAGE: " + this + "\n | " + tram);
+            tram.setToRemove(true);
+            break;
+          }
+        }
+      }
+    }
+
+    lastUpdated.clear();
+  }
+
+  public Queue<Tram> getTramQueue() {
+    return tramQueue;
   }
 
   @Override
@@ -211,21 +234,29 @@ public class TramStop {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
-    TramStop other = (TramStop) obj;
-    if (stopName == null) {
-      if (other.stopName != null) return false;
-    } else if (!stopName.equals(other.stopName)) return false;
-    if (direction == null) {
-      if (other.direction != null) return false;
-    } else if (!direction.equals(other.direction)) return false;
-    if (line == null) {
-      if (other.line != null) return false;
-    } else if (!line.equals(other.line)) return false;
-    if (!Arrays.equals(nextStops, other.nextStops)) return false;
-    return Arrays.equals(prevStops, other.prevStops);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    TramStop tramStop = (TramStop) o;
+
+    if (!stopName.equals(tramStop.stopName)) return false;
+    return direction.equals(tramStop.direction);
   }
+
+  public int getLastUpdateCount() {
+    return lastUpdateCount;
+  }
+
+  public void incrementLastUpdateCount() {
+    lastUpdateCount++;
+  }
+
+  public void zeroLastUpdateCount() {
+    lastUpdateCount = 0;
+  }
+
+    public List<String> getLine() {
+        return line;
+    }
 }
