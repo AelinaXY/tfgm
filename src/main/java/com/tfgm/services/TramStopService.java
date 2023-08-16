@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 public class TramStopService {
   private Map<String, TramStop> tramStopHashMap;
 
-  private final Long timeToLive = 480L;
+  private final Long timeToLive = 600L;
 
   private final Long timeToDest = 300L;
   private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
@@ -149,27 +149,47 @@ public class TramStopService {
 
             TramStop foundTramStop = tramStopHashMap.get(compositeStationName);
 
-            if (foundTramStop != null) {
+            String pidref = currentStation.getString("PIDREF");
 
-              foundTramStop.incrementLastUpdateCount();
+            if (pidref.equals("DCF-TPID03")) {
 
-              String stopUpdateCode = TramStopServiceUtilities.getUpdateString(currentStation, j);
-              boolean uniqueTramDepartArrive =
-                  foundTramStop.isValidTram(endOfLine, nextStatus, (long) j);
+              String otherDirection = stationDirection.equals("Incoming") ? "Outgoing" : "Incoming";
+              TramStop otherFoundTramStop = tramStopHashMap.get(cleanStationName + otherDirection);
 
-              if (uniqueTramDepartArrive
-                  && !endOfLine.equals("See Tram Front")
-                  && !endOfLine.equals("Not in Service")) {
+              if (otherFoundTramStop != null && foundTramStop != null) {
 
-                foundTramStop.addToLastUpdated(endOfLine, nextStatus, (long) j);
-
-                if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
-                  tramStopGraphService.tramDeparture(
-                      endOfLine, foundTramStop, timestamp, currentStation);
-                } else {
-                  tramStopGraphService.tramArrival(
-                      endOfLine, foundTramStop, currentStation, timestamp);
+                if (endOfLine.equals("Bury")) {
+                  System.out.println("Bleh");
                 }
+                updateTramStop(
+                    timestamp,
+                    currentStation,
+                    j,
+                    endOfLine,
+                    nextStatus,
+                    isTramDeparting,
+                    foundTramStop);
+
+                updateTramStop(
+                    timestamp,
+                    currentStation,
+                    j,
+                    endOfLine,
+                    nextStatus,
+                    isTramDeparting,
+                    otherFoundTramStop);
+              }
+            } else {
+              if (foundTramStop != null) {
+
+                updateTramStop(
+                    timestamp,
+                    currentStation,
+                    j,
+                    endOfLine,
+                    nextStatus,
+                    isTramDeparting,
+                    foundTramStop);
               }
             }
           }
@@ -182,15 +202,19 @@ public class TramStopService {
         logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+            tramStopHashMap
+                .get("DeansgateCastlefield" + currentStation.getString("Direction"))
+                .toString());
       }
 
       if (currentStation.getString("StationLocation").equals("Deansgate - Castlefield")
           && currentStation.getString("Direction").equals("Outgoing")) {
-        logger.warn("Deansgate - Castlefield"+ currentStation.getString("Direction") + timestamp);
+        logger.warn("Deansgate - Castlefield" + currentStation.getString("Direction") + timestamp);
         logger.warn(currentStation.toString());
         logger.warn(
-            tramStopHashMap.get("DeansgateCastlefield" + currentStation.getString("Direction")).toString());
+            tramStopHashMap
+                .get("DeansgateCastlefield" + currentStation.getString("Direction"))
+                .toString());
       }
     }
 
@@ -199,6 +223,32 @@ public class TramStopService {
     tramNetworkDTORepo.saveTramNetwork(tramStopHashMap, timestamp);
     tramRepo.saveTrams(tramStopHashMap);
     removeFlaggedTrams(tramStopHashMap);
+  }
+
+  private void updateTramStop(
+      Long timestamp,
+      JSONObject currentStation,
+      long j,
+      String endOfLine,
+      String nextStatus,
+      boolean isTramDeparting,
+      TramStop foundTramStop) {
+    foundTramStop.incrementLastUpdateCount();
+
+    boolean uniqueTramDepartArrive = foundTramStop.isValidTram(endOfLine, nextStatus, j);
+
+    if (uniqueTramDepartArrive
+        && !endOfLine.equals("See Tram Front")
+        && !endOfLine.equals("Not in Service")) {
+
+      foundTramStop.addToLastUpdated(endOfLine, nextStatus, j);
+
+      if (isTramDeparting && !endOfLine.equals("Terminates Here")) {
+        tramStopGraphService.tramDeparture(endOfLine, foundTramStop, timestamp, currentStation);
+      } else {
+        tramStopGraphService.tramArrival(endOfLine, foundTramStop, currentStation, timestamp);
+      }
+    }
   }
 
   private void removeFlaggedTrams(Map<String, TramStop> tramStopHashMap) {
