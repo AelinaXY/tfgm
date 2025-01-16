@@ -32,13 +32,13 @@ public class TramStopRepo {
     // Reads all of the TramStopData from the static JSON file.
     this.repository = tramStopDataRepository;
 
-//        JSONArray allTramStopData =
-//            new JSONArray(
-//                Files.readAllLines(Paths.get(tramDataPath)).stream()
-//                    .map(String::valueOf)
-//                    .collect(Collectors.joining()));
-//
-//        firstRun(allTramStopData);
+        JSONArray allTramStopData =
+            new JSONArray(
+                Files.readAllLines(Paths.get(tramDataPath)).stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining()));
+
+        firstRun(allTramStopData);
 
     List<TramStopDTO> allTramStopDTO = repository.findAll();
 

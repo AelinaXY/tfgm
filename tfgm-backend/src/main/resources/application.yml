@@ -23,7 +23,7 @@ server:
 
 tram:
   data:
-    url: src/main/resources/static/TramStopData.json
+    url: tfgm/src/main/resources/static/TramStopData.json
 
 mybatis:
   configuration:
