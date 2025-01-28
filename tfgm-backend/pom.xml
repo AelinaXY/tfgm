@@ -100,6 +100,31 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <configuration>
+          <user>tfgm</user>
+          <password>pass</password>
+          <url>jdbc:postgresql://localhost:5432/tfgm</url>
+          <locations>
+            <location>filesystem:src/main/resources/migration</location>
+          </locations>
+          <schemas>
+            <schema>tfgm</schema>
+          </schemas>
+        </configuration>
+        <executions>
+          <execution>
+            <id>run-flyway</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>migrate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

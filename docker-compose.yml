@@ -1,0 +1,28 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: tfgm-db
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "pg_isready --username=tfgm --host=127.0.0.1 --port=5432 --dbname=tfgm" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=tfgm
+      - POSTGRES_USER=tfgm
+      - POSTGRES_PASSWORD=pass
+
+  mongo-db:
+    image: mongo:latest
+    container_name: tfgm-mongo
+    ports:
+      - "27017:27017"
+
+  wait-for-db:
+    image: postgres:14
+    command: [ sh, -c, "until pg_isready --username=tfgm --host=tfgm-db --port=5432 --dbname=tfgm; do sleep 5; done" ]
+    links:
+      - postgres-db

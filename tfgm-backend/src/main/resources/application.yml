@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/tfgm
-    username: postgres
+    username: tfgm
     password: pass
     driver-class-name: org.postgresql.Driver
   data:
