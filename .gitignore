@@ -53,3 +53,7 @@ gocd-test-artifacts
 **/.angular
 
 **/.DS_Store
+
+tramdelete.log
+trammove.log
+tramnetwork.log

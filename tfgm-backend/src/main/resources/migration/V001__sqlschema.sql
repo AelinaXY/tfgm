@@ -10,7 +10,7 @@ CREATE TABLE trams
 );
 
 
-CREATE TABLE IF NOT EXISTS tramnetwork
+CREATE TABLE tramnetwork
 (
   uuid        uuid NOT NULL,
   timestamp bigint,
