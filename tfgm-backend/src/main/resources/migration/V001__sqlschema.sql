@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS trams
+CREATE TABLE trams
 (
   uuid        uuid NOT NULL,
   destination character varying(255) COLLATE pg_catalog."default",
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS tramnetwork
 );
 
 
-CREATE TABLE IF NOT EXISTS people
+CREATE TABLE people
 (
   uuid       uuid NOT NULL,
   name       character varying(255) COLLATE pg_catalog."default",
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS people
   CONSTRAINT peopl_pkey PRIMARY KEY (uuid)
 );
 
-CREATE TABLE IF NOT EXISTS journeys
+CREATE TABLE journeys
 (
   uuid       uuid NOT NULL,
   getontime  bigint,

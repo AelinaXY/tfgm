@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS tramdata_test
+CREATE TABLE tramdata_test
 (
   timestamp bigint,
   response jsonb,
