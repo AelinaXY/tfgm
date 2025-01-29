@@ -35,3 +35,21 @@ build/
 
 ### Logs ###
 .logs/
+
+**/target
+**/dist
+
+.gradle
+
+.idea
+**/*.iml
+
+gocd-test-artifacts
+
+**/*.jar
+
+**/node_modules
+**/node
+**/.angular
+
+**/.DS_Store
