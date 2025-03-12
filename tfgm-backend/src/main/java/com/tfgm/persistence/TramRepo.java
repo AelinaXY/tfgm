@@ -3,22 +3,28 @@ package com.tfgm.persistence;
 import com.tfgm.models.Tram;
 import com.tfgm.models.TramNetworkDTO;
 import com.tfgm.models.TramStop;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/** */
+/**
+ *
+ */
 public interface TramRepo {
-  void saveTrams(Map<String, TramStop> tramStopHashMap);
-  Tram delete(UUID uuid);
+    void saveTrams(Map<String, TramStop> tramStopHashMap);
 
-  int deleteAll();
+    void saveTram(Tram tram);
 
-  List<Tram> getInNextTwoHours(Long timestamp, String stopName);
+    Tram delete(UUID uuid);
 
-  List<Tram> getAll();
+    int deleteAll();
 
-  Long getTimeBetweenTramsAvg(String startStop, String endStop);
+    List<Tram> getInNextTwoHours(Long timestamp, String stopName);
 
-  Long getLastTimeAtStop(String startStop, String endStop);
+    List<Tram> getAll();
+
+    Long getTimeBetweenTramsAvg(String startStop, String endStop);
+
+    Long getLastTimeAtStop(String startStop, String endStop);
 }

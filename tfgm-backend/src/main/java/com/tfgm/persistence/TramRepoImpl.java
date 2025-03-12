@@ -41,7 +41,12 @@ public class TramRepoImpl implements TramRepo {
     System.out.println("DONE SAVING TRAMS: " + Instant.now());
   }
 
-  @Override
+    @Override
+    public void saveTram(Tram tram) {
+      tramMapper.create(tram);
+    }
+
+    @Override
   public Tram delete(UUID uuid) {
     return tramMapper.delete(uuid);
   }

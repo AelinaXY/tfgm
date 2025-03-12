@@ -92,8 +92,6 @@ public class JourneyController {
     return ResponseEntity.ok(response.toString());
   }
 
-  // 1689799662
-
   @CrossOrigin
   @PostMapping("/calculateJourney")
   public ResponseEntity<String> calculateJourneyTest(@RequestBody Map<String, String> request)
