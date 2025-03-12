@@ -175,10 +175,6 @@ public class TramStop {
     return true;
   }
 
-  public void clearLastUdated() {
-    lastUpdated.clear();
-  }
-
   public void clearLastUpdated() {
     List<TramUpdate> toClearList;
     for (TramUpdate tramUpdate : lastUpdated) {

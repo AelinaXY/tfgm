@@ -21,6 +21,6 @@ public interface TFGMReponseMapper {
         javaType = JSONObject.class,
         typeHandler = JSONObjectTypeHandler.class),
   })
-  @Select("SELECT *  FROM tramdata_test ORDER BY timestamp ASC")
+  @Select("SELECT *  FROM tramdata ORDER BY timestamp ASC LIMIT 500")
   List<TFGMResponse> getAll();
 }

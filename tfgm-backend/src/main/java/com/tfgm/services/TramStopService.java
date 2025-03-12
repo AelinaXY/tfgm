@@ -37,7 +37,9 @@ public class TramStopService {
   private final Long timeToLive = 600L;
 
   private final Long timeToDest = 300L;
-  private final TramStopGraphService tramStopGraphService = new TramStopGraphService();
+
+  @Autowired
+  private TramStopGraphService tramStopGraphService;
 
   @Autowired private TramNetworkDTORepo tramNetworkDTORepo;
 
@@ -51,12 +53,13 @@ public class TramStopService {
   private static Logger loggerDelete = LoggerFactory.getLogger("analytics");
 
   public TramStopService(
-      TramStopRepo tramStopRepo,
+      TramStopGraphService tramStopGraphService, TramStopRepo tramStopRepo,
       TramNetworkDTORepo tramNetworkDTORepo,
       TramRepo tramRepo,
       TFGMResponseRepo tfgmResponseRepo)
       throws IOException {
-    this.tramStopRepo = tramStopRepo;
+      this.tramStopGraphService = tramStopGraphService;
+      this.tramStopRepo = tramStopRepo;
     this.tramNetworkDTORepo = tramNetworkDTORepo;
     this.tramRepo = tramRepo;
     this.tfgmResponseRepo = tfgmResponseRepo;
@@ -161,6 +164,7 @@ public class TramStopService {
                 if (endOfLine.equals("Bury")) {
                   System.out.println("Bleh");
                 }
+
                 updateTramStop(
                     timestamp,
                     currentStation,
