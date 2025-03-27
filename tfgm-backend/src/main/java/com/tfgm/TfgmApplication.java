@@ -14,12 +14,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Profiles;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /** */
 @SpringBootApplication()
 @EntityScan("com.tfgm.models")
 @EnableJpaRepositories("com.tfgm.persistence")
 @EnableMongoRepositories
+@EnableScheduling
 public class TfgmApplication {
 
   @Autowired TramStopService tramService;

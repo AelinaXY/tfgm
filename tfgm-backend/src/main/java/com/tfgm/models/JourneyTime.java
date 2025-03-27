@@ -36,6 +36,7 @@ public class JourneyTime {
     return origin;
   }
 
+
   public void setOrigin(String origin) {
     this.origin = origin;
   }
