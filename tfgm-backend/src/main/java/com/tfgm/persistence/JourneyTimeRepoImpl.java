@@ -33,7 +33,7 @@ public class JourneyTimeRepoImpl implements JourneyTimeRepo {
   }
 
     @Override
-    public JourneyTime getDestinationAndOrigin(String destination, String origin) {
-        return journeyTimeMapper.getDestinationAndOrigin(destination, origin);
+    public JourneyTime getOriginAndDestination(String origin, String destination) {
+        return journeyTimeMapper.getOriginAndDestination(origin, destination);
     }
 }

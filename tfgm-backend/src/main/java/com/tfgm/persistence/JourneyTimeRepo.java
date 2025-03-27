@@ -1,10 +1,8 @@
 package com.tfgm.persistence;
 
-import com.tfgm.models.Journey;
 import com.tfgm.models.JourneyTime;
-import com.tfgm.models.Person;
+
 import java.util.List;
-import java.util.UUID;
 
 /** */
 public interface JourneyTimeRepo {
@@ -13,5 +11,5 @@ public interface JourneyTimeRepo {
 
   List<JourneyTime> getDestination(String destination);
 
-  JourneyTime getDestinationAndOrigin(String destination, String origin);
+  JourneyTime getOriginAndDestination(String origin, String destination);
   }
