@@ -1,8 +1,6 @@
 package com.tfgm.persistence.mapper;
 
 import com.tfgm.models.JourneyTime;
-import com.tfgm.models.Person;
-import com.tfgm.models.TFGMResponse;
 import com.tfgm.typehandler.UUIDTypeHandler;
 import java.util.List;
 import java.util.UUID;
@@ -33,5 +31,5 @@ public interface JourneyTimeMapper {
 
     @ResultMap("journeyTimeResult")
     @Select("SELECT * FROM journeytime where destination = #{destination} and origin = #{origin} LIMIT 1")
-    JourneyTime getDestinationAndOrigin(String destination, String origin);
+    JourneyTime getOriginAndDestination(String origin, String destination);
 }
